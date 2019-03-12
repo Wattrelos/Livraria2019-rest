@@ -1,0 +1,1 @@
+window.control = new Controlador();

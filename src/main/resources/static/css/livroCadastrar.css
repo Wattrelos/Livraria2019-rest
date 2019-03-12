@@ -1,0 +1,12 @@
+#formulario{
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 149px auto; /* Coluna do logo e coluna do título */
+
+    padding: 10px;    
+    grid-gap: 10px;
+
+    background-color: rgb(17, 114, 4);
+    color: rgb(238, 248, 145);
+
+}
