@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import fatec.layer11.services.CategoriaService;
 import fatec.layer20.aplications.DataTransferObject.CategoriaDTO;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="/categoria")
 public class CategoriaResorce {
 	
 	@Autowired
@@ -30,7 +31,7 @@ public class CategoriaResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Categoria") CategoriaDTO objDto) {
 		System.out.println(objDto);
 		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
@@ -66,7 +67,7 @@ public class CategoriaResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
@@ -75,7 +76,7 @@ public class CategoriaResorce {
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

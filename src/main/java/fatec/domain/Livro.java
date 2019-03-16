@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
     , @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id")
     , @NamedQuery(name = "Livro.findByIsbn", query = "SELECT l FROM Livro l WHERE l.isbn = :isbn")
-    , @NamedQuery(name = "Livro.findByTitulo", query = "SELECT l FROM Livro l WHERE l.titulo = :titulo")
+    , @NamedQuery(name = "Livro.findBylivro", query = "SELECT l FROM Livro l WHERE l.livro = :livro")
     , @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")
     , @NamedQuery(name = "Livro.findByDimensao", query = "SELECT l FROM Livro l WHERE l.dimensao = :dimensao")
     , @NamedQuery(name = "Livro.findByCusto", query = "SELECT l FROM Livro l WHERE l.custo = :custo")
@@ -72,7 +72,7 @@ public class Livro implements Serializable {
     @NotNull
     @Size(min = 1, max = 150)
     @Column(name = "titulo")
-    private String titulo;
+    private String livro;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ano")
@@ -157,7 +157,7 @@ public class Livro implements Serializable {
     public Livro(Integer id, long isbn, String titulo, int ano, String dimensao, BigDecimal custo, int quantidade, boolean ativo, String imagem, String edicao, int paginas, String sinopse, int peso, Date dataCadastro) {
     	this.id = id;
         this.isbn = isbn;
-        this.titulo = titulo;
+        this.livro = titulo;
         this.ano = ano;
         this.dimensao = dimensao;
         this.custo = custo;
@@ -187,12 +187,12 @@ public class Livro implements Serializable {
         this.isbn = isbn;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getLivro() {
+        return livro;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setLivro(String livro) {
+        this.livro = livro;
     }
 
     public int getAno() {
@@ -350,7 +350,7 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
+        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + livro + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
     }
 
 

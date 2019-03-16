@@ -27,7 +27,7 @@ public class LivroDTO implements Serializable {
 	private long isbn;	
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=150, message="O tamanho deve ser entre 5 e 150 caracteres")
-	private String titulo;
+	private String livro;
 	private int ano;
 	private String dimensao;
 	private BigDecimal custo;
@@ -51,7 +51,7 @@ public class LivroDTO implements Serializable {
 	public LivroDTO(Livro obj) {
 		id = obj.getId();
 		isbn = obj.getIsbn();
-		titulo = obj.getTitulo();
+		livro = obj.getLivro();
 		ano = obj.getAno();
 		dimensao = obj.getDimensao();
 		custo = obj.getCusto();
@@ -109,12 +109,12 @@ public class LivroDTO implements Serializable {
 		this.isbn = isbn;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getLivro() {
+		return livro;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setLivro(String livro) {
+		this.livro = livro;
 	}
 
 	public int getAno() {

@@ -22,7 +22,7 @@ import fatec.layer11.services.LivroService;
 import fatec.layer20.aplications.DataTransferObject.LivroDTO;
 
 @RestController
-@RequestMapping(value="/livros")
+@RequestMapping(value="/livro")
 public class LivroResorce {
 	
 	@Autowired
@@ -58,7 +58,7 @@ public class LivroResorce {
 	public ResponseEntity<Page<LivroDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="titulo") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="livro") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Livro> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<LivroDTO> listDto = list.map(obj -> new LivroDTO(obj));  
@@ -66,7 +66,7 @@ public class LivroResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> update(@Valid @RequestBody LivroDTO objDto, @PathVariable Integer id) {
 		Livro obj = service.fromDTO(objDto);
 		obj.setId(id);
@@ -75,7 +75,7 @@ public class LivroResorce {
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

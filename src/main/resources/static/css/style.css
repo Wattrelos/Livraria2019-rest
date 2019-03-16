@@ -1,0 +1,22 @@
+
+label {
+    background: rgb(209, 209, 209);
+}
+
+.list {
+    display: grid;
+    grid-template-columns: auto 200px 120px 120px;
+    margin: 20px;    
+}
+.list>div {  
+    border-bottom: 1px solid blue;
+}
+.listbook {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto 200px 120px 120px;
+    margin: 20px;    
+}
+.listbook>div {
+	text-align: left;
+    border-bottom: 1px solid blue;
+}

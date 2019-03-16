@@ -59,17 +59,17 @@ public class Editora implements Serializable {
         this.id = id;
     }
 
-    public Editora(String nome) {
-        this.editora = nome;
+    public Editora(String editora) {
+        this.editora = editora;
     }
-    public Editora(Integer id, String nome) {
+    public Editora(Integer id, String editora) {
     	this.id = id;
-        this.editora = nome;
+        this.editora = editora;
     }
     
-    public Editora(Integer id, String nome, Date dataCadastro) {
+    public Editora(Integer id, String editora, Date dataCadastro) {
     	this.id = id;
-        this.editora = nome;
+        this.editora = editora;
         this.dataCadastro = dataCadastro;
     }
     

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import fatec.layer11.services.AutorService;
 import fatec.layer20.aplications.DataTransferObject.AutorDTO;
 
 @RestController
-@RequestMapping(value="/autores")
+@RequestMapping(value="/autor")
 public class AutorResorce {
 	
 	@Autowired
@@ -30,12 +31,12 @@ public class AutorResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody AutorDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Autor")AutorDTO objDto) {
 		System.out.println(objDto);
 		Autor obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+				.path("{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -66,7 +67,7 @@ public class AutorResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> update(@Valid @RequestBody AutorDTO objDto, @PathVariable Integer id) {
 		Autor obj = service.fromDTO(objDto);
 		obj.setId(id);
@@ -75,9 +76,10 @@ public class AutorResorce {
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+
 }

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import fatec.layer11.services.SubcategoriaService;
 import fatec.layer20.aplications.DataTransferObject.SubcategoriaDTO;
 
 @RestController
-@RequestMapping(value="/subcategorias")
+@RequestMapping(value="/subcategoria")
 public class SubcategoriaResorce {
 	
 	@Autowired
@@ -30,7 +31,7 @@ public class SubcategoriaResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody SubcategoriaDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Subcategoria") SubcategoriaDTO objDto) {
 		System.out.println(objDto);
 		Subcategoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);

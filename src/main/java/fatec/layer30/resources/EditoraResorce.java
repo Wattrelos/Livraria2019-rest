@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import fatec.layer11.services.EditoraService;
 import fatec.layer20.aplications.DataTransferObject.EditoraDTO;
 
 @RestController
-@RequestMapping(value="/editoras")
+@RequestMapping(value="/editora")
 public class EditoraResorce {
 	
 	@Autowired
@@ -30,12 +31,11 @@ public class EditoraResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody EditoraDTO objDto) {
-		System.out.println(objDto);
+	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Editora") EditoraDTO objDto) {		
 		Editora obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+				.path("create/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -66,8 +66,8 @@ public class EditoraResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody EditoraDTO objDto, @PathVariable Integer id) {
+	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
+	public ResponseEntity<Void> update(@Valid @ModelAttribute("Editora") EditoraDTO objDto, @PathVariable Integer id) {
 		Editora obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
@@ -75,8 +75,9 @@ public class EditoraResorce {
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		System.out.println(id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

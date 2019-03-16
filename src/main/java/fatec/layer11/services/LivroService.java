@@ -73,7 +73,7 @@ public class LivroService {
 		return repo.save(newObj);
 	}
 	private void updateData(Livro newObj, Livro obj) {
-		newObj.setTitulo(obj.getTitulo());
+		newObj.setLivro(obj.getLivro());
 	}
 	
 	// DELETE ------------------------------------------------
@@ -92,7 +92,7 @@ public class LivroService {
 		Livro objLivro = new Livro(
 			objDto.getId(),
 			objDto.getIsbn(),
-			objDto.getTitulo(),
+			objDto.getLivro(),
 			objDto.getAno(),
 			objDto.getDimensao(),
 			objDto.getCusto(),
