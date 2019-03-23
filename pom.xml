@@ -60,20 +60,6 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
-		<dependency>
-			  <groupId>javax.servlet</groupId>
-			  <artifactId>javax.servlet-api</artifactId>
-			  <version>4.0.1</version>
-			  <scope>compile</scope>
-			  <optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>		
-		
 
 	</dependencies>
 

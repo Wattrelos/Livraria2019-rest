@@ -30,7 +30,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -40,12 +39,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name = "livro")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
     , @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id")
     , @NamedQuery(name = "Livro.findByIsbn", query = "SELECT l FROM Livro l WHERE l.isbn = :isbn")
-    , @NamedQuery(name = "Livro.findBylivro", query = "SELECT l FROM Livro l WHERE l.livro = :livro")
     , @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")
     , @NamedQuery(name = "Livro.findByDimensao", query = "SELECT l FROM Livro l WHERE l.dimensao = :dimensao")
     , @NamedQuery(name = "Livro.findByCusto", query = "SELECT l FROM Livro l WHERE l.custo = :custo")
@@ -66,13 +63,13 @@ public class Livro implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "isbn")
+    @Column(name = "isbn", unique=true)
     private long isbn;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
-    @Column(name = "titulo")
-    private String livro;
+    @Column(name = "titulo", unique=true)
+    private String titulo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ano")
@@ -110,9 +107,9 @@ public class Livro implements Serializable {
     @Column(name = "sinopse")
     private String sinopse;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "peso")
     private int peso;
+    
     @Column(name = "data_cadastro",
     		updatable=false,
     		insertable = false,
@@ -120,33 +117,50 @@ public class Livro implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro; 
     
-    @ManyToOne(cascade=CascadeType.MERGE  )
-    @JoinColumn(name = "id_editora", referencedColumnName = "id")    
+    // Coleções----------------------------------------------------------- 
+    @ManyToOne(cascade=CascadeType.MERGE)
+    @JoinColumn(name = "editora_id", referencedColumnName = "id")    
     private Editora editora;
-
     
-    @ManyToMany(cascade=CascadeType.REFRESH )
+       
+    @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_categoria",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_categoria")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")    
     )    
     @JsonManagedReference
     private List<Categoria> categorias = new ArrayList<>();
 
-    @ManyToMany(cascade=CascadeType.REFRESH )
+    @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_subcategoria",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_subcategoria")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategoria_id")    
     )
     @JsonManagedReference
-    private List<Subcategoria> subcategorias = new ArrayList<>();    
+    private List<Subcategoria> subcategorias = new ArrayList<>(); 
+    
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_autor",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_autor")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")    
     )
-    private List<Autor> autores = new ArrayList<>();
+    @JsonManagedReference
+    private List<Autor> autores = new ArrayList<>();   
+    
+    
+    public List<Autor> getAutores() {
+		return autores;
+	}
 
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+	
+	//@ManyToOne
+    //@JoinColumn(name="livro_id")
+    //private Pedido_contem_livros pedidoContemLivros;
+
+	// Construtores -----------------------------------------------------------
     public Livro() {
     }
 
@@ -157,7 +171,7 @@ public class Livro implements Serializable {
     public Livro(Integer id, long isbn, String titulo, int ano, String dimensao, BigDecimal custo, int quantidade, boolean ativo, String imagem, String edicao, int paginas, String sinopse, int peso, Date dataCadastro) {
     	this.id = id;
         this.isbn = isbn;
-        this.livro = titulo;
+        this.titulo = titulo;
         this.ano = ano;
         this.dimensao = dimensao;
         this.custo = custo;
@@ -187,12 +201,12 @@ public class Livro implements Serializable {
         this.isbn = isbn;
     }
 
-    public String getLivro() {
-        return livro;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setLivro(String livro) {
-        this.livro = livro;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public int getAno() {
@@ -350,7 +364,7 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + livro + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
+        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
     }
 
 

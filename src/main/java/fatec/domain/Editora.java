@@ -42,7 +42,7 @@ public class Editora implements Serializable {
     private Integer id;
     
     @Basic(optional = false)
-    @Column(name = "editora")
+    @Column(name = "editora", unique = true)
     private String editora;
     
     @Column(name = "data_cadastro",

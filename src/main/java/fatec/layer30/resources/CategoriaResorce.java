@@ -31,7 +31,7 @@ public class CategoriaResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Categoria") CategoriaDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		System.out.println(objDto);
 		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
@@ -67,7 +67,7 @@ public class CategoriaResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
+	@RequestMapping(value="/update={id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
@@ -76,8 +76,9 @@ public class CategoriaResorce {
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
+		System.out.println("\nDeletando categoria:" + id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

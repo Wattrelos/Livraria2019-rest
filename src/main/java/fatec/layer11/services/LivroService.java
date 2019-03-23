@@ -3,6 +3,7 @@ package fatec.layer11.services;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import fatec.domain.Categoria;
 import fatec.domain.Livro;
@@ -31,23 +33,24 @@ public class LivroService {
 	@Autowired
 	private AutorRepository autorrepo;
 	@Autowired
-	private CategoriaRepository catrepo;
+	private CategoriaRepository categoriarepo;
 	@Autowired
-	private SubcategoriaRepository subcatrepo;
+	private SubcategoriaRepository subcategoriarepo;
 	@Autowired
 	private EditoraRepository editrepo;
-	
-	
 	
 	// CREATE ------------------------------------------------
 	@Transactional
 	public Livro insert(Livro obj) {
+		
+		autorrepo.saveAll(obj.getAutor());
+		categoriarepo.saveAll(obj.getCategorias());
+		subcategoriarepo.saveAll(obj.getSubcategorias());
+		
+		editrepo.save(obj.getEditora());
 		obj.setId(null);
 		obj = repo.save(obj);
-		autorrepo.saveAll(obj.getAutor());
-		catrepo.saveAll(obj.getCategorias());
-		subcatrepo.saveAll(obj.getSubcategorias());
-		editrepo.save(obj.getEditora());
+		
 		return obj;
 	}
 	
@@ -73,7 +76,7 @@ public class LivroService {
 		return repo.save(newObj);
 	}
 	private void updateData(Livro newObj, Livro obj) {
-		newObj.setLivro(obj.getLivro());
+		newObj.setTitulo(obj.getTitulo());
 	}
 	
 	// DELETE ------------------------------------------------
@@ -92,7 +95,7 @@ public class LivroService {
 		Livro objLivro = new Livro(
 			objDto.getId(),
 			objDto.getIsbn(),
-			objDto.getLivro(),
+			objDto.getTitulo(),
 			objDto.getAno(),
 			objDto.getDimensao(),
 			objDto.getCusto(),
@@ -106,6 +109,10 @@ public class LivroService {
 			objDto.getDataCadastro()
 		);
 		objLivro.setEditora(objDto.getEditora());
+		objLivro.setAutor(objDto.getAutores());
+		objLivro.setCategorias(objDto.getCategorias());
+		objLivro.setSubcategorias(objDto.getSubcategorias());
+		
 		
 		return objLivro;
 		
