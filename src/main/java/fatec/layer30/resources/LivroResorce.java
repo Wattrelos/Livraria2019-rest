@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,6 @@ public class LivroResorce {
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody LivroDTO objDto) {
-		System.out.println(objDto);
 		Livro obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -58,7 +58,7 @@ public class LivroResorce {
 	public ResponseEntity<Page<LivroDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="livro") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="titulo") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Livro> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<LivroDTO> listDto = list.map(obj -> new LivroDTO(obj));  
@@ -66,17 +66,17 @@ public class LivroResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> update(@Valid @RequestBody LivroDTO objDto, @PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @ModelAttribute("Livro") LivroDTO objDto) {
 		Livro obj = service.fromDTO(objDto);
-		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
+		System.out.println("\nDeletando livro:" + id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

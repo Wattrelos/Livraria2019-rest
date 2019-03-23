@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fatec.domain.Subcategoria;
 import fatec.layer11.services.SubcategoriaService;
+import fatec.layer20.aplications.DataTransferObject.AutorDTO;
 import fatec.layer20.aplications.DataTransferObject.SubcategoriaDTO;
 
 @RestController
@@ -31,7 +32,7 @@ public class SubcategoriaResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Subcategoria") SubcategoriaDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody SubcategoriaDTO objDto) {
 		System.out.println(objDto);
 		Subcategoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
@@ -67,17 +68,17 @@ public class SubcategoriaResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody SubcategoriaDTO objDto, @PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @ModelAttribute("Subcategoria") SubcategoriaDTO objDto) {
 		Subcategoria obj = service.fromDTO(objDto);
-		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
+		System.out.println("\nDeletando subcategoria:" + id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

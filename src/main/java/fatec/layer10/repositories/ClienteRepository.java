@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import fatec.domain.Cliente;
 
+
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 

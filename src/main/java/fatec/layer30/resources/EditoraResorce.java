@@ -31,7 +31,7 @@ public class EditoraResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @ModelAttribute("Editora") EditoraDTO objDto) {		
+	public ResponseEntity<Void> insert(@Valid @RequestBody EditoraDTO objDto) {		
 		Editora obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -66,18 +66,17 @@ public class EditoraResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
-	@RequestMapping(value="/update={id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> update(@Valid @ModelAttribute("Editora") EditoraDTO objDto, @PathVariable Integer id) {
+	@RequestMapping(method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @ModelAttribute("Editora") EditoraDTO objDto) {
 		Editora obj = service.fromDTO(objDto);
-		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
 	// DELETE ------------------------------------------------
-	@RequestMapping(value="/delete={id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		System.out.println(id);
+	@RequestMapping(method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
+		System.out.println("\nDeletando autor:" + id);
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
