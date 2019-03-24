@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LivrariaController {
+	@RequestMapping(value="/")
+	public String home() {
+		return "/index.html";
+	}
 	
-	@RequestMapping(value="/{entidade}")
+	@RequestMapping(value="/livraria/{entidade}")
 	public String entidade(@PathVariable String entidade,
 			@RequestParam(value="action", defaultValue="") String action) {
 		String url = "/view/" + entidade + "/" + entidade + ".html";

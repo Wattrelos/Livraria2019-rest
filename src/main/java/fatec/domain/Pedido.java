@@ -1,7 +1,10 @@
-package fatec.domain;
+ package fatec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Pedido implements Serializable {
@@ -23,19 +29,38 @@ public class Pedido implements Serializable {
     private String observacao;
     
     @ManyToOne
-    @JoinColumn(name="client_id")
+    @JoinColumn(name="cliente_id")
+    @JsonIgnore
     private Cliente cliente;
     
+    @OneToMany(mappedBy="pedido", cascade = CascadeType.REFRESH)
+    List<ItemPedido> itemPedido = new ArrayList<>();
     
     public Pedido() {
-    	
-    }
-
-	public Pedido(Integer pedido_id, String observacao) {
-		super();
-		this.id = pedido_id;
+ 		super();
+ 	}
+    
+    public Pedido(Integer id, String observacao, List<ItemPedido> itemPedido) {		
+		this.id = id;
 		this.observacao = observacao;
+		this.itemPedido = itemPedido;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<ItemPedido> getItemPedido() {
+		return itemPedido;
+	}
+
+	public void setItemPedido(List<ItemPedido> itemPedido) {
+		this.itemPedido = itemPedido;
+	}	
 
 	public Integer getId() {
 		return id;

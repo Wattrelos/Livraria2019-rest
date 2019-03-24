@@ -3,19 +3,16 @@ package fatec.layer20.aplications.DataTransferObject;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import fatec.domain.Cliente;
-import fatec.domain.LojaMatriz;
+import fatec.domain.Pedido;
 
 
 
@@ -32,16 +29,14 @@ public class ClienteDTO implements Serializable {
 	private Date dataCadastro;
 	
 	//Chave estrangeira
-	@ManyToOne
-	@JoinColumn(name="id")	
-	private LojaMatriz lojamatriz;
+	private List<Pedido> pedido = new ArrayList<>();
 
-	public LojaMatriz getLojamatriz() {
-		return lojamatriz;
+	public List<Pedido> getPedido() {
+		return pedido;
 	}
 
-	public void setLojamatriz(LojaMatriz lojamatriz) {
-		this.lojamatriz = lojamatriz;
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
 	}
 
 	public ClienteDTO() {
@@ -53,6 +48,7 @@ public class ClienteDTO implements Serializable {
 		cpf = obj.getCpf();
 		dataNascimento = obj.getDataNascimento();
 		dataCadastro = obj.getDataCadastro();
+		pedido = obj.getPedidos();
 	}
 
 	public long getCpf() {

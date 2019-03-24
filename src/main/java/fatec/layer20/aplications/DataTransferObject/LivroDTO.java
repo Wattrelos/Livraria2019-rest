@@ -62,7 +62,7 @@ public class LivroDTO implements Serializable {
 		paginas = obj.getPaginas();
 		sinopse = obj.getSinopse();
 		peso = obj.getPeso();
-		dataCadastro = obj.getDataCadastro();
+		dataCadastro = obj.getDataCadastro();		
 		editora = obj.getEditora();
 		categorias = obj.getCategorias();
 		subcategorias = obj.getSubcategorias();

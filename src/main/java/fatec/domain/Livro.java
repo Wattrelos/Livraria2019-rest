@@ -109,6 +109,7 @@ public class Livro implements Serializable {
     @Basic(optional = false)
     @Column(name = "peso")
     private int peso;
+    
     @Column(name = "data_cadastro",
     		updatable=false,
     		insertable = false,
@@ -116,35 +117,50 @@ public class Livro implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro; 
     
+    // Coleções----------------------------------------------------------- 
     @ManyToOne(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "id_editora", referencedColumnName = "id")    
+    @JoinColumn(name = "editora_id", referencedColumnName = "id")    
     private Editora editora;
-
     
+       
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_categoria",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_categoria")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")    
     )    
     @JsonManagedReference
     private List<Categoria> categorias = new ArrayList<>();
 
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_subcategoria",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_subcategoria")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategoria_id")    
     )
     @JsonManagedReference
     private List<Subcategoria> subcategorias = new ArrayList<>(); 
     
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_autor",
-            joinColumns = @JoinColumn(name = "id_livro"),
-            inverseJoinColumns = @JoinColumn(name = "id_autor")    
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")    
     )
     @JsonManagedReference
-    private List<Autor> autores = new ArrayList<>();
+    private List<Autor> autores = new ArrayList<>();   
+    
+    
+    public List<Autor> getAutores() {
+		return autores;
+	}
 
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+	
+	//@ManyToOne
+    //@JoinColumn(name="livro_id")
+    //private Pedido_contem_livros pedidoContemLivros;
+
+	// Construtores -----------------------------------------------------------
     public Livro() {
     }
 

@@ -60,7 +60,9 @@ label {
     display: grid;
     grid-template-columns: 300px auto;
 }
-
+.galeria>h4{
+	height: 70px;
+}
 
 
    

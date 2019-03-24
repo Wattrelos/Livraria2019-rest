@@ -47,7 +47,6 @@ public class Cliente implements Serializable {
 	@JoinColumn(name="matriz_id")
 	private LojaMatriz lojamatriz;
 
-
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
     List<Pedido> pedidos = new ArrayList<>();
     
