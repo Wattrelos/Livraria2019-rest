@@ -78,7 +78,7 @@ public class AutorResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Autor deletando...");
+		System.out.print("autor deletando...");
 		return ResponseEntity.noContent().build();
 	}
 

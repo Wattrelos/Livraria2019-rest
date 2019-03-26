@@ -40,7 +40,7 @@ public class LojaMatriz implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
-    @Column(name = "nomeFantasia", unique=true)
+    @Column(name = "nome_Fantasia", unique=true)
     private String nomeFantasia;
     
     @Column(name = "data_cadastro",

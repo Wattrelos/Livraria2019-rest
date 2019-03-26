@@ -58,7 +58,7 @@ public class PedidoResorce {
 	public ResponseEntity<Page<PedidoDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="pedido") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="itemPedido") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Pedido> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<PedidoDTO> listDto = list.map(obj -> new PedidoDTO(obj));  

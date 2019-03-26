@@ -1,6 +1,8 @@
-.folha {
+
+.vitrine {
+	margin-top: 80px;
     display: grid;
-    grid-template-columns: 12% auto;  
+    grid-template-columns: 200px auto;  
     
 }
 .cabecalho {
@@ -13,9 +15,13 @@
     display: table-row-group;
     grid-auto-columns: auto;
     padding: 15px;
-    font-size: 1.5em;
-    margin-top: 60px;
+    font-size: 1.5em;   
 }
+.atalhos a {
+     width: 100%;   
+}
+
+
 .area-3 {
     background: gold;
     height: 30vw;
@@ -33,7 +39,7 @@
     margin-top: 60px;
   }
   
-  .flex-container > div {
+.flex-container > div {
     background-color: #bbbbbb;
     width: 310px;
     margin: 10px;
@@ -60,7 +66,9 @@ label {
     display: grid;
     grid-template-columns: 300px auto;
 }
-
+.galeria>h4{
+	height: 70px;
+}
 
 
    

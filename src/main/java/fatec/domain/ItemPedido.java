@@ -28,6 +28,10 @@ public class ItemPedido implements Serializable {
     @JsonIgnore
     private Pedido pedido;
     
+	@OneToOne
+    @JoinColumn(name="livro_id")    
+    private Livro livro;
+    
     public Integer getId() {
 		return id;
 	}
@@ -59,9 +63,5 @@ public class ItemPedido implements Serializable {
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
-
-	@OneToOne
-    @JoinColumn(name="livro_id")    
-    private Livro livro;
 
 }

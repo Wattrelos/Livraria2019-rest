@@ -7,13 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LivrariaController {
-	
-	@RequestMapping(value="/{entidade}")
-	public String entidade(@PathVariable String entidade,
-			@RequestParam(value="action", defaultValue="") String action) {
-		String url = "/view/" + entidade + "/" + entidade + ".html";
-		System.out.print(url);
-		return url;
+	@RequestMapping(value="/")
+	public String home() {
+		return "/index.html";
 	}
 	
 	//-- Página de gestão
@@ -25,7 +21,7 @@ public class LivrariaController {
 	public String gestao(@PathVariable String entidade,
 			@RequestParam(value="action", defaultValue="") String action			
 			) {
-		String url = "/view/gestao/" + entidade + action + ".html";
+		String url = "/view/" + entidade + "/" + entidade + action + ".html";
 		System.out.print(url);
 		return url;
 	}

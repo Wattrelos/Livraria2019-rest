@@ -42,7 +42,6 @@ function confirmDelete(entity, id, name){
 				});
 	        },
 	        error: function (erro) {
-	        	console.log(erro.responseJSON.message);
 	        	alert("Falha ao tentar excluir " + name);
 	        }
 		});
@@ -85,6 +84,9 @@ function confirmCreateLivro(frm){
 		  case "number":			 
 			    LivroArray[`${field.name}`] = field.value;
 			  break;
+		  case "file":			 
+			    LivroArray[`${field.name}`] = field.value.replace(/^.*\\/, "");
+			  break;
 		  default:
 		}
 		
@@ -96,11 +98,11 @@ function confirmCreateLivro(frm){
 	var pluginArrayArg = new Array();
 	jsonEditora = new Object();
 	var e = document.getElementById("selecteditora"); // Pega os elementos de uma lista SELECT
-	
-	if(e.selectedIndex != -1){ // Verifica se existe elemento foi selecionado
-		jsonEditora['id'] = e.options[e.selectedIndex].value;
-		jsonEditora["editora"] = e.options[e.selectedIndex].text		
-	}	
+	if((e != null) && (e.selectedIndex != -1)){ // Verifica se existe elemento foi selecionado
+			jsonEditora['id'] = e.options[e.selectedIndex].value;
+			jsonEditora["editora"] = e.options[e.selectedIndex].text		
+		
+	}
 	
 	pluginArrayArg.push(jsonEditora);
 	
@@ -118,24 +120,27 @@ function confirmCreateLivro(frm){
 		  var opt;
 		  var CategoriaArrayArg = new Array();
 		  var CategoriaArray = new Array();
+		  
+		  if(options != null){
 		 
-		  for (var i=0, iLen=options.length; i<iLen; i++) {
-			  
-			opt = options[i];
-		    if (opt.selected) {
-		    	// Injeta em um objeto JSON.
-		    	jsonCategoria = new Object(); 
-		    	jsonCategoria['id'] = opt.value;
-		    	jsonCategoria[`${value}`] = opt.text;		    	
-		    	CategoriaArray.push(jsonCategoria);
-		    }
+			  for (var i=0, iLen=options.length; i<iLen; i++) {
+				  
+				opt = options[i];
+			    if (opt.selected) {
+			    	// Injeta em um objeto JSON.
+			    	jsonCategoria = new Object(); 
+			    	jsonCategoria['id'] = opt.value;
+			    	jsonCategoria[`${value}`] = opt.text;		    	
+			    	CategoriaArray.push(jsonCategoria);
+			    }
+			  }
 		  }
 		  LivroArray[`${value}`] = CategoriaArray;
 	});
 	console.log(JSON.stringify(LivroArray));
 	// console.log(LivroArray);
 // -------------------------Fim do conversor JSON ------------------------
-	
+	//console.log(LivroArray);
 	$.ajax({				
 		type : "POST",
 		url : "/livro",
@@ -148,8 +153,7 @@ function confirmCreateLivro(frm){
 				pagination(0 , entity);
 			});
         },
-        error: function (erro) {
-        	console.log(erro);
+        error: function (erro) {        	
         	alert("Erro: " + erro.status + " Falha ao tentar adicionar livro!" + name);
         }
 	});

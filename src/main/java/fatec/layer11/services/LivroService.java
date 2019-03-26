@@ -12,8 +12,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import fatec.domain.Categoria;
 import fatec.domain.Livro;
 import fatec.layer10.repositories.AutorRepository;
 import fatec.layer10.repositories.CategoriaRepository;
@@ -43,7 +41,7 @@ public class LivroService {
 	@Transactional
 	public Livro insert(Livro obj) {
 		
-		autorrepo.saveAll(obj.getAutor());
+		autorrepo.saveAll(obj.getAutores());
 		categoriarepo.saveAll(obj.getCategorias());
 		subcategoriarepo.saveAll(obj.getSubcategorias());
 		
@@ -57,7 +55,7 @@ public class LivroService {
 	// READ ------------------------------------------------
 	public Livro find(Integer id) {
 		Optional<Livro> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Categoria.class.getName()));		
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Livro.class.getName()));		
 	}
 	
 	public List<Livro> findAll() {
@@ -109,10 +107,9 @@ public class LivroService {
 			objDto.getDataCadastro()
 		);
 		objLivro.setEditora(objDto.getEditora());
-		objLivro.setAutor(objDto.getAutores());
+		objLivro.setAutores(objDto.getAutores());
 		objLivro.setCategorias(objDto.getCategorias());
-		objLivro.setSubcategorias(objDto.getSubcategorias());
-		
+		objLivro.setSubcategorias(objDto.getSubcategorias());		
 		
 		return objLivro;
 		

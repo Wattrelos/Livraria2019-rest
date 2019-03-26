@@ -7,7 +7,6 @@ package fatec.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "autor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Autor.findAll", query = "SELECT a FROM Autor a")
+      @NamedQuery(name = "Autor.findAll", query = "SELECT a FROM Autor a")
     , @NamedQuery(name = "Autor.findById", query = "SELECT a FROM Autor a WHERE a.id = :id")
     , @NamedQuery(name = "Autor.findByAutor", query = "SELECT a FROM Autor a WHERE a.autor like :autor")
     , @NamedQuery(name = "Autor.findByDataCadastro", query = "SELECT a FROM Autor a WHERE a.dataCadastro = :dataCadastro")})
@@ -95,40 +94,33 @@ public class Autor implements Serializable {
         this.dataCadastro = dataCadastro;
     }
 
+
+    
+    
+    
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.id);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Autor)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Autor other = (Autor) obj;
-        if (!Objects.equals(this.autor, other.autor)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
+        Autor other = (Autor) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
-    
-    
-    
-    @Override
-    public String toString() {
-        return "Autor{" + "id=" + id + ", autor=" + autor + ", dataCadastro=" + dataCadastro;
-    }
 
+	@Override
+    public String toString() {
+        return "autor{" + "id=" + id + ", autor=" + autor + ", dataCadastro=" + dataCadastro;
+    }
 
 }

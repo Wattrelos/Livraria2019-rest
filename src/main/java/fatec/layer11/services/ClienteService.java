@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
-import fatec.domain.Categoria;
 import fatec.layer10.repositories.ClienteRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
@@ -33,7 +32,7 @@ public class ClienteService {
 	// READ ------------------------------------------------
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Categoria.class.getName()));		
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Cliente.class.getName()));		
 	}
 	
 	public List<Cliente> findAll() {

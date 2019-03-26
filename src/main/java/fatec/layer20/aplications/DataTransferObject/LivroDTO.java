@@ -66,7 +66,7 @@ public class LivroDTO implements Serializable {
 		editora = obj.getEditora();
 		categorias = obj.getCategorias();
 		subcategorias = obj.getSubcategorias();
-		autores = obj.getAutor();
+		autores = obj.getAutores();
 	}
 
 	public List<Subcategoria> getSubcategorias() {
@@ -85,15 +85,7 @@ public class LivroDTO implements Serializable {
 		this.autores = autores;
 	}
 
-	public List<Categoria> getCategorias() {
-		/*
-		System.out.println("------------------------------------ ");
-		System.out.println("Teste LivroDTO.getCategorias: ");
-		for (Categoria categoria : categorias) {
-			System.out.println(categoria);
-        }
-		System.out.println("------------------------------------ ");
-		*/
+	public List<Categoria> getCategorias() {		
 		return categorias;
 	}
 

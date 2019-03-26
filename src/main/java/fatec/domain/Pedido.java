@@ -1,4 +1,4 @@
-package fatec.domain;
+ package fatec.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;

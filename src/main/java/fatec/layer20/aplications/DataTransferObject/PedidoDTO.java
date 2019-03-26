@@ -42,6 +42,7 @@ public class PedidoDTO implements Serializable {
 	public PedidoDTO(Pedido obj) {
 		id = obj.getId();
 		observacao = obj.getObservacao();
+		itemPedido = obj.getItemPedido();
 	}
 
 	public Integer getId() {

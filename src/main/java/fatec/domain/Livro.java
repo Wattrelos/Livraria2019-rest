@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "livro")
 @NamedQueries({
-    @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
+      @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
     , @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id")
     , @NamedQuery(name = "Livro.findByIsbn", query = "SELECT l FROM Livro l WHERE l.isbn = :isbn")
     , @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")
@@ -145,20 +145,7 @@ public class Livro implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "autor_id")    
     )
     @JsonManagedReference
-    private List<Autor> autores = new ArrayList<>();   
-    
-    
-    public List<Autor> getAutores() {
-		return autores;
-	}
-
-	public void setAutores(List<Autor> autores) {
-		this.autores = autores;
-	}
-	
-	//@ManyToOne
-    //@JoinColumn(name="livro_id")
-    //private Pedido_contem_livros pedidoContemLivros;
+    private List<Autor> autores = new ArrayList<>();
 
 	// Construtores -----------------------------------------------------------
     public Livro() {
@@ -184,151 +171,155 @@ public class Livro implements Serializable {
         this.peso = peso;
         this.dataCadastro = dataCadastro;
     }
+    
+    
+ // Setters e Getters -----------------------------------------------------------
 
 	public Integer getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public long getIsbn() {
-        return isbn;
-    }
+	public long getIsbn() {
+		return isbn;
+	}
 
-    public void setIsbn(long isbn) {
-        this.isbn = isbn;
-    }
+	public void setIsbn(long isbn) {
+		this.isbn = isbn;
+	}
 
-    public String getTitulo() {
-        return titulo;
-    }
+	public String getTitulo() {
+		return titulo;
+	}
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-    public int getAno() {
-        return ano;
-    }
+	public int getAno() {
+		return ano;
+	}
 
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
 
-    public String getDimensao() {
-        return dimensao;
-    }
+	public String getDimensao() {
+		return dimensao;
+	}
 
-    public void setDimensao(String dimensao) {
-        this.dimensao = dimensao;
-    }
+	public void setDimensao(String dimensao) {
+		this.dimensao = dimensao;
+	}
 
-    public BigDecimal getCusto() {
-        return custo;
-    }
+	public BigDecimal getCusto() {
+		return custo;
+	}
 
-    public void setCusto(BigDecimal custo) {
-        this.custo = custo;
-    }
+	public void setCusto(BigDecimal custo) {
+		this.custo = custo;
+	}
 
-    public int getQuantidade() {
-        return quantidade;
-    }
+	public int getQuantidade() {
+		return quantidade;
+	}
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
-    public boolean getAtivo() {
-        return ativo;
-    }
+	public boolean getAtivo() {
+		return ativo;
+	}
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 
-    public String getImagem() {
-        return imagem;
-    }
+	public String getImagem() {
+		return imagem;
+	}
 
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
 
-    public String getEdicao() {
-        return edicao;
-    }
+	public String getEdicao() {
+		return edicao;
+	}
 
-    public void setEdicao(String edicao) {
-        this.edicao = edicao;
-    }
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
+	}
 
-    public int getPaginas() {
-        return paginas;
-    }
+	public int getPaginas() {
+		return paginas;
+	}
 
-    public void setPaginas(int paginas) {
-        this.paginas = paginas;
-    }
+	public void setPaginas(int paginas) {
+		this.paginas = paginas;
+	}
 
-    public String getSinopse() {
-        return sinopse;
-    }
+	public String getSinopse() {
+		return sinopse;
+	}
 
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
-    }
+	public void setSinopse(String sinopse) {
+		this.sinopse = sinopse;
+	}
 
-    public int getPeso() {
-        return peso;
-    }
+	public int getPeso() {
+		return peso;
+	}
 
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-    
-    public Editora getEditora() {
-        return editora;
-    }
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
-    public void setEditora(Editora editora) {
-        this.editora = editora;
-    }
+	public Editora getEditora() {
+		return editora;
+	}
 
-    public List<Autor> getAutor() {
-        return autores;
-    }
+	public void setEditora(Editora editora) {
+		this.editora = editora;
+	}
 
-    public void setAutor(List<Autor> autores) {
-        this.autores = autores;
-    }    
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
+	public List<Subcategoria> getSubcategorias() {
+		return subcategorias;
+	}
 
-    public List<Subcategoria> getSubcategorias() {
-        return subcategorias;
-    }
+	public void setSubcategorias(List<Subcategoria> subcategorias) {
+		this.subcategorias = subcategorias;
+	}
 
-    public void setSubcategorias(List<Subcategoria> subcategorias) {
-        this.subcategorias = subcategorias;
-    }
+	public List<Autor> getAutores() {
+		return autores;
+	}
 
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+	
+	// Hash codes -----------------------------------------------------------
     @Override
     public int hashCode() {
         int hash = 5;
@@ -337,7 +328,7 @@ public class Livro implements Serializable {
         return hash;
     }
 
-    @Override
+	@Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -357,8 +348,6 @@ public class Livro implements Serializable {
         }
         return true;
     }
-    
-    
 
 
 
@@ -366,7 +355,6 @@ public class Livro implements Serializable {
     public String toString() {
         return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
     }
-
 
     
 }

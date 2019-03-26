@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import fatec.domain.Categoria;
 import fatec.domain.Subcategoria;
 import fatec.layer10.repositories.SubcategoriaRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
@@ -33,7 +32,7 @@ public class SubcategoriaService {
 	// READ ------------------------------------------------
 	public Subcategoria find(Integer id) {
 		Optional<Subcategoria> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Categoria.class.getName()));		
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Subcategoria.class.getName()));		
 	}
 	
 	public List<Subcategoria> findAll() {

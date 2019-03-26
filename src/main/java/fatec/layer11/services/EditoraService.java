@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import fatec.domain.Categoria;
 import fatec.domain.Editora;
 import fatec.layer10.repositories.EditoraRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
@@ -33,7 +32,7 @@ public class EditoraService {
 	// READ ------------------------------------------------
 	public Editora find(Integer id) {
 		Optional<Editora> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Categoria.class.getName()));		
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Editora.class.getName()));		
 	}
 	
 	public List<Editora> findAll() {

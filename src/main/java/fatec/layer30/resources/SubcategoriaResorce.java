@@ -20,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fatec.domain.Subcategoria;
 import fatec.layer11.services.SubcategoriaService;
-import fatec.layer20.aplications.DataTransferObject.AutorDTO;
 import fatec.layer20.aplications.DataTransferObject.SubcategoriaDTO;
 
 @RestController
