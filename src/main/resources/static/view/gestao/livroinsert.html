@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Gestão de livros</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/livro.css">
+        <link rel="stylesheet" href="/css/checkboxdropdown.css">
+    </head>
+    <body>
+    	 <div class="panel-body">    	 	           
+            <form method="post" enctype="application/json" action="/livro" onsubmit="confirmCreateLivro(this); return false;">
+              		<div class="formulario">
+				        <label for="isbn">ISBN:</label>    
+				        <input id="isbn" type="number" name="isbn" placeholder="ISBN... (somete números)" >
+				        
+				        <label for="titulo">Título:</label>             
+				        <input id="titulo" type="text" name="titulo" placeholder="Título do livro...">			
+				        
+				        <label for="edicao">Edição</label>             
+				        <input id ="edicao" type="text" name="edicao" placeholder="Edição...">
+				        
+				        <label for= "ano">Ano:</label>                 
+				        <input id = "ano" type="number" name="ano" placeholder= "Ano..." >
+				        
+				        <label for= "dimensao">Dimensão:</label>                 
+				        <input id = "dimensao" type="text" name="dimensao" placeholder= "Dimensao..." >
+				        
+				        <label for= "custo">Preço de custo:</label>                 
+				        <input id = "custo" type="text" name="custo" placeholder= "R$000,00" >
+				
+				        <label for= "peso">Peso:</label>                 
+				        <input id = "peso" type="number" name="peso" placeholder= "Peso em gramas..." >
+				
+				        <label for= "paginas">Número de páginas:</label>                 
+				        <input id = "paginas" type="number" name="paginas" placeholder= "Número de páginas..." >
+				        			
+				        <label for= "quantidade">Quantidade:</label>                 
+				        <input id = "quantidade" type="number" name="quantidade" placeholder= "Quantidade..." >
+	
+				        
+				        <label for="ativo">Ativo?</label>
+				        <div class="form-data">					
+				            <span class="radio-inline">			               
+				                    <input type="radio" name="ativo" value="true">Sim
+				            </span>
+				            <span class="radio-inline">
+				                <input type="radio" name="ativo" value="false">Não
+				            </span>
+				        </div>
+				    	<label class="label-1">Imagem 270x400 px</label>
+				        <div>
+				            <input type="file" class="btn btn-primary btn-xs" name="imagem" onchange="carregarImagem(this)"/>
+				        </div>				        
+				        <label for ="sinopse">Sinopse:</label>
+				        <textarea id="observacao" class="form-data caixa-texto" name="sinopse" placeholder="Escreva aqui uma breve descrição do livro..."></textarea>
+				        
+				     </div>
+				     <div>				        
+							<div id="editora" class="formulario"></div>			        
+					        <div id="autor" class="formulario"></div>
+					  
+					        <div id="categoria" class="formulario"></div>
+					        <div id="subcategoria" class="formulario"></div>
+				     </div>
+					 <!-- Enviar formulário preenchido para gravaçãoo no banco de dados -->
+				     <button type="submit" name="entity" value="livro">Cadastrar</button>
+			    </form>
+			</div> 
+        <footer id="foot" ></footer>
+        <script src="/js/jquery.min.js"></script> 
+        <script src="/js/formlivro.js"></script>
+        <script src="/js/confirm.js"></script>
+    </body>
+</html>
