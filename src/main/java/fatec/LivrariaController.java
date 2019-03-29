@@ -17,8 +17,18 @@ public class LivrariaController {
 	public String gestaopage() {
 		return "/view/gestao/gestao.html";
 	}
+	
 	@RequestMapping(value="/gestao/{entidade}")
 	public String gestao(@PathVariable String entidade,
+			@RequestParam(value="action", defaultValue="") String action			
+			) {
+		String url = "/view/" + entidade + "/" + entidade + action + ".html";
+		System.out.print(url);
+		return url;
+	}
+	
+	@RequestMapping(value="/livraria/{entidade}")
+	public String livraria(@PathVariable String entidade,
 			@RequestParam(value="action", defaultValue="") String action			
 			) {
 		String url = "/view/" + entidade + "/" + entidade + action + ".html";
