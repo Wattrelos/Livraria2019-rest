@@ -16,6 +16,7 @@ var pagination = function (page, taglabe2){
 					_text += `<button onclick="pagination(${result.number + 1}, '${taglabe3}')" type="button">▶▶▶</button></div>`;
 				}
 			}
+			
 			// Nome das colunas
 			_text += `<div class="form-each">			
 			<label>${taglabe2}</label><label>Cadastro</label><label></label><label></label>`;
@@ -41,7 +42,7 @@ var pagination = function (page, taglabe2){
 		
 		let url = "http://localhost:8080/" + taglabe3 + "/page?page=" + page;
 		// Listar dados-----------------------------------------
-		$.getJSON(url, function (result){
+		$.getJSON(url, function (result){			
 			let _text = ``;
 			// Verificar se é apenas uma página e fazer paginação:
 			if(result.pageable.paged){
@@ -115,6 +116,7 @@ var pagination = function (page, taglabe2){
 				var _text = ``;
 				// Verificar se é apenas uma página e fazer paginação:
 				if(result.pageable.paged){
+					console.log(result);
 					if(!result.first){
 						_text = `<div><button onclick="pagination(${result.number - 1}, '${taglabe3}')" type="button" name="" value="">◀◀◀</button>`;
 					}

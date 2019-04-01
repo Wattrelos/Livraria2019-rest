@@ -27,8 +27,7 @@ public class ClienteNewDTO implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
-	
-	private Integer tipo;
+	private Integer perfil;
 
 	public ClienteNewDTO() {
 	} 
@@ -72,12 +71,14 @@ public class ClienteNewDTO implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	public Integer getTipo() {
-		return tipo;
+
+	public Integer getPerfil() {
+		return perfil;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
+	public void setPerfil(Integer perfil) {
+		this.perfil = perfil;
+	}	
+	
+	
 }

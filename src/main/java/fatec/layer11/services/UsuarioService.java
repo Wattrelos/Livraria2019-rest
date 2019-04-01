@@ -38,6 +38,8 @@ public class UsuarioService extends AbstractJdbcDAO{
 	// READ ------------------------------------------------
 	public Usuario find(Integer id) {
 		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		// Restrição: O usuário só pode acessar ele mesmo. Administrador pode acessar todos.
+		// Verifica se não há usuáriologado, se o usuário tem perfil de administrador e se o ID do usuário é o mesmo do perfil acessado.
 		if(userSpringSecurity == null || !userSpringSecurity.hasRole(Perfil.ADMIN) && !id.equals(userSpringSecurity.getId())) {
 			throw new AuthorizationException("Acesso não permitido");			
 		}
@@ -80,7 +82,7 @@ public class UsuarioService extends AbstractJdbcDAO{
 	
 	// ------------------------------------------------------
 	public Usuario fromNewDTO(UsuarioDTO objDto) {
-		return new Usuario(null, objDto.getEmail(), null, passwordEncoder.encode(objDto.getSenha()), Perfil.toEnum(objDto.getPerfil()));
+		return new Usuario(null, objDto.getEmail(), null, passwordEncoder.encode(objDto.getSenha()), objDto.getPerfil());
 	}
 	public Usuario fromDTO(UsuarioDTO objDto) {
 		return new Usuario(objDto.getId(), objDto.getEmail(), objDto.getDataCadastro(), null, null);

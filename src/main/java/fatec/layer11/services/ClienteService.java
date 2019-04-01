@@ -12,11 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
+import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
+import fatec.layer11.services.exceptions.AuthorizationException;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.ClienteDTO;
 import fatec.layer20.aplications.DataTransferObject.ClienteNewDTO;
+import fatec.security.UserSpringSecurity;
 
 @Service
 public class ClienteService {
@@ -35,6 +38,13 @@ public class ClienteService {
 	
 	// READ ------------------------------------------------
 	public Cliente find(Integer id) {
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		// Restrição: O usuário só pode acessar ele mesmo. Administrador pode acessar todos.
+		// Verifica se não há usuáriologado, se o usuário tem perfil de administrador e se o ID do usuário é o mesmo do perfil acessado.
+		if(userSpringSecurity == null || !userSpringSecurity.hasRole(Perfil.ADMIN) && !id.equals(userSpringSecurity.getId())) {
+			throw new AuthorizationException("Acesso não permitido");			
+		}
+		// Se autenticado, então...		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Cliente.class.getName()));		
 	}
@@ -46,6 +56,21 @@ public class ClienteService {
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Cliente findByEmail(String email) {
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		// Restrição: O usuário só pode acessar ele mesmo. Administrador pode acessar todos.
+		// Verifica se não há usuáriologado, se o usuário tem perfil de administrador e se o EMAIL do usuário é o mesmo do perfil acessado.
+		if(userSpringSecurity == null || !userSpringSecurity.hasRole(Perfil.ADMIN) && !email.equals(userSpringSecurity.getUsername())) {
+			throw new AuthorizationException("Acesso não permitido");			
+		}
+		// Se autenticado, então...
+		Cliente obj = repo.findByEmail(email);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + userSpringSecurity.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
 	}
 
 	// UPDATE ------------------------------------------------
@@ -73,11 +98,12 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(), objDto.getDataCadastro());
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),
+				objDto.getDataCadastro(),null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
-		return new Cliente(objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), passEnc.encode(objNewDto.getSenha()));
+		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
 	}
 	
 

@@ -23,8 +23,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,20 +37,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name = "livro")
-@NamedQueries({
-      @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
-    , @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id")
-    , @NamedQuery(name = "Livro.findByIsbn", query = "SELECT l FROM Livro l WHERE l.isbn = :isbn")
-    , @NamedQuery(name = "Livro.findByAno", query = "SELECT l FROM Livro l WHERE l.ano = :ano")
-    , @NamedQuery(name = "Livro.findByDimensao", query = "SELECT l FROM Livro l WHERE l.dimensao = :dimensao")
-    , @NamedQuery(name = "Livro.findByCusto", query = "SELECT l FROM Livro l WHERE l.custo = :custo")
-    , @NamedQuery(name = "Livro.findByQuantidade", query = "SELECT l FROM Livro l WHERE l.quantidade = :quantidade")
-    , @NamedQuery(name = "Livro.findByAtivo", query = "SELECT l FROM Livro l WHERE l.ativo = :ativo")
-    , @NamedQuery(name = "Livro.findByImagem", query = "SELECT l FROM Livro l WHERE l.imagem = :imagem")
-    , @NamedQuery(name = "Livro.findByEdicao", query = "SELECT l FROM Livro l WHERE l.edicao = :edicao")
-    , @NamedQuery(name = "Livro.findByPaginas", query = "SELECT l FROM Livro l WHERE l.paginas = :paginas")
-    , @NamedQuery(name = "Livro.findByPeso", query = "SELECT l FROM Livro l WHERE l.peso = :peso")
-    , @NamedQuery(name = "Livro.findByDataCadastro", query = "SELECT l FROM Livro l WHERE l.dataCadastro = :dataCadastro")})
 public class Livro extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -32,7 +32,6 @@ $.getJSON(url, function (result){
 			    <b>Edição:</b>${field.edicao}<br>
 			    <b>Dimensão:</b>${field.dimensao}<br>
 			    <b>ISBN:</b> ${field.isbn}<br>
-			    
 			</div>
 			`;		
 		
@@ -40,7 +39,7 @@ $.getJSON(url, function (result){
 	// console.log(galeria);
 	listaitens.innerHTML = galeria;
 });
-
+//  Adicionar item ao carrinho -----------------------------------------------------------
 function adicionarAoCarrinho(livroId){
 	var quantidade = 1;
 	let carrinho = [];
@@ -68,4 +67,5 @@ function adicionarAoCarrinho(livroId){
 	console.log(carrinho);
 	quantidadeCarrinho.innerHTML = carrinho.length;
 }
+// ---------------------------------------------------------------------------------------------------------
 

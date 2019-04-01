@@ -72,13 +72,12 @@ public class Usuario extends EntidadeDominio implements Serializable {
 
     public Usuario() {
     }
-    
-    public Usuario(Integer id, String email, Date dataCadastro, String senha, Perfil perfis) {
+    public Usuario(Integer id, String email, Date dataCadastro, String senha, Integer perfil) {
     	this.id = id;
-        this.email = email;
+    	this.email = email;
         this.dataCadastro = dataCadastro;
-        this.senha = senha;        
-        addPerfil(Perfil.CLIENTE);
+        this.senha = senha;
+        this.addPerfil(perfil);
     }
     
     // Setters and Getters ----------------------------------------------------------
@@ -114,8 +113,8 @@ public class Usuario extends EntidadeDominio implements Serializable {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 	
-	public void addPerfil(Perfil perfil) {
-		perfis.add(perfil.getCod());
+	public void addPerfil(Integer perfil) {
+		perfis.add(perfil);
 	}
 
 	@Override

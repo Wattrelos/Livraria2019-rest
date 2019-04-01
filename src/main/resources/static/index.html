@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Fatec. Livraria 2019</title>        
         <!-- Bootstrap core CSS -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom styles -->
         <link rel="stylesheet" href="/css/estilo.css">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
           <!-- Navigation -->
@@ -22,35 +24,57 @@
                         <li class="nav-item m-auto">
                             <a class="nav-link" href="/index">Início</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category.html">Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product.html">Produtos</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="livraria/carrinho">Carrinho de compras<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="contact.html">Carrinho de compras<span class="sr-only">(current)</span></a>
+                           
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contato</a>
-                        </li>
+                        
                     </ul>
         
                     <form class="form-inline my-2 my-lg-0">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Buscar...">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-secondary btn-number">
-                                    <i class="fa fa-search"></i>
+                                    <i class="fa fa-search">Buscar</i>
                                 </button>
                             </div>
                         </div>
-                        <a class="btn btn-success btn-sm ml-3" href="livraria/carrinho">
+                    </form>
+                    <a class="btn btn-success btn-sm ml-3" href="livraria/carrinho">
                             <i class="fa fa-shopping-cart"></i> Carrinho
                             <span id="quantidadeCarrinho"class="badge badge-light">0</span>
-                        </a>
-                    </form>
+                    </a>
+                    <span id="login-button">
+                     	<button class="btn btn-success btn-sm ml-3" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                     </span>
                 </div>
+<!-- Modal para login -------------------------------------------------------------------------------------------------------------------------- -->
+                
+                	<div id="id01" class="modal">
+		  
+					  <form class="modal-content animate" action="/login" onsubmit="superlogin(this); return false;">
+					    <div class="imgcontainer">
+					      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+					      <img src="/img/img_avatar2.png" alt="Avatar" class="avatar">
+					    </div>
+					
+					    <div class="container">
+					      <label for="email"><b>Email</b></label>
+					      <input type="email" placeholder="Digite teu email" name="email" required>
+					    
+					      <label for="senha"><b>Senha</b></label>
+					      <input type="password" placeholder="Digite tua senha" name="senha" required>					        
+					      <button type="submit" class="btn btn-success btn-sm ml-3">Login</button>					      
+					    </div>					
+					    <div class="container" style="background-color:#f1f1f1">
+					      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-sm ml-3">Cancelar</button>					      
+					    </div>
+					  </form>
+				</div>
+<!-- Fim Modal para login -------------------------------------------------------------------------------------------------------------------------- -->
             </div>
         </nav>
         <div class="vitrine">
@@ -73,7 +97,8 @@
             </footer>
             <script src="/js/jquery.min.js" type="text/javascript"></script>
         <script src="/js/bootstrap.min.js"></script>
-		<script src="/js/prateleira.js"></script> 
+		<script src="/js/prateleira.js"></script>
+		<script src="/js/superlogin.js"></script>
         </div>
     </body>
 </html>

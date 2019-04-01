@@ -48,6 +48,14 @@ public class ClienteResorce {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> findByEmail(@RequestParam(value="value") String email) {
+		Cliente obj = service.findByEmail(email);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	
+	
 	// READ (all)---------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)

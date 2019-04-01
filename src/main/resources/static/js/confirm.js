@@ -9,6 +9,7 @@ function confirmCreate(frm){
 	// console.log(JSON.stringify(EntidadeArray));
     $.ajax({				
 		type : "POST",
+		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/" + frm.entity.value,
 		dataType: 'json', // tipo de dados da requisição.
 		contentType: "application/json; charset=utf-8",
@@ -33,6 +34,7 @@ function confirmDelete(entity, id, name){
 	if (confirm("Ter cerceza que quer exluir '" + name + "' em " + entity + " ?")){
 		$.ajax({				
 			type : "DELETE",
+			headers: {"Authorization": window.sessionStorage.getItem('token')},
 			url : "/" + entity,
 			data : {id : id},
 			success: function () {
@@ -51,6 +53,7 @@ function confirmUpdate(entity, id, name){
 	if (confirm("Ter cerceza que quer alterar '" + name + "' em " + entity + " ?")){
 		$.ajax({				
 			type : "PUT",
+			headers: {"Authorization": window.sessionStorage.getItem('token')},
 			url : "/" + entity,
 			data : {id : id},
 			success: function () {
@@ -143,6 +146,7 @@ function confirmCreateLivro(frm){
 	//console.log(LivroArray);
 	$.ajax({				
 		type : "POST",
+		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/livro",
 		dataType: 'json', // tipo de dados da requisição.
 		contentType: "application/json; charset=utf-8",
@@ -160,28 +164,7 @@ function confirmCreateLivro(frm){
 	
 	
 // =================================================================================================================	
-	// console.log(getSelect);
-	
-	/*
-	
-	return false;
-/*
-$.ajax({				
-	type : "POST",
-	url : "/" + frm.entity.value,
-	data : {nome : frm.nome.value},
-	success: function () {
-		alert( frm.nome.value + " adicionado com sucesso!");
-		$(document).ready(function(){
-			pagination(0 , frm.entity.value);
-		});
-    },
-    error: function (erro) {
-    	console.log(erro.responseJSON.message);
-    	alert(erro + "Falha ao tentar adicionar "+ frm.nome.value + "!");
-    }
-});
-*/
+
 };
 		
 		
