@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import fatec.domain.Usuario;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.UsuarioRepository;
+import fatec.layer11.services.exceptions.AuthorizationException;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.UsuarioDTO;
+import fatec.security.UserSpringSecurity;
 
 @Service
 public class UsuarioService extends AbstractJdbcDAO{
@@ -35,6 +37,11 @@ public class UsuarioService extends AbstractJdbcDAO{
 	
 	// READ ------------------------------------------------
 	public Usuario find(Integer id) {
+		UserSpringSecurity userSpringSecurity = UserService.authenticated();
+		if(userSpringSecurity == null || !userSpringSecurity.hasRole(Perfil.ADMIN) && !id.equals(userSpringSecurity.getId())) {
+			throw new AuthorizationException("Acesso não permitido");			
+		}
+		
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Usuario.class.getName()));		
 	}

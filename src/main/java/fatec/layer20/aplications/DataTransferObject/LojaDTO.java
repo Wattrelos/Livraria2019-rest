@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import fatec.domain.Cliente;
-import fatec.domain.LojaMatriz;
+import fatec.domain.Loja;
 
 
 public class LojaDTO implements Serializable {
@@ -32,7 +32,7 @@ public class LojaDTO implements Serializable {
 	}
 
 
-	public LojaDTO(LojaMatriz obj) {		
+	public LojaDTO(Loja obj) {		
 		id = obj.getId();
 		nomeFantasia = obj.getNomeFantasia();
 		dataCadastro = obj.getDataCadastro();

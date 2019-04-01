@@ -23,7 +23,7 @@ import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.LivroDTO;
 
 @Service
-public class LivroService {
+public class LivroService extends AbstractJdbcDAO{
 	
 	@Autowired
 	private LivroRepository repo;

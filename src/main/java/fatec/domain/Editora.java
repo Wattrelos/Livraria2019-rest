@@ -13,12 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,13 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "editora")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Editora.findAll", query = "SELECT e FROM Editora e")
-    , @NamedQuery(name = "Editora.findById", query = "SELECT e FROM Editora e WHERE e.id = :id")
-    , @NamedQuery(name = "Editora.findByName", query = "SELECT e FROM Editora e WHERE e.editora = :editora") // Aviso: A coluna se chama "nome" que foi traduzida para name na QUERY.
-    , @NamedQuery(name = "Editora.findByDataCadastro", query = "SELECT e FROM Editora e WHERE e.dataCadastro = :dataCadastro")})
-public class Editora implements Serializable {
+public class Editora extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

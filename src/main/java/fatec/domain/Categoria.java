@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "categoria")
 @XmlRootElement
-public class Categoria implements Serializable {
+public class Categoria extends EntidadeDominio implements Serializable {
 
    private static final long serialVersionUID = 1L;
    @Id

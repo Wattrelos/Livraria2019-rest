@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import fatec.domain.Autor;
 
+
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Integer>{
 

@@ -1,41 +1,75 @@
 package fatec.domain.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import fatec.security.JWTAuthenticationFilter;
+import fatec.security.JWTAuthorizationFilter;
+import fatec.security.JWTUtil;
+
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	@Autowired
+	private JWTUtil jwtUtil;
 	
 	// Quais os endpoints que não necessitam de autenticação:
 	private static final String[] PUBLIC_MATCHERS = {
-			"/editora",
-			"/autor"
+		"/teste",
 	};
 	
-	// Quais os endpoints que não necessitam de autenticação:
-		private static final String[] PUBLIC_MATCHERS_GET = {
-				"/livro",
-				"/livro/*",
-				"/autor"
+	// Quais os endpoints que não necessitam de autenticação para getters:
+	private static final String[] PUBLIC_MATCHERS_GET = {
+		"/index",				
+		"/livro/**",
+		"/autor/**",
+		"/editora/**",
+		"/categoria/**",
+		"/subcategoria/**",
+		"/js/*",
+		"/css/*",
+		"/img/*",
+		"/view/carrinho/js/carrinho.js"
+		};
+		
+	// Endpoint para cadastrar usuário, ou seja, que não tem login ainda:
+	private static final String[] PUBLIC_MATCHERS_POST = {
+		"/usuario",
 	};
 		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
+		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 		.antMatchers(PUBLIC_MATCHERS).permitAll() // Todos os caminhos que estiverem neste vetor serão permitidos...
 		.anyRequest().authenticated(); // O restante, necessida de autenticação.
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 	
 	@Bean
@@ -45,6 +79,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 		
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }

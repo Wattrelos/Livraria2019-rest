@@ -1,7 +1,9 @@
  package fatec.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,11 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Pedido implements Serializable {
+public class Pedido extends EntidadeDominio implements Serializable {
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
@@ -33,6 +37,13 @@ public class Pedido implements Serializable {
     @JsonIgnore
     private Cliente cliente;
     
+    @Column(name = "data_cadastro",
+    		updatable=false,
+    		insertable = false,
+    		columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCadastro; 
+    
     @OneToMany(mappedBy="pedido", cascade = CascadeType.REFRESH)
     List<ItemPedido> itemPedido = new ArrayList<>();
     
@@ -40,14 +51,23 @@ public class Pedido implements Serializable {
  		super();
  	}
     
-    public Pedido(Integer id, String observacao, List<ItemPedido> itemPedido) {		
+    public Pedido(Integer id, String observacao, List<ItemPedido> itemPedido, Date dataCadastro) {		
 		this.id = id;
 		this.observacao = observacao;
 		this.itemPedido = itemPedido;
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public void setCliente(Cliente cliente) {
@@ -77,7 +97,17 @@ public class Pedido implements Serializable {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
+	
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+		
+		for (ItemPedido item : itemPedido) {			
+			total = total.add(item.getSubtotal());			
+		}
+		return total;
+	}
+	
+	// Hashcodes and iquals ----------------------------------------------------------------
 	@Override
 	public int hashCode() {
 		final int prime = 31;

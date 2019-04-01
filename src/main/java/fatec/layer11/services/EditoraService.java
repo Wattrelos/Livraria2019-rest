@@ -17,7 +17,7 @@ import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.EditoraDTO;
 
 @Service
-public class EditoraService {
+public class EditoraService extends AbstractJdbcDAO {
 	
 	@Autowired
 	private EditoraRepository repo;

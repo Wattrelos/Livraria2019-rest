@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "CartaoCredito.findByNome", query = "SELECT c FROM CartaoCredito c WHERE c.nome = :nome"),
     @NamedQuery(name = "CartaoCredito.findByDataValidade", query = "SELECT c FROM CartaoCredito c WHERE c.dataValidade = :dataValidade"),
     @NamedQuery(name = "CartaoCredito.findByDataCadastro", query = "SELECT c FROM CartaoCredito c WHERE c.dataCadastro = :dataCadastro")})
-public class CartaoCredito implements Serializable {
+public class CartaoCredito extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     

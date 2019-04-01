@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LivrariaController {
-	@RequestMapping(value="/")
+	@RequestMapping(value="/index")
 	public String home() {
 		return "/index.html";
 	}

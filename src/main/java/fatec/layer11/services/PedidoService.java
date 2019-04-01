@@ -68,7 +68,7 @@ public class PedidoService {
 	
 	// ------------------------------------------------------
 	public Pedido fromDTO(PedidoDTO objDto) {
-		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getItemPedido());
+		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getItemPedido(), objDto.getDataCadastro());
 	}
 	
 

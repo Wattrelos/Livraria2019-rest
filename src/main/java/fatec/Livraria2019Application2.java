@@ -8,5 +8,6 @@ public class Livraria2019Application2 {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Livraria2019Application2.class, args);
+		
 	}
 }

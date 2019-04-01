@@ -53,7 +53,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     , @NamedQuery(name = "Livro.findByPaginas", query = "SELECT l FROM Livro l WHERE l.paginas = :paginas")
     , @NamedQuery(name = "Livro.findByPeso", query = "SELECT l FROM Livro l WHERE l.peso = :peso")
     , @NamedQuery(name = "Livro.findByDataCadastro", query = "SELECT l FROM Livro l WHERE l.dataCadastro = :dataCadastro")})
-public class Livro implements Serializable {
+public class Livro extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -77,11 +77,13 @@ public class Livro implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
-    @Column(name = "dimensao")
+    @Column(name = "dimensao")    
     private String dimensao;
+    
     // @Max(value=2000)  @Min(value=0)//
     @Column(name = "custo")
     private BigDecimal custo;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "quantidade")

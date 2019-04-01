@@ -5,12 +5,9 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
 import org.hibernate.validator.constraints.Length;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import fatec.domain.Cliente;
 
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,17 +27,11 @@ public class ClienteNewDTO implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	
+	private Integer tipo;
 
 	public ClienteNewDTO() {
 	} 
-	
-	public ClienteNewDTO(Cliente obj) {
-		nome = obj.getNome();
-		cpf = obj.getCpf();
-		email = obj.getEmail();
-		dataNascimento = obj.getDataNascimento();		
-		senha = obj.getSenha();
-	}
 
 	public long getCpf() {
 		return cpf;
@@ -80,5 +71,13 @@ public class ClienteNewDTO implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Integer getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 }

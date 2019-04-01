@@ -17,12 +17,12 @@ import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.AutorDTO;
 
 @Service
-public class AutorService {
+public class AutorService extends AbstractJdbcDAO{
 	
 	@Autowired
 	private AutorRepository repo;
-	
-	
+
+
 	// CREATE ------------------------------------------------
 	public Autor insert(Autor obj) {
 		obj.setId(null);

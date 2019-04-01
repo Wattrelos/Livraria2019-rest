@@ -7,18 +7,28 @@ package fatec.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import fatec.domain.enums.Perfil;
 
 /**
  *
@@ -26,67 +36,52 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
-    @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome"),
-    @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
-    @NamedQuery(name = "Usuario.findByDataNascimento", query = "SELECT u FROM Usuario u WHERE u.dataNascimento = :dataNascimento"),
-    @NamedQuery(name = "Usuario.findByGenero", query = "SELECT u FROM Usuario u WHERE u.genero = :genero"),
-    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
-    @NamedQuery(name = "Usuario.findByDataCadastro", query = "SELECT u FROM Usuario u WHERE u.dataCadastro = :dataCadastro"),
-    @NamedQuery(name = "Usuario.findByFoto", query = "SELECT u FROM Usuario u WHERE u.foto = :foto")})
-public class Usuario implements Serializable {
+public class Usuario extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Integer id;    
+    
     @Basic(optional = false)
-    @Column(name = "nome")
-    private String nome;
-    @Basic(optional = false)
-    @Column(name = "email")
+    @NotNull
+    @Size(min = 8, max = 32)
+    @Column(name = "email", unique=true)
+    
     private String email;
-    @Basic(optional = false)
-    @Column(name = "data_nascimento")
-    @Temporal(TemporalType.DATE)
-    private Date dataNascimento;
-    @Column(name = "genero")
-    private Boolean genero;
-    @Basic(optional = false)
-    @Column(name = "usuario")
-    private String usuario;
-    @Basic(optional = false)
-    @Lob
+    
+    @JsonIgnore
     @Column(name = "senha")
-    private byte[] senha;
-    @Column(name = "data_cadastro")
+    private String senha;
+    
+    @Column(name = "data_cadastro",
+    		updatable=false,
+    		insertable = false,
+    		columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCadastro;
-    @Basic(optional = false)
-    @Column(name = "foto")
-    private String foto;
+    private Date dataCadastro; 
+    
+ // Definirá o nivel de privilégios de acesso.    
+    @ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+    
+    // Construtores ----------------------------------------
 
     public Usuario() {
     }
-
-    public Usuario(Integer id) {
-        this.id = id;
-    }
-
-    public Usuario(Integer id, String nome, String email, Date dataNascimento, String usuario, byte[] senha, String foto) {
-        this.id = id;
-        this.nome = nome;
+    
+    public Usuario(Integer id, String email, Date dataCadastro, String senha, Perfil perfis) {
+    	this.id = id;
         this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.foto = foto;
+        this.dataCadastro = dataCadastro;
+        this.senha = senha;        
+        addPerfil(Perfil.CLIENTE);
     }
-
+    
+    // Setters and Getters ----------------------------------------------------------
     public Integer getId() {
         return id;
     }
@@ -94,15 +89,7 @@ public class Usuario implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    
     public String getEmail() {
         return email;
     }
@@ -110,62 +97,35 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public Boolean getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Boolean genero) {
-        this.genero = genero;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public byte[] getSenha() {
-        return senha;
-    }
-
-    public void setSenha(byte[] senha) {
-        this.senha = senha;
-    }
+    
+    public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
     public Date getDataCadastro() {
         return dataCadastro;
-    }
+    }  
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+    public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+	
+	// Hashcodes and iquals -------------------------------------------------------------------------------------------
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

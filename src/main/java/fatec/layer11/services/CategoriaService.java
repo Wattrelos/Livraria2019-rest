@@ -17,7 +17,7 @@ import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.CategoriaDTO;
 
 @Service
-public class CategoriaService {
+public class CategoriaService extends AbstractJdbcDAO {
 	
 	@Autowired
 	private CategoriaRepository repo;

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ public class LivroResorce {
 	private LivroService service;	
 
 	// CREATE ------------------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody LivroDTO objDto) {
 		Livro obj = service.fromDTO(objDto);
@@ -66,6 +68,7 @@ public class LivroResorce {
 	}
 	
 	// UPDATE ------------------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @ModelAttribute("Livro") LivroDTO objDto) {
 		Livro obj = service.fromDTO(objDto);
@@ -74,6 +77,7 @@ public class LivroResorce {
 	}
 	
 	// DELETE ------------------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		System.out.println("\nDeletando livro:" + id);

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Autor.findById", query = "SELECT a FROM Autor a WHERE a.id = :id")
     , @NamedQuery(name = "Autor.findByAutor", query = "SELECT a FROM Autor a WHERE a.autor like :autor")
     , @NamedQuery(name = "Autor.findByDataCadastro", query = "SELECT a FROM Autor a WHERE a.dataCadastro = :dataCadastro")})
-public class Autor implements Serializable {
+public class Autor extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

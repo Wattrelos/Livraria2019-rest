@@ -14,14 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
@@ -30,13 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "subcategoria")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Subcategoria.findAll", query = "SELECT s FROM Subcategoria s")
-    , @NamedQuery(name = "Subcategoria.findById", query = "SELECT s FROM Subcategoria s WHERE s.id = :id")
-    , @NamedQuery(name = "Subcategoria.findBySubcategoria", query = "SELECT s FROM Subcategoria s WHERE s.subcategoria = :subcategoria")
-    , @NamedQuery(name = "Subcategoria.findByDataCadastro", query = "SELECT s FROM Subcategoria s WHERE s.dataCadastro = :dataCadastro")})
-public class Subcategoria implements Serializable {
+
+public class Subcategoria extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

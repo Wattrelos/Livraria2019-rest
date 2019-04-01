@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import fatec.domain.LojaMatriz;
+import fatec.domain.Loja;
 import fatec.layer10.repositories.LojaRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
@@ -24,34 +24,34 @@ public class LojaService {
 	
 	
 	// CREATE ------------------------------------------------
-	public LojaMatriz insert(LojaMatriz obj) {
+	public Loja insert(Loja obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 	
 	// READ ------------------------------------------------
-	public LojaMatriz find(Integer id) {
-		Optional<LojaMatriz> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ LojaMatriz.class.getName()));		
+	public Loja find(Integer id) {
+		Optional<Loja> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Loja.class.getName()));		
 	}
 	
-	public List<LojaMatriz> findAll() {
+	public List<Loja> findAll() {
 		return repo.findAll();
 	}
 
-	public Page<LojaMatriz> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<Loja> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 
 	// UPDATE ------------------------------------------------
-	public LojaMatriz update(LojaMatriz obj) {
-		LojaMatriz newObj = find(obj.getId());
+	public Loja update(Loja obj) {
+		Loja newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 	
-	private void updateData(LojaMatriz newObj, LojaMatriz obj) {		
+	private void updateData(Loja newObj, Loja obj) {		
 		newObj.setNomeFantasia(obj.getNomeFantasia());
 	}
 
@@ -68,8 +68,8 @@ public class LojaService {
 	}
 	
 	// ------------------------------------------------------
-	public LojaMatriz fromDTO(LojaDTO objDto) {
-		return new LojaMatriz(objDto.getId(), objDto.getNomeFantasia(), objDto.getDataCadastro());
+	public Loja fromDTO(LojaDTO objDto) {
+		return new Loja(objDto.getId(), objDto.getNomeFantasia(), objDto.getDataCadastro());
 	}
 
 }

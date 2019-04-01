@@ -1,6 +1,8 @@
 package fatec.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class ItemPedido implements Serializable {
+public class ItemPedido extends EntidadeDominio implements Serializable {
 	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
@@ -22,6 +24,10 @@ public class ItemPedido implements Serializable {
     
     @Column(name = "quantidade_itens")
     private Integer quantidadeItens;
+    
+ // @Max(value=2000)  @Min(value=0)//
+    @Column(name = "preco")
+    private BigDecimal preco;
     
     @ManyToOne
     @JoinColumn(name="Pedido_id")
@@ -47,6 +53,14 @@ public class ItemPedido implements Serializable {
 	public void setQuantidadeItens(Integer quantidadeItens) {
 		this.quantidadeItens = quantidadeItens;
 	}
+	
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
 
 	public Pedido getPedido() {
 		return pedido;
@@ -62,6 +76,11 @@ public class ItemPedido implements Serializable {
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
+	}
+	
+	public BigDecimal getSubtotal() {
+		BigDecimal quantidade = new BigDecimal(quantidadeItens);
+		return preco.multiply(quantidade);
 	}
 
 }

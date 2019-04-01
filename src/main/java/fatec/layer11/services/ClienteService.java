@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
@@ -15,10 +16,13 @@ import fatec.layer10.repositories.ClienteRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
 import fatec.layer20.aplications.DataTransferObject.ClienteDTO;
+import fatec.layer20.aplications.DataTransferObject.ClienteNewDTO;
 
 @Service
 public class ClienteService {
 	
+	@Autowired
+	private BCryptPasswordEncoder passEnc;
 	@Autowired
 	private ClienteRepository repo;
 	
@@ -69,7 +73,11 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getCpf(), objDto.getDataNascimento(), objDto.getDataCadastro());
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(), objDto.getDataCadastro());
+		
+	}
+	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
+		return new Cliente(objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), passEnc.encode(objNewDto.getSenha()));
 	}
 	
 

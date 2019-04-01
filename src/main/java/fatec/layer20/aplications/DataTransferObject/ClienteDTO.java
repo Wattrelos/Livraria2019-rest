@@ -1,20 +1,19 @@
 package fatec.layer20.aplications.DataTransferObject;
 
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import fatec.domain.Cliente;
 import fatec.domain.Pedido;
-
-
 
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,8 +23,16 @@ public class ClienteDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
+	
+	// @CPF (message="O número do CPF é inválido!")
 	private long cpf;
+	
+	@Email(message="Email inválido")
+	private String email;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	
 	private Date dataCadastro;
 	
 	//Chave estrangeira
@@ -46,8 +53,8 @@ public class ClienteDTO implements Serializable {
 		id = obj.getId();
 		nome = obj.getNome();
 		cpf = obj.getCpf();
+		email = obj.getEmail();
 		dataNascimento = obj.getDataNascimento();
-		dataCadastro = obj.getDataCadastro();
 		pedido = obj.getPedidos();
 	}
 
@@ -81,8 +88,15 @@ public class ClienteDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}	
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
+	public String getEmail() {
+		return email;
+	}
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
