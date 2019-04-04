@@ -17,9 +17,9 @@ function confirmCreate(frm){
 		success: function () {
 			alert( frm.nome.value + " adicionado com sucesso!");
         },
-        error: function (erro) {
+        error: function (erro, textStatus, xhr) {
         	console.log(erro);        	
-        	alert("Erro: "+ erro.status + " Falha ao tentar adicionar "+ frm.nome.value + "!");
+        	alert("Erro: "+ erro.status + status + "Falha ao tentar adicionar "+ frm.nome.value + "!");
         },
         complete: function () {
         	$(document).ready(function(){
@@ -63,7 +63,6 @@ function confirmUpdate(entity, id, name){
 				});
 	        },
 	        error: function (erro) {
-	        	console.log(erro.responseJSON.message);
 	        	alert("Falha ao tentar alterar!" + name);
 	        }
 		});
@@ -140,7 +139,7 @@ function confirmCreateLivro(frm){
 		  }
 		  LivroArray[`${value}`] = CategoriaArray;
 	});
-	console.log(JSON.stringify(LivroArray));
+	// console.log(JSON.stringify(LivroArray));
 	// console.log(LivroArray);
 // -------------------------Fim do conversor JSON ------------------------
 	//console.log(LivroArray);
@@ -162,9 +161,7 @@ function confirmCreateLivro(frm){
         }
 	});
 	
-	
-// =================================================================================================================	
-
+// =================================================================================================================
 };
 		
 		

@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Pedido extends EntidadeDominio implements Serializable {
@@ -34,7 +34,7 @@ public class Pedido extends EntidadeDominio implements Serializable {
     
     @ManyToOne
     @JoinColumn(name="cliente_id")
-    @JsonIgnore
+    @JsonBackReference
     private Cliente cliente;
     
     @Column(name = "data_cadastro",
@@ -58,9 +58,7 @@ public class Pedido extends EntidadeDominio implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
+	
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -72,6 +70,10 @@ public class Pedido extends EntidadeDominio implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Cliente getClienteNome() {
+		return cliente;
 	}
 
 	public List<ItemPedido> getItemPedido() {

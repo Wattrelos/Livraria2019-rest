@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	    <section class="layout-content" layout:fragment="corpo">
+	
+	        <nav class="navbar navbar-expand-md bg-light">            
+	        </nav>
+	
+	        <div class="container" id="listagem">
+	        <tr th:if="${listaAutor.empty}">
+	            <td colspan="2"> Nenhum autor cadastrado! </td>
+	        </tr>
+	        <div>
+	        	<label>Nome</label><label>Cadastro</label><label></label><label></label>
+	        	<div class="form-each" th:each="autor : ${listaAutor.content}">
+			        <div><span th:text="${autor.nome}"></span></div>
+			        <div><span th:text="${#strings.substring(autor.dataCadastro,0,10)}"></span></div>
+			        <div></div>
+			        <div></div>
+			     </div>
+	       	</div>	        
+	    </section>
+</body>
+</html>		

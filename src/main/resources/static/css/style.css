@@ -1,3 +1,12 @@
+.main-area {
+	margin-top: 80px;
+	display: grid;
+	grid-template-columns: 300px auto;
+	grid-gap: 10px;
+	padding: 10px;	
+}
+// -------------------------------------------------------------------------------
+
 footer{
 	width: 100%;
 }
@@ -13,16 +22,15 @@ label {
 .form-each>div {  
     border-bottom: 1px solid blue;
 }
-.listbook {
-    display: grid;
-    grid-template-columns: auto 200px auto auto auto auto auto auto auto auto auto 200px 120px 120px;
-    margin: 20px;    
-}
-.listbook>div {
+
+.listbook>td {
 	text-align: left;
 	margin: 5px;
-    border-bottom: 1px solid blue;
+    border: 1px solid blue;
 }
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
 
 // Modal----------------------------------------------------------------------------------------------------------
 /* Full-width input fields */

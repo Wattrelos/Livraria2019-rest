@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LivrariaController {
 	@RequestMapping(value="/index")
 	public String home() {
-		return "/index.html";
+		return "/home.html";
+	}
+	
+	@RequestMapping(value="/layout")
+	public String layout() {
+		return "/layout.html";
 	}
 	
 	//-- Página de gestão
@@ -23,7 +28,6 @@ public class LivrariaController {
 			@RequestParam(value="action", defaultValue="") String action			
 			) {
 		String url = "/view/" + entidade + "/" + entidade + action + ".html";
-		System.out.print(url);
 		return url;
 	}
 	
@@ -32,7 +36,6 @@ public class LivrariaController {
 			@RequestParam(value="action", defaultValue="") String action			
 			) {
 		String url = "/view/" + entidade + "/" + entidade + action + ".html";
-		System.out.print(url);
 		return url;
 	}
 }

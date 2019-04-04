@@ -1,11 +1,7 @@
 var listaitens = document.getElementById("galeria");
-var quantidadeCarrinho = document.getElementById("quantidadeCarrinho");
 var galeria = "";
 var url = "http://localhost:8080/livro/";
 
-if(localStorage.getItem("carrinho")){
-	quantidadeCarrinho.innerHTML = (JSON.parse(localStorage.getItem("carrinho"))).length;
-}
 
 $.getJSON(url, function (result){
 	// console.log(result);

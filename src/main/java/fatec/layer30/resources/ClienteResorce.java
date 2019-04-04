@@ -48,13 +48,12 @@ public class ClienteResorce {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	// READ (all)---------------------------------------
 	@RequestMapping(value="/email", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> findByEmail(@RequestParam(value="value") String email) {
 		Cliente obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	
 	
 	// READ (all)---------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -64,6 +63,7 @@ public class ClienteResorce {
 		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
+	
 	// READ (paginação)---------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/page", method=RequestMethod.GET)

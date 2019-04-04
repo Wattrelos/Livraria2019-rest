@@ -55,6 +55,7 @@ public class EditoraResorce {
 		List<EditoraDTO> listDto = list.stream().map(obj -> new EditoraDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
+	
 	// READ (paginação)---------------------------------------
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<EditoraDTO>> findPage(

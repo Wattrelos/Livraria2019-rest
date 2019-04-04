@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	    <section layout:fragment="corpo">
+	        <div class="container" id="listagem">
+	        <label>ID:</label>
+	        <p th:text="${id}" />
+	        <label>Nome do autor:</label>
+	        <p th:text="${nome}" />
+	        <label>Data de cadastro:</label>
+	        <p th:text="${dataCadastro}" />
+	        </div>	        
+	    </section>
+</body>
+</html>		

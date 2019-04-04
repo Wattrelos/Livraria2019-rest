@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head><meta charset="UTF-8"/></head>
+	<body>
+		    <section layout:fragment="corpo">
+		        <div th:if="${listaLivro.empty}">
+		            <div colspan="2"> Nenhum livro cadastrado! </div>
+		        </div>
+		        <table>
+		        	<tr>
+		        		<th>ISBN</th>
+		        		<th>Título</th>
+		        		<th>Ano</th>
+		        		<th>Edição</th>
+		        		<th>Dimensão</th>
+		        		<th>Custo</th>
+		        		<th>Quantidade</th>
+		        		<th>Páginas</th>
+		        		<th>Peso</th>
+		        		<th>Data de Cadastro</th>
+		        		<th>Sinopse</th>
+		        		<th>Editora</th>
+		        		<th>Autores</th>
+		        		<th>Categorias</th>
+		        		<th>Subcategorias</th>
+		        	</tr>
+		        	<tr class="listbook" th:each="livro : ${listaLivro.content}">
+		        		<td th:text="${livro.isbn}"></td>
+				        <td th:text="${livro.titulo}"></td>
+				        <td th:text="${livro.ano}"></td>
+				        <td th:text="${livro.edicao}"></td>
+				        <td th:text="${livro.dimensao}"></td>
+				        <td th:text="${livro.custo}"></td>
+				        <td th:text="${livro.quantidade}"></td>
+				        <td th:text="${livro.paginas}"></td>
+				        <td th:text="${livro.peso}"></td>
+				        <td th:text="${livro.dataCadastro}"></td>
+				        <td th:text="${#strings.abbreviate(livro.sinopse,40)}"></td>
+				        
+				        <td th:text="${livro.editora.editora}"></td>
+				        <td>
+			        		<div th:each="autor : ${livro.autores}">
+			        			<p th:text="${autor.autor}"/>
+			        		</div>
+			        	</td>
+				        <td>
+				        	<div th:each="categoria : ${livro.categorias}">
+				        		<p th:text="${categoria.categoria}"/>
+				        	</div>
+				        </td>
+				        <td>
+				        	<div th:each="subcategoria : ${livro.subcategorias}">
+				        		<span th:text="${subcategoria.subcategoria}"> </span>
+				        	</div>
+				        </td>
+				     </tr>
+		       	</table>	        
+		    </section>
+	</body>
+</html>		

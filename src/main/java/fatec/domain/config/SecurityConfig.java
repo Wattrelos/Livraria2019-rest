@@ -33,27 +33,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	// Quais os endpoints que não necessitam de autenticação:
 	private static final String[] PUBLIC_MATCHERS = {
 		"/teste",
-		"/gestao/**"
+		"/gestao",
+		"/**",
+		"/fragments/**",
+		"/funcionarios/**"
 	};
 	
 	// Quais os endpoints que não necessitam de autenticação para getters:
 	private static final String[] PUBLIC_MATCHERS_GET = {
-		"/index",				
+		"/home",
 		"/livro/**",
 		"/autor/**",
 		"/editora/**",
 		"/categoria/**",
 		"/subcategoria/**",
-		"/js/*",
-		"/css/*",
-		"/img/*",
-		"/view/carrinho/**",
+		"/js/**",
+		"/css/**",
+		"/img/**",
 		"/livraria/carrinho"
 		};
 		
 	// Endpoint para cadastrar usuário, ou seja, que não tem login ainda:
 	private static final String[] PUBLIC_MATCHERS_POST = {
 		"/cliente",
+		"/login"
 	};
 		
 	@Override

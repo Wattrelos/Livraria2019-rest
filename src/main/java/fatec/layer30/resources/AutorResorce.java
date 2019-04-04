@@ -49,13 +49,15 @@ public class AutorResorce {
 	}
 	
 	// READ (all)---------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AutorDTO>> findAll() {
 		List<Autor> list = service.findAll();
 		List<AutorDTO> listDto = list.stream().map(obj -> new AutorDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
-	// READ (paginação)---------------------------------------
+	
+	// READ (paginação)---------------------------------------	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<AutorDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
@@ -63,7 +65,7 @@ public class AutorResorce {
 			@RequestParam(value="orderBy", defaultValue="autor") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Autor> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<AutorDTO> listDto = list.map(obj -> new AutorDTO(obj));  
+		Page<AutorDTO> listDto = list.map(obj -> new AutorDTO(obj));		
 		return ResponseEntity.ok().body(listDto);
 	}
 	

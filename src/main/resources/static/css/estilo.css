@@ -5,11 +5,7 @@
     grid-template-columns: 200px auto;  
     
 }
-.cabecalho {
-    grid-column: 1 / span 2;
-    background: blue;
-    height: 5vw;
-}
+
 .atalhos {
     background: rgb(233, 233, 233);    
     display: table-row-group;

@@ -20,13 +20,14 @@ public class ClienteNewDTO implements Serializable {
 	private long cpf;
 	
 	@Email(message="Email inválido")
-	private String email;
+	private String email;	
 	
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String senha;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	private Date dataCadastro;
 	private Integer perfil;
 
 	public ClienteNewDTO() {
@@ -78,7 +79,16 @@ public class ClienteNewDTO implements Serializable {
 
 	public void setPerfil(Integer perfil) {
 		this.perfil = perfil;
-	}	
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
 	
 	
 }

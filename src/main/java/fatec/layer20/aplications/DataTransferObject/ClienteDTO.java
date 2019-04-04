@@ -28,9 +28,7 @@ public class ClienteDTO implements Serializable {
 	private long cpf;
 	
 	@Email(message="Email inválido")
-	private String email;
-	
-	private String senha;
+	private String email;	
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
@@ -56,8 +54,7 @@ public class ClienteDTO implements Serializable {
 		nome = obj.getNome();
 		cpf = obj.getCpf();
 		email = obj.getEmail();
-		senha = obj.getSenha();
-		dataCadastro = getDataCadastro();
+		dataCadastro = obj.getDataCadastro();
 		dataNascimento = obj.getDataNascimento();
 		pedido = obj.getPedidos();
 	}
@@ -101,14 +98,6 @@ public class ClienteDTO implements Serializable {
 	public String getEmail() {
 		return email;
 	}	
-	
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;

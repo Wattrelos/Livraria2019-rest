@@ -41,6 +41,7 @@ public class Cliente extends Usuario implements Serializable {
     @JsonBackReference
 	private Loja loja;
 
+    @JsonBackReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
     List<Pedido> pedidos = new ArrayList<>();
 	
@@ -94,5 +95,5 @@ public class Cliente extends Usuario implements Serializable {
 
 	public void setLoja(Loja loja) {
 		this.loja = loja;
-	}	
+	}
 }
