@@ -65,6 +65,28 @@ function exluirItem(id){ // Excluir um item do carrinho
 	// Atualiza a página do carrinho de compras
 	atualizaCarrinho();
 }
+function confirmPedido(){
+	// Verificar se o cliente está logado;
+    $.ajax({				
+		type : "POST",
+		headers: {"Authorization": window.sessionStorage.getItem('token')},
+		url : "/pedido" + frm.entity.value,
+		// dataType: 'json', // tipo de dados da requisição.
+		contentType: "application/json; charset=utf-8",
+		data : JSON.stringify(EntidadeArray),		
+		success: function () {
+			mensagem.innerHTML = frm.nome.value + " adicionado com sucesso!";
+        },
+        error: function (erro, textStatus, xhr) {
+        	console.log(erro);        	
+        	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar "+ frm.nome.value + "!");
+        },
+        complete: function () {
+        	window.location.reload();
+        }
+	});
+	
+}
 
 
    

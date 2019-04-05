@@ -9,7 +9,7 @@
 	        <label>Nome do autor:</label>
 	        <p th:text="${nome}" />
 	        <label>Data de cadastro:</label>
-	        <p th:text="${dataCadastro}" />
+	        <p th:text="${#strings.substring(dataCadastro,0,10)}" />
 	        </div>	        
 	    </section>
 </body>

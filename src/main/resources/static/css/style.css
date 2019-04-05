@@ -14,6 +14,19 @@ label {
     background: rgb(209, 209, 209);
 }
 
+.pedido {
+    border: 1px solid blue;   
+}
+.pedido td {
+    border: 1px solid blue;     
+}
+
+.paginacao{
+	display: grid;
+    grid-template-columns: 100px 100px 100px;
+    text-align: center;
+}
+
 .form-each {
     display: grid;
     grid-template-columns: auto 200px 120px 120px;
@@ -29,8 +42,15 @@ label {
     border: 1px solid blue;
 }
 
-tr:nth-child(even) {background: #CCC}
+tr:nth-child(even) {	background: #CCC}
 tr:nth-child(odd) {background: #FFF}
+td {
+	padding: 0 5px;
+}
+
+.descricao {
+	border: 10px solid blue;
+}
 
 // Modal----------------------------------------------------------------------------------------------------------
 /* Full-width input fields */

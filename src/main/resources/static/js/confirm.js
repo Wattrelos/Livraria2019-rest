@@ -1,6 +1,7 @@
 function confirmCreate(frm){
 	
 	let campos =  frm.querySelectorAll("input");
+	
 	var EntidadeArray = new Object();
 	campos.forEach((field, index)=>{
 		EntidadeArray[`${field.name}`] = field.value;
@@ -11,40 +12,39 @@ function confirmCreate(frm){
 		type : "POST",
 		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/" + frm.entity.value,
-		dataType: 'json', // tipo de dados da requisição.
+		// dataType: 'json', // tipo de dados da requisição.
 		contentType: "application/json; charset=utf-8",
 		data : JSON.stringify(EntidadeArray),		
 		success: function () {
-			alert( frm.nome.value + " adicionado com sucesso!");
+			mensagem.innerHTML = frm.nome.value + " adicionado com sucesso!";
         },
         error: function (erro, textStatus, xhr) {
         	console.log(erro);        	
-        	alert("Erro: "+ erro.status + status + "Falha ao tentar adicionar "+ frm.nome.value + "!");
+        	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar "+ frm.nome.value + "!");
         },
         complete: function () {
-        	$(document).ready(function(){
-				pagination(0 , frm.entity.value);
-			});
+        	window.location.reload();
         }
 	});
     
 };
 // Delete =====================================================================================
 function confirmDelete(entity, id, name){
+	console.log("entity: " + entity + " id: " + id + " nome: " + name);
+	var excluidoComSucesso = document.getElementById("excluidoComSucesso");
 	if (confirm("Ter cerceza que quer exluir '" + name + "' em " + entity + " ?")){
+		
 		$.ajax({				
 			type : "DELETE",
 			headers: {"Authorization": window.sessionStorage.getItem('token')},
 			url : "/" + entity,
 			data : {id : id},
-			success: function () {
-				alert(name + " excluído com sucesso!");
-				$(document).ready(function(){
-					pagination(0 , entity);
-				});
+			success: function () {				
+				excluidoComSucesso.play();
+				excluidoComSucesso.onended = function(){window.location.reload()};
 	        },
-	        error: function (erro) {
-	        	alert("Falha ao tentar excluir " + name);
+	        error: function (erro, textStatus, xhr) {
+	        	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar excluir " + name);
 	        }
 		});
 	}

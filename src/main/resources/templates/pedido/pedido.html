@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	    <section layout:fragment="corpo">
+	        <div class="container" id="listagem">
+	        <table class="pedido">
+		        	<tr>
+				        <th>ID:</th><td  colspan="3" th:text="${id}"></td>
+			        </tr>
+			        <tr>
+				        <th>Nome do cliente:</th>
+				        <td th:text="${nome}"  colspan="3"></td>
+			        </tr>
+			        <tr>
+				        <th>Observação</th>
+				        <td th:text="${observacao}"  colspan="3"></td>
+			        </tr>
+			        <tr>
+				        <th>Data de cadastro</th> 
+				        <td th:text="${#strings.substring(dataCadastro,0,10)}"  colspan="3"></td>
+			        </tr>
+		        <tr>
+		        <th>Detalhe do pedido:</th>
+	        	</tr>
+	        	<tr>	        	
+	        		<th>Título</th><th>Preço</th><th>Quantidade</th><th>Subtotal</th>
+	        	</tr>
+	        	
+        		<th:block  th:each="ped : ${itemPedido}">
+        			<tr >
+	        			<td th:text='${ped.livro.titulo}'></td>
+	        			<td th:text='${#strings.prepend(ped.preco,"R$")}' th:align="right"></td>
+	        			<td th:text='${ped.quantidadeItens}' th:align="center"></td>
+	        			<td th:text='${#strings.prepend(ped.subtotal,"R$")}' th:align="right"></td>
+	        		<tr>
+        		</th:block>
+        		<tr>
+        			<th></th>
+        			<th></th>
+        			<th><label>Total</label></th>
+	        		<th>
+			        	<p th:text='${#strings.prepend(total,"R$")}' th:align="right"/>
+			        </th>
+		        </tr>
+	        </table>
+	    </section>
+</body>
+</html>		
