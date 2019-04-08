@@ -3,7 +3,7 @@
 	<head><meta charset="UTF-8"/></head>
 	<body>
 		    <section layout:fragment="corpo">
-		        <div th:if="${listaLivro.empty}">
+		        <div th:if="${list.empty}">
 		            <div colspan="2"> Nenhum livro cadastrado! </div>
 		        </div>
 		        <table>
@@ -24,7 +24,7 @@
 		        		<th>Categorias</th>
 		        		<th>Subcategorias</th>
 		        	</tr>
-		        	<tr class="listbook" th:each="livro : ${listaLivro.content}">
+		        	<tr class="listbook" th:each="livro : ${list.content}">
 		        		<td th:text="${livro.isbn}"></td>
 				        <td th:text="${livro.titulo}"></td>
 				        <td th:text="${livro.ano}"></td>

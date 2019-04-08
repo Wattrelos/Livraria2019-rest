@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente extends Usuario implements Serializable {
@@ -35,13 +36,16 @@ public class Cliente extends Usuario implements Serializable {
     @Column(name = "data_nascimento")
     @Temporal(TemporalType.DATE)
     private Date dataNascimento; 
-    
+    // Coleções.
     @ManyToOne
 	@JoinColumn(name="loja_id")
     @JsonBackReference
 	private Loja loja;
-
-    @JsonBackReference
+    
+    @OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
+    
+    @JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
     List<Pedido> pedidos = new ArrayList<>();
 	
@@ -49,8 +53,7 @@ public class Cliente extends Usuario implements Serializable {
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento,
-			Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, Date dataCadastro, String senha, Integer perfil) {
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
@@ -96,4 +99,14 @@ public class Cliente extends Usuario implements Serializable {
 	public void setLoja(Loja loja) {
 		this.loja = loja;
 	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+	
+	
 }

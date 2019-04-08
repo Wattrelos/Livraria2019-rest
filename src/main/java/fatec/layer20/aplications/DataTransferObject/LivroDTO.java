@@ -55,7 +55,6 @@ public class LivroDTO implements Serializable {
 		ano = obj.getAno();
 		dimensao = obj.getDimensao();
 		custo = obj.getCusto();
-		quantidade = obj.getQuantidade();
 		ativo = obj.getAtivo();
 		imagem = obj.getImagem();
 		edicao = obj.getEdicao();

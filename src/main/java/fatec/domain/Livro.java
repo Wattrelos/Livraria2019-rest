@@ -23,12 +23,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -66,12 +69,8 @@ public class Livro extends EntidadeDominio implements Serializable {
     
     // @Max(value=2000)  @Min(value=0)//
     @Column(name = "custo")
-    private BigDecimal custo;
+    private BigDecimal custo;    
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "quantidade")
-    private int quantidade;
     @Column(name = "ativo")
     private boolean ativo;
     @Size(max = 100)
@@ -132,7 +131,11 @@ public class Livro extends EntidadeDominio implements Serializable {
     )
     @JsonManagedReference
     private List<Autor> autores = new ArrayList<>();
-
+    
+    @JsonBackReference
+    @OneToMany
+    private List<PedidoHasLivro> pedidoHasLivro;
+    
 	// Construtores -----------------------------------------------------------
     public Livro() {
     }
@@ -148,7 +151,6 @@ public class Livro extends EntidadeDominio implements Serializable {
         this.ano = ano;
         this.dimensao = dimensao;
         this.custo = custo;
-        this.quantidade = quantidade;
         this.ativo = ativo;
         this.imagem = imagem;
         this.edicao = edicao;
@@ -158,9 +160,7 @@ public class Livro extends EntidadeDominio implements Serializable {
         this.dataCadastro = dataCadastro;
     }
     
-    
  // Setters e Getters -----------------------------------------------------------
-
 	public Integer getId() {
 		return id;
 	}
@@ -207,14 +207,6 @@ public class Livro extends EntidadeDominio implements Serializable {
 
 	public void setCusto(BigDecimal custo) {
 		this.custo = custo;
-	}
-
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public boolean getAtivo() {
@@ -305,6 +297,14 @@ public class Livro extends EntidadeDominio implements Serializable {
 		this.autores = autores;
 	}
 	
+	public List<PedidoHasLivro> getPedidoHasLivroList() {
+        return pedidoHasLivro;
+    }
+
+    public void setPedidoHasLivroList(List<PedidoHasLivro> pedidoHasLivroList) {
+        this.pedidoHasLivro = pedidoHasLivroList;
+    }
+	
 	// Hash codes -----------------------------------------------------------
     @Override
     public int hashCode() {
@@ -339,7 +339,7 @@ public class Livro extends EntidadeDominio implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + quantidade + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
+        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", ano=" + ano + ", dimensao=" + dimensao + ", custo=" + custo + ", quantidade=" + ", ativo=" + ativo + ", imagem=" + imagem + ", edicao=" + edicao + ", paginas=" + paginas + ", sinopse=" + sinopse + ", peso=" + peso + ", dataCadastro=" + dataCadastro ;
     }
 
     

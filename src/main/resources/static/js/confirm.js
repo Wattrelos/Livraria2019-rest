@@ -19,7 +19,6 @@ function confirmCreate(frm){
 			mensagem.innerHTML = frm.nome.value + " adicionado com sucesso!";
         },
         error: function (erro, textStatus, xhr) {
-        	console.log(erro);        	
         	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar "+ frm.nome.value + "!");
         },
         complete: function () {
@@ -76,25 +75,25 @@ function confirmCreateLivro(frm){
 	// console.log(document.querySelector("textarea").value);
 	// document.querySelector("textarea").value = "Your text";
 	// console.log(textarea);
-	var LivroArray = new Object();
+	var livroArray = new Object();
 	campos.forEach((field, index)=>{
 		
 		switch(field.getAttribute("type")) {
 		  case "text": 
-			  	LivroArray[`${field.name}`] = field.value;
+			  	livroArray[`${field.name}`] = field.value;
 			  break;
 		  case "number":			 
-			    LivroArray[`${field.name}`] = field.value;
+			    livroArray[`${field.name}`] = field.value;
 			  break;
 		  case "file":			 
-			    LivroArray[`${field.name}`] = field.value.replace(/^.*\\/, "");
+			    livroArray[`${field.name}`] = field.value.replace(/^.*\\/, "");
 			  break;
 		  default:
 		}
 		
 	});
 	// Sinopse----------------------------------------------------
-	LivroArray["sinopse"] = frm.querySelector("textarea").value;
+	livroArray["sinopse"] = frm.querySelector("textarea").value;
 	
 	//Editora ----------------------------------------------
 	var pluginArrayArg = new Array();
@@ -108,8 +107,8 @@ function confirmCreateLivro(frm){
 	
 	pluginArrayArg.push(jsonEditora);
 	
-	LivroArray["editora"] = jsonEditora;
-	// console.log(JSON.stringify(LivroArrayArg));
+	livroArray["editora"] = jsonEditora;
+	// console.log(JSON.stringify(livroArrayArg));
 	
 	
 	///Pegar os valores so multi selec autor, categoria, subcategoria....
@@ -137,19 +136,18 @@ function confirmCreateLivro(frm){
 			    }
 			  }
 		  }
-		  LivroArray[`${value}`] = CategoriaArray;
+		  livroArray[`${value}`] = CategoriaArray;
 	});
-	// console.log(JSON.stringify(LivroArray));
-	// console.log(LivroArray);
+	// console.log(JSON.stringify(livroArray));
+	// console.log(livroArray);
 // -------------------------Fim do conversor JSON ------------------------
-	//console.log(LivroArray);
+	//console.log(livroArray);
 	$.ajax({				
 		type : "POST",
 		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/livro",
-		dataType: 'json', // tipo de dados da requisição.
 		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(LivroArray),
+		data : JSON.stringify(livroArray),
 		success: function () {
 			alert(" Livro adicionado com sucesso!");
 			$(document).ready(function(){

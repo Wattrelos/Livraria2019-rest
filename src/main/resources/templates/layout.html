@@ -24,14 +24,15 @@
 	<header th:replace="fragments/header :: cabecalho">
 		<nav>header</nav>
 	</header>
-	<div class="main-area">		
-			<nav th:replace="fragments/sidebar :: nav-sidebar">
-				<span>menu</span>
-			</nav>		
+	<div class="main-area">
+		<aside layout:fragment="sidebar">		
+			<nav>			
+			</nav>
+			</aside>		
 		<article>			
-				<section layout:fragment="corpo">
-					<div>conteudo principal das páginas</div>
-				</section>		
+			<section layout:fragment="corpo">
+				<div>conteudo principal das páginas</div>
+			</section>		
 		</article>
 	</div>
 	<footer th:replace="fragments/footer :: rodape">

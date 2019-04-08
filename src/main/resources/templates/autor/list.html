@@ -4,36 +4,30 @@
 <body>
 	    <section class="layout-content" layout:fragment="corpo">
 	
-	        <nav class="navbar navbar-expand-md bg-light">            
-	        </nav>
-	
 	        <div class="container" id="listagem"></div>
-	        <div th:if="${listaAutor.empty}">
-	            <div colspan="2"> Nenhum autor cadastrado! </div>
-	        </div>
+
 	        
-	        <div th:if="${listaAutor.pageable.paged == true}" class="paginacao">
-	        	<div th:text='${#strings.prepend(listaAutor.pageable.pageNumber + 1,"Página " )}'></div>
-	            <div th:if="${!listaAutor.first == true}">
-		        	<a class="nav-link" th:href="@{/autores/page(page=${(listaAutor.pageable.pageNumber - 1)})}">◀◀◀<span class="sr-only">(current)</span></a>		            
+	        <div th:if="${list.pageable.paged == true}" class="paginacao">
+	        	<div th:text='${#strings.prepend(list.pageable.pageNumber + 1,"Página " )}'></div>
+	            <div th:if="${!list.first == true}">
+		        	<a class="nav-link" th:href="@{/livraria/autor/page(page=${(list.pageable.pageNumber - 1)})}">◀◀◀<span class="sr-only">(current)</span></a>		            
 		        </div>
-		        
-		        <div th:if="${!listaAutor.last == true}">
-		        	<a class="nav-link" th:href="@{/autores/page(page=${(listaAutor.pageable.pageNumber + 1)})}">▶▶▶<span class="sr-only">(current)</span></a>	            
+		        <div th:if="${!list.last == true}">
+		        	<a class="nav-link" th:href="@{/livraria/autor/page(page=${(list.pageable.pageNumber + 1)})}">▶▶▶<span class="sr-only">(current)</span></a>	            
 		        </div>
-	        </div>	        
-	        <div>
-	        	<label>Nome</label><label>Cadastro em</label><label></label><label></label>
-	        	<div class="form-each" th:each="autor : ${listaAutor.content}">
-			        <div><span th:text="${autor.nome}"></span></div>
-			        <div><span th:text="${#strings.substring(autor.dataCadastro,0,10)}"></span></div>
-			        <div><button type="submit" onclick="confirmUpdate('${taglabe3}','${field.id}','${field.observacao}')">Editar</button></div>
-			        			<!-- th:onclick="'javascript:upload       (' + ${gallery} + ')'" -->
-					<div><button th:onclick="'javascript:confirmDelete(\'autor\',' + ${autor.id} + ')'">Excluir</button></div>
-						 
-					<!-- <button th:onclick="${'onClick(' + person.id + ');'}">Delete</button>-->
-			     </div>
-	       	</div>
+	        </div>	
+	        
+	       	        
+        	<label>Nome</label><label>Cadastro em</label><label></label><label></label>
+        	<div class="form-each" th:each="autor : ${list.content}">
+		        <div><span th:text="${autor.nome}"></span></div>
+		        <div><span th:text="${#strings.substring(autor.dataCadastro,0,10)}"></span></div>
+		        <div><button type="submit" onclick="confirmUpdate('${taglabe3}','${field.id}','${field.observacao}')">Editar</button></div>
+		        			<!-- th:onclick="'javascript:upload       (' + ${gallery} + ')'" -->
+				<div><button th:onclick="'javascript:confirmDelete(\'autor\',' + ${autor.id} + ')'">Excluir</button></div>
+				<!-- <button th:onclick="${'onClick(' + person.id + ');'}">Delete</button>-->
+		     </div>
+		     
 	       	<form method="post" enctype="application/json" action="/autor" onsubmit="confirmCreate(this); return false;">
 				<input type="text" id="nome" name="nome" class="form-data" placeholder="Nome do autor...">
 				<button type="submit" name="entity" value="autor">Cadastrar autor</button>
@@ -41,7 +35,8 @@
 			<!-- Avisos sonoros -->
 	        <audio id="excluidoComSucesso">
 			  <source src="/audio/ExcluidoComSucesso.mp3" type="audio/mpeg">		  
-			</audio>
+			</audio>			
+	       
 			<!--JavaScript -->
 			<script src="/js/confirm.js"></script>
 	    </section>

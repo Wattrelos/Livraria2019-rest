@@ -1,53 +1,44 @@
 package fatec.layer20.aplications.DataTransferObject;
 
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+
+import fatec.domain.PedidoHasLivro;
 import fatec.domain.Pedido;
-import fatec.domain.ItemPedido;
-
-
 
 public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+	@Length(min=0, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String observacao;
 	private Date dataCadastro;
 	
-	//Coleções---------------	
-	private List<ItemPedido> itemPedido = new ArrayList<>();
-
-	public List<ItemPedido> getItemPedido() {
-		return itemPedido;
+	//Coleções---------------
+	private List<PedidoHasLivro> pedidoHasLivro = new ArrayList<>();
+	
+	public PedidoDTO() {
+		
+	}
+	
+	public PedidoDTO(Pedido	obj) {
+		id = obj.getId();
+		observacao = obj.getObservacao();
+		pedidoHasLivro = obj.getPedidoHasLivro();
+		dataCadastro = obj.getDataCadastro();
 	}
 
 	// Getters and Setters
-	public void setItemPedido(List<ItemPedido> itemPedido) {
-		this.itemPedido = itemPedido;
+	public void setLivro(List<PedidoHasLivro> livro) {
+		this.pedidoHasLivro = livro;
 	}
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public PedidoDTO() {
-	} 
-	
-	public PedidoDTO(Pedido obj) {
-		id = obj.getId();
-		observacao = obj.getObservacao();
-		itemPedido = obj.getItemPedido();
-		dataCadastro  = obj.getDataCadastro();
 	}
 
 	public Integer getId() {
@@ -58,14 +49,6 @@ public class PedidoDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getObservacao() {
-		return observacao;
-	}
-	
-	public void setNome(String observacao) {
-		this.observacao = observacao;
-	}
-
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -73,5 +56,16 @@ public class PedidoDTO implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public List<PedidoHasLivro> getPedidoHasLivro() {
+		return pedidoHasLivro;
+	}
+
+	public void setPedidoHasLivro(List<PedidoHasLivro> pedidoHasLivro) {
+		this.pedidoHasLivro = pedidoHasLivro;
+	}
 }

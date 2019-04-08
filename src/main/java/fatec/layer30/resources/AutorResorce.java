@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,8 +49,7 @@ public class AutorResorce {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	// READ (all)---------------------------------------
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// READ (all)---------------------------------------	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AutorDTO>> findAll() {
 		List<Autor> list = service.findAll();
@@ -60,13 +60,14 @@ public class AutorResorce {
 	// READ (paginação)---------------------------------------	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<AutorDTO>> findPage(
+			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="autor") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Autor> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<AutorDTO> listDto = list.map(obj -> new AutorDTO(obj));		
-		return ResponseEntity.ok().body(listDto);
+		Page<AutorDTO> listDto = list.map(obj -> new AutorDTO(obj));
+		return ResponseEntity.ok().header("Authorization", authorization).body(listDto);
 	}
 	
 	// UPDATE ------------------------------------------------	

@@ -2,10 +2,17 @@
 <html layout:decorate="~{layout}">
 	<head><meta charset="UTF-8"/></head>
 	<body>
-		    <section class="layout-content" layout:fragment="corpo">	
-			    <aside  class="atalhos">
-		           	Gestão geral   
-		           </aside>
-		    </section>
+		    <aside class="main-area" layout:fragment="sidebar">		    	
+				<ul class="list-group">
+				 	<li class="list-group-item"><a href="/livraria/autor/page">Autores</a></li>
+				 	<li class="list-group-item"><a href="/livraria/cliente/page">Clientes</a></li>
+				 	<li class="list-group-item"><a href="/livraria/categoria/page">Catagorias</a></li>
+				 	<li class="list-group-item"><a href="/livraria/editora/page">Editoras</a></li>
+				 	<li class="list-group-item"><a href="/livraria/pedido/page?Authorization=Bearer%20eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkaW1pbmlzdHJhZG9yQGZhdGVjLnNwLmdvdi5iciIsImV4cCI6MTU1NDU5ODc0Mn0.CZZMCM6jYDHlDbsyjdrziZY_U7z96K1gTgQ8vj4H7C3u5wz-mjRdZ5RKXy13faOsemn3v2MOSGPZvhvYLkD5IQ">Pedidos</a></li>
+				 	<li class="list-group-item"><a href="/livraria/livro/page">Livros</a></li> 
+				</ul>
+		    </aside>		    
+		    <section layout:fragment="corpo">
+	    	</section>
 	</body>
 </html>		

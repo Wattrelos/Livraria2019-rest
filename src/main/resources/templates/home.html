@@ -6,12 +6,14 @@
 <body>
 	<header>
 	</header>
-	<aside>
-	</aside>
-	<article id="galeria" class="flex-container" layout:fragment="corpo">		
-		<script src="/js/jquery.min.js"></script>
-    	<script src="/js/prateleira.js"></script>
-	</article>
+	<div class="main-area">	
+		<aside th:replace="fragments/sidebar :: nav-sidebar">
+		</aside>		
+		<article id="galeria" class="flex-container" layout:fragment="corpo">		
+			<script src="/js/jquery.min.js"></script>
+	    	<script src="/js/prateleira.js"></script>
+		</article>
+	</div>
 	<footer>
 	</footer>    
 </body>

@@ -20,12 +20,11 @@ import fatec.layer20.aplications.DataTransferObject.PedidoDTO;
 public class PedidoService {
 	
 	@Autowired
-	private PedidoRepository repo;
+	private PedidoRepository repo;	
 	
-	
-	// CREATE ------------------------------------------------
+	// CREATE------------------------------------------------------
 	public Pedido insert(Pedido obj) {
-		obj.setId(null);
+		obj.setId(null);		
 		return repo.save(obj);
 	}
 	
@@ -68,7 +67,7 @@ public class PedidoService {
 	
 	// ------------------------------------------------------
 	public Pedido fromDTO(PedidoDTO objDto) {
-		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getItemPedido(), objDto.getDataCadastro());
+		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro());
 	}
 	
 

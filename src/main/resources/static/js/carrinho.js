@@ -1,4 +1,4 @@
-// Inicialização da página	
+// Inicialização da página e suas variáveis
 var listaitens = document.getElementById("listaitens");
 var idQuantidadeCesta = document.getElementById("quantidadeCarrinho");
 var precoTotalHtml = document.getElementById("precoTotal");
@@ -7,6 +7,8 @@ var freteHtml = document.getElementById("frete");
 var quantidadeCesta = 0;
 var subtotal = 0;
 var frete = 55;
+// Fim declaração ------------------------------
+
 var carrinho = new Object();
 
 if(localStorage.getItem("carrinho")){
@@ -20,14 +22,13 @@ function atualizaCarrinho(){
 
 	// console.log(carrinho);
 	
-	// Limpa a lista de produtos:
-	listaitens.innerHTML = "";
-	carrinho.forEach(function(item, indice){
-	//console.log(item);
 	
+	// Limpa a lista de produtos:
+	listaitens.innerHTML = "";	
+	carrinho.forEach(function(item, indice){
+	//console.log(item);	
 	var url = "http://localhost:8080/livro/" + item.id;
-
-	$.getJSON(url, function (result){			
+	$.getJSON(url, function (result){
 		subtotal += result.custo * item.quantidade;
 		var _itens = `
 			<tr>
@@ -66,27 +67,40 @@ function exluirItem(id){ // Excluir um item do carrinho
 	atualizaCarrinho();
 }
 function confirmPedido(){
-	// Verificar se o cliente está logado;
-    $.ajax({				
-		type : "POST",
-		headers: {"Authorization": window.sessionStorage.getItem('token')},
-		url : "/pedido" + frm.entity.value,
-		// dataType: 'json', // tipo de dados da requisição.
-		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(EntidadeArray),		
-		success: function () {
-			mensagem.innerHTML = frm.nome.value + " adicionado com sucesso!";
-        },
-        error: function (erro, textStatus, xhr) {
-        	console.log(erro);        	
-        	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar "+ frm.nome.value + "!");
-        },
-        complete: function () {
-        	window.location.reload();
-        }
-	});
-	
+	var carrinhoArray = new Array(); // Array para guardar livros no carrinho
+	var pedidoObject = new Object(); // Array para armazenar o pedido
+	//Transformar itens escolhidos em itens do carrinho, se houver:
+	if(localStorage.getItem("carrinho")){		
+		var carrinho = new Object();
+		carrinho = JSON.parse(localStorage.getItem("carrinho"));
+		// console.log(carrinho);
+		carrinho.forEach(function(item, indice){			
+			var url = "http://localhost:8080/livro/" + item.id;			
+			$.getJSON(url, function (result){
+				
+				result.quantidade = item.quantidade;
+				carrinhoArray.push(result);				
+			});
+		});		
+		
+		pedidoObject["pedido"]=carrinhoArray;
+		// console.log(JSON.stringify(carrinhoArray));
+		console.log(JSON.stringify(pedidoObject));
+		// Fim da transição. ----------------------------------------
+		
+		
+	    $.ajax({				
+			type : "POST",
+			headers: {"Authorization": window.sessionStorage.getItem('token')},
+			url : "/carrinho",
+			contentType: "application/json; charset=utf-8",
+			data : JSON.stringify(JSON.stringify(carrinho)),		
+			success: function () {
+				alert("Carrinho adicionado com sucesso!");
+	        },
+	        error: function (erro, textStatus, xhr) {
+	        	alert("Erro: "+ erro.status + erro.responseText + " Falha ao tentar adicionar carrinho!");
+	        }	        
+		});	
+	}
 }
-
-
-   

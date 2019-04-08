@@ -1,4 +1,4 @@
-package fatec.layer30.resources;
+ package fatec.layer30.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -32,11 +32,14 @@ public class PedidoResorce {
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody PedidoDTO objDto) {
+		
 		System.out.println(objDto.toString());
+		
 		Pedido obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("{id}").buildAndExpand(obj.getId()).toUri();
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(obj.getId()).toUri();
+				
 		return ResponseEntity.created(uri).build();
 	}
 	

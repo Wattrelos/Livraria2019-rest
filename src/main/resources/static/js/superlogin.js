@@ -1,5 +1,5 @@
 var userName = window.sessionStorage.getItem("user");
-if(userName !=""){	
+if(userName != null){	
 	document.getElementById("login-button").innerHTML =
 		`<div class="dropdown show">
 			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` +

@@ -5,7 +5,7 @@
 		    <section layout:fragment="corpo">
 		        
 		        
-		        <div th:if="${listaPedido.empty}">
+		        <div th:if="${list.empty}">
 		            <div colspan="2"> Nenhum pedido cadastrado! </div>
 		        </div>
 		        <table>
@@ -15,7 +15,7 @@
 		        		<th>Data cadastro</th>
 		        		<th>Pedidos</th>
 		        	</tr>
-		        	<tr class="listbook" th:each="pedido : ${listaPedido.content}">
+		        	<tr class="listbook" th:each="pedido : ${list.content}">
 		        		<td th:text="${pedido.id}"></td>
 				        <td th:text="${pedido.observacao}"></td>
 				        <td th:text="${pedido.dataCadastro}"></td>
