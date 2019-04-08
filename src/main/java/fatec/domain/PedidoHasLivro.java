@@ -16,9 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  *
  * @author Administrador
@@ -38,16 +35,15 @@ public class PedidoHasLivro implements Serializable {
     @Column(name = "quantidade")
     private int quantidade;
     
-    @JsonBackReference
-    @JoinColumn(name = "id_pedido", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Pedido pedido;
-    
-    @JsonManagedReference
-    @JoinColumn(name = "id_livro", referencedColumnName = "id", insertable = false, updatable = false)
+    // Coleções -------------------------------------------------------    
+    @JoinColumn(name = "id_livro")
     @ManyToOne(optional = false)
     private Livro livro;
-
+    
+    @ManyToOne
+    @JoinColumn(name="id_pedido")
+    private Pedido pedido;
+    // Construtores ------------------------------------------------------- 
     public PedidoHasLivro() {
     }
     
@@ -74,12 +70,5 @@ public class PedidoHasLivro implements Serializable {
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
+    
 }

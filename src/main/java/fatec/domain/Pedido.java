@@ -6,6 +6,7 @@
 package fatec.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,12 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-/**
- *
- * @author Administrador
- */
 @Entity
 @Table(name = "pedido")
 @NamedQueries({
@@ -47,6 +41,7 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @Lob
     @Column(name = "observacao")
@@ -59,17 +54,13 @@ public class Pedido implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro; 
     
-    @JoinTable(name = "cliente_has_pedido", joinColumns = {
-        @JoinColumn(name = "pedido_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "cliente_id", referencedColumnName = "id")})
-    @ManyToMany
+    // Coleções -------------------------------------------------------
+    @ManyToOne
     @JsonBackReference
-    private List<Cliente> cliente;
+    private Cliente cliente;
     
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
-    private List<PedidoHasLivro> pedidoHasLivro;
-    
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<PedidoHasLivro> pedidoHasLivro2 = new ArrayList<>();    
     
     // Construtores ----------------------------------------------------
     public Pedido() {
@@ -101,20 +92,20 @@ public class Pedido implements Serializable {
         this.observacao = observacao;
     }
 
-    public List<Cliente> getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(List<Cliente> cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
     public List<PedidoHasLivro> getPedidoHasLivro() {
-        return pedidoHasLivro;
+        return pedidoHasLivro2;
     }
 
     public void setPedidoHasLivro(List<PedidoHasLivro> pedidoHasLivro) {
-        this.pedidoHasLivro = pedidoHasLivro;
+        this.pedidoHasLivro2 = pedidoHasLivro;
     }
 
     public Date getDataCadastro() {

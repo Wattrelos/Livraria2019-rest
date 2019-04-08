@@ -32,10 +32,11 @@ public class ClienteResorce {
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDto) {
-		System.out.println(objNewDto.toString());
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDto) {	
+		
 		Cliente obj = service.fromNewDto(objNewDto);
 		obj = service.insert(obj);
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

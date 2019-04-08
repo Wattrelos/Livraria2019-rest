@@ -3,6 +3,8 @@ package fatec.layer11.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,8 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
+import fatec.domain.Endereco;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
+import fatec.layer10.repositories.EnderecoRepository;
 import fatec.layer11.services.exceptions.AuthorizationException;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
@@ -28,12 +32,21 @@ public class ClienteService {
 	private BCryptPasswordEncoder passEnc;
 	@Autowired
 	private ClienteRepository repo;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	
 	// CREATE ------------------------------------------------
+	@Transactional
 	public Cliente insert(Cliente obj) {
-		obj.setId(null);
-		return repo.save(obj);
+		
+		obj.setId(null); // Garantir a criação do objeto ao invés de merge.
+		obj = repo.save(obj); // Salvar e recuperar Cliente.
+		for(Endereco endereco : obj.getEndereco()){
+			endereco.setCliente(obj); // Assinar o cliente em cada endereço.
+		}	
+		enderecoRepository.saveAll(obj.getEndereco());
+		return obj;
 	}
 	
 	// READ ------------------------------------------------
@@ -98,11 +111,11 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getDataCadastro() ,null, null);
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEnderecos(),objDto.getDataCadastro() ,null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
-		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
+		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getEndereco(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
 	}
 	
 

@@ -54,7 +54,7 @@ public class Loja extends EntidadeDominio implements Serializable {
 
     @JsonManagedReference
     @OneToMany(mappedBy="loja", cascade = CascadeType.PERSIST)
-    List<Cliente> clientes = new ArrayList<>();    
+    private List<Cliente> clientes = new ArrayList<>();    
     
     public Loja() {
 	}  

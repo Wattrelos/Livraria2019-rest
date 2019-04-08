@@ -33,8 +33,6 @@ public class PedidoResorce {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody PedidoDTO objDto) {
 		
-		System.out.println(objDto.toString());
-		
 		Pedido obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		

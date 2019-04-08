@@ -31,7 +31,6 @@ public class LivroDTO implements Serializable {
 	private int ano;
 	private String dimensao;
 	private BigDecimal custo;
-	private int quantidade;
 	private boolean ativo;
 	private String imagem;
 	private String edicao;
@@ -138,14 +137,6 @@ public class LivroDTO implements Serializable {
 
 	public void setCusto(BigDecimal custo) {
 		this.custo = custo;
-	}
-
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public boolean isAtivo() {

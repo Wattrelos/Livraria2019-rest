@@ -34,6 +34,8 @@ public class LivroResorce {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody LivroDTO objDto) {
+		// System.out.println(">>>>>>>>>>>>>>>>>>Categoria: " + objDto.getCategorias());
+		// System.out.println(">>>>>>>>>>>>>>>>>>Subcategoria: " + objDto.getAutores());
 		Livro obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

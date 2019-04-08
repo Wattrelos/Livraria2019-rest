@@ -17,7 +17,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente extends Usuario implements Serializable {
@@ -35,29 +34,30 @@ public class Cliente extends Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "data_nascimento")
     @Temporal(TemporalType.DATE)
-    private Date dataNascimento; 
-    // Coleções.
+    private Date dataNascimento;
+    
+    // Coleções. ------------------------------------------------------
     @ManyToOne
 	@JoinColumn(name="loja_id")
     @JsonBackReference
 	private Loja loja;
     
-    @OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<Endereco> enderecos = new ArrayList<>();
+    @OneToMany(mappedBy="cliente", cascade=CascadeType.PERSIST)
+	private List<Endereco> endereco = new ArrayList<>();    
     
-    @JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
-    List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	// Construtores ---------------------------------------------------------
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<Endereco> endereco, Date dataCadastro, String senha, Integer perfil) {
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
+		this.endereco = endereco;
 	}
 	
 	public String getNome() {
@@ -100,12 +100,12 @@ public class Cliente extends Usuario implements Serializable {
 		this.loja = loja;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public List<Endereco> getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setEndereco(List<Endereco> enderecos) {
+		this.endereco = enderecos;
 	}
 	
 	

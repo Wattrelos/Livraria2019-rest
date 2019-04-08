@@ -23,15 +23,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -130,11 +127,7 @@ public class Livro extends EntidadeDominio implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "autor_id")    
     )
     @JsonManagedReference
-    private List<Autor> autores = new ArrayList<>();
-    
-    @JsonBackReference
-    @OneToMany
-    private List<PedidoHasLivro> pedidoHasLivro;
+    private List<Autor> autores = new ArrayList<>();    
     
 	// Construtores -----------------------------------------------------------
     public Livro() {
@@ -144,7 +137,7 @@ public class Livro extends EntidadeDominio implements Serializable {
         this.id = id;
     }
     
-    public Livro(Integer id, long isbn, String titulo, int ano, String dimensao, BigDecimal custo, int quantidade, boolean ativo, String imagem, String edicao, int paginas, String sinopse, int peso, Date dataCadastro) {
+    public Livro(Integer id, long isbn, String titulo, int ano, String dimensao, BigDecimal custo, boolean ativo, String imagem, String edicao, int paginas, String sinopse, int peso, Date dataCadastro) {
     	this.id = id;
         this.isbn = isbn;
         this.titulo = titulo;
@@ -296,15 +289,6 @@ public class Livro extends EntidadeDominio implements Serializable {
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
 	}
-	
-	public List<PedidoHasLivro> getPedidoHasLivroList() {
-        return pedidoHasLivro;
-    }
-
-    public void setPedidoHasLivroList(List<PedidoHasLivro> pedidoHasLivroList) {
-        this.pedidoHasLivro = pedidoHasLivroList;
-    }
-	
 	// Hash codes -----------------------------------------------------------
     @Override
     public int hashCode() {

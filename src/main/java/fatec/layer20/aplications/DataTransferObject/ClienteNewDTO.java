@@ -1,16 +1,23 @@
 package fatec.layer20.aplications.DataTransferObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import fatec.domain.Cliente;
+import fatec.domain.Endereco;
+
 
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
@@ -20,19 +27,29 @@ public class ClienteNewDTO implements Serializable {
 	private long cpf;
 	
 	@Email(message="Email inválido")
-	private String email;	
-	
+	private String email;
 	@NotEmpty(message="Preenchimento obrigatório")
-	private String senha;
-	
+	private String senha;	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	private Date dataCadastro;
 	private Integer perfil;
+	private List<Endereco> endereco = new ArrayList<>();
 
 	public ClienteNewDTO() {
+	}
+	public ClienteNewDTO(Cliente obj) {
+		id = obj.getId();		
+		endereco = obj.getEndereco();
+		
 	} 
-
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public long getCpf() {
 		return cpf;
 	}
@@ -89,6 +106,12 @@ public class ClienteNewDTO implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 	
+	public List<Endereco> getEndereco() {
+		return endereco;
+	}
 	
+	public void setEndereco(List<Endereco> endereco) {
+		this.endereco = endereco;
+	}
 	
 }

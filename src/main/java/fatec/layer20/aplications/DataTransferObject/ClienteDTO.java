@@ -53,7 +53,7 @@ public class ClienteDTO implements Serializable {
 		dataCadastro = obj.getDataCadastro();
 		dataNascimento = obj.getDataNascimento();
 		pedido = obj.getPedidos();
-		enderecos = obj.getEnderecos();
+		enderecos = obj.getEndereco();
 	}
 
 	public long getCpf() {

@@ -97,7 +97,6 @@ public class LivroService extends AbstractJdbcDAO{
 			objDto.getAno(),
 			objDto.getDimensao(),
 			objDto.getCusto(),
-			objDto.getQuantidade(),
 			objDto.isAtivo(),
 			objDto.getImagem(),
 			objDto.getEdicao(),
