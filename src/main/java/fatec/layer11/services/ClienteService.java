@@ -43,7 +43,7 @@ public class ClienteService {
 		obj.setId(null); // Garantir a criação do objeto ao invés de merge.
 		obj = repo.save(obj); // Salvar e recuperar Cliente.
 		for(Endereco endereco : obj.getEndereco()){
-			endereco.setCliente(obj); // Assinar o cliente em cada endereço.
+			endereco.setCliente(obj); // Assina o cliente em cada endereço.
 		}	
 		enderecoRepository.saveAll(obj.getEndereco());
 		return obj;

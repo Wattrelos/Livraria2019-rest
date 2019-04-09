@@ -1,6 +1,4 @@
 package fatec.domain;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,11 +15,11 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente extends Usuario implements Serializable {
-	private static final long serialVersionUID = 1L;
-    
+public class Cliente extends Usuario {
+	
     @Basic(optional = false)
     @Size(min = 8, max = 80)
     @Column(name = "nome")
@@ -43,8 +41,9 @@ public class Cliente extends Usuario implements Serializable {
 	private Loja loja;
     
     @OneToMany(mappedBy="cliente", cascade=CascadeType.PERSIST)
-	private List<Endereco> endereco = new ArrayList<>();    
+	private List<Endereco> endereco = new ArrayList<>();
     
+    @JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
 	private List<Pedido> pedidos = new ArrayList<>();
 	

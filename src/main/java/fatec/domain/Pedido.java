@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pedido")
@@ -55,12 +56,12 @@ public class Pedido implements Serializable {
     private Date dataCadastro; 
     
     // Coleções -------------------------------------------------------
-    @ManyToOne
+    @ManyToOne   
     @JsonBackReference
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<PedidoHasLivro> pedidoHasLivro2 = new ArrayList<>();    
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.REFRESH)
+    private List<Estoque> estoque = new ArrayList<>();    
     
     // Construtores ----------------------------------------------------
     public Pedido() {
@@ -70,10 +71,12 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Pedido(Integer id, String observacao, Date dataCadastro) {
+    public Pedido(Integer id, String observacao, Date dataCadastro, Cliente cliente, List<Estoque> estoque) {
         this.id = id;
         this.observacao = observacao;
         this.dataCadastro = dataCadastro;
+        this.estoque = estoque;
+        this.cliente = cliente;        
     }
 
     public Integer getId() {
@@ -100,20 +103,20 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public List<PedidoHasLivro> getPedidoHasLivro() {
-        return pedidoHasLivro2;
-    }
-
-    public void setPedidoHasLivro(List<PedidoHasLivro> pedidoHasLivro) {
-        this.pedidoHasLivro2 = pedidoHasLivro;
-    }
-
     public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public List<Estoque> getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(List<Estoque> estoque) {
+		this.estoque = estoque;
 	}
 
 	@Override

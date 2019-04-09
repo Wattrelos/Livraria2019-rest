@@ -29,8 +29,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  *
  * @author Josias Wattrelos
@@ -103,14 +101,13 @@ public class Livro extends EntidadeDominio implements Serializable {
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "editora_id", referencedColumnName = "id")    
     private Editora editora;
-    
-       
+           
     @ManyToMany(cascade=CascadeType.REFRESH)
     @JoinTable(name="livro_has_categoria",
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")    
     )    
-    @JsonManagedReference
+    
     private List<Categoria> categorias = new ArrayList<>();
 
     @ManyToMany(cascade=CascadeType.REFRESH)
@@ -118,7 +115,6 @@ public class Livro extends EntidadeDominio implements Serializable {
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "subcategoria_id")    
     )
-    @JsonManagedReference
     private List<Subcategoria> subcategorias = new ArrayList<>(); 
     
     @ManyToMany(cascade=CascadeType.REFRESH)
@@ -126,9 +122,8 @@ public class Livro extends EntidadeDominio implements Serializable {
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "autor_id")    
     )
-    @JsonManagedReference
-    private List<Autor> autores = new ArrayList<>();    
-    
+    private List<Autor> autores = new ArrayList<>();
+        
 	// Construtores -----------------------------------------------------------
     public Livro() {
     }
@@ -288,7 +283,8 @@ public class Livro extends EntidadeDominio implements Serializable {
 
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
-	}
+	}	
+
 	// Hash codes -----------------------------------------------------------
     @Override
     public int hashCode() {

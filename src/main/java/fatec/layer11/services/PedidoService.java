@@ -10,7 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import fatec.domain.Estoque;
 import fatec.domain.Pedido;
+import fatec.layer10.repositories.EstoqueRepository;
 import fatec.layer10.repositories.PedidoRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
@@ -21,11 +23,23 @@ public class PedidoService {
 	
 	@Autowired
 	private PedidoRepository repo;	
+	@Autowired
+	private EstoqueRepository estoqueRepository;
 	
 	// CREATE------------------------------------------------------
 	public Pedido insert(Pedido obj) {
-		obj.setId(null);		
-		return repo.save(obj);
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>PedidoService pedido.getCliente().getId : " + obj.getCliente().getId());
+		System.out.println(">>>>>>>>>>>>>>>>>>>PedidoService PedidoHasLivroDto.obj.getCliente().getNome() : " + obj.getCliente().getNome());		
+		
+		
+		obj.setId(null);  // Garantir a criação do objeto ao invés de merge.
+		obj = repo.save(obj); // Salvar e recuperar Cliente.		
+		for(Estoque estoque : obj.getEstoque()) {
+			estoque.setPedido(obj); // Assina o Pedido em cada ItemPedido.
+		}
+		estoqueRepository.saveAll(obj.getEstoque());
+		return obj;
 	}
 	
 	// READ ------------------------------------------------
@@ -67,7 +81,7 @@ public class PedidoService {
 	
 	// ------------------------------------------------------
 	public Pedido fromDTO(PedidoDTO objDto) {
-		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro());
+		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro(), objDto.getCliente(), objDto.getEstoque());
 	}
 	
 

@@ -11,7 +11,7 @@ import fatec.domain.Cliente;
 import fatec.domain.Estoque;
 import fatec.domain.Pedido;
 
-public class PedidoDTO implements Serializable {
+public class PedidoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -23,16 +23,15 @@ public class PedidoDTO implements Serializable {
 	//Coleções---------------
 	private List<Estoque> estoque = new ArrayList<>();
 	
-	public PedidoDTO() {
+	public PedidoNewDTO() {
 		
 	}
 	
-	public PedidoDTO(Pedido	obj) {
+	public PedidoNewDTO(Pedido	obj) {
 		id = obj.getId();
 		observacao = obj.getObservacao();
 		estoque = obj.getEstoque();
 		dataCadastro = obj.getDataCadastro();
-		cliente = obj.getCliente();
 	}
 
 	// Getters and Setters
