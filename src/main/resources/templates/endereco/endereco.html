@@ -1,0 +1,59 @@
+!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">ENDEREÇO DE ENTREGA</h1>
+                <label>Cliente:</label><div th:text="${cliente.nome}"></div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 radio-button" th:each="enderecoEach : ${cliente.endereco}">
+                    <input type="radio" id="radio-1" name="endereco" value="1" checked>
+                        <label for="radio-1">Entregar neste endereço?</label>
+                        <div class="endereco">                    
+                            <tbody>
+                                <label>Endereço:</label><div th:text="${enderecoEach.logradouro}"></div>
+                                <label>Número:</label><div th:text="${enderecoEach.numero}"></div>
+                                <label>Bairro:</label><div th:text="${enderecoEach.bairro}"></div>
+                                <label>Cidade:</label><div th:text="${enderecoEach.cidade.nome}"></div>
+                                <label>Estado:</label><div th:text="${enderecoEach.cidade.estado.nome}"></div>
+                                <label>CEP:  </label><div th:text="${enderecoEach.cep}"></div>
+                            </tbody>
+                        </div>
+                </div>                
+            </div>
+                <div class="col mb-2">                    
+                    <div class="row">
+                        <div class="col-sm-9 col-md-4 text-right">
+                            <button class="btn btn-lg btn-block btn-secondary text-uppercase" onclick="history.go(-1);">Voltar</button>
+                        </div> 
+                        <div class="col-sm-9 col-md-4 text-right">
+                            <button class="btn btn-lg btn-block btn-secondary text-uppercase">Cadastrar outro endereço</button>
+                        </div>            
+                        <div class="col-sm-9 col-md-4 text-right">
+                            <button class="btn btn-lg btn-block btn-success text-uppercase">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-light">
+            <div class="container">
+                <div class="row">                    
+                    <div class="col-12 copyright mt-3">
+                    </div>
+                </div>
+            </div>
+        </footer>
+         <!------ Include the above in your HEAD tag ---------->
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.min.js"></script> 
+     </section>
+</body>
+</html>

@@ -8,10 +8,12 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import fatec.domain.Cliente;
 import fatec.domain.Endereco;
+import fatec.domain.Pedido;
 
 
 public class ClienteNewDTO implements Serializable {
@@ -35,12 +37,14 @@ public class ClienteNewDTO implements Serializable {
 	private Date dataCadastro;
 	private Integer perfil;
 	private List<Endereco> endereco = new ArrayList<>();
+	private List<Pedido> pedido = new ArrayList<>();
 
 	public ClienteNewDTO() {
 	}
 	public ClienteNewDTO(Cliente obj) {
-		id = obj.getId();		
+		id = obj.getId();
 		endereco = obj.getEndereco();
+		pedido = obj.getPedido();
 		
 	} 
 	
@@ -112,6 +116,12 @@ public class ClienteNewDTO implements Serializable {
 	
 	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
+	}
+	public List<Pedido> getPedido() {
+		return pedido;
+	}
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
 	}
 	
 }

@@ -58,10 +58,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		UserSpringSecurity currentUser = ((UserSpringSecurity) auth.getPrincipal()); //
         String token = jwtUtil.generateToken(currentUser.getUsername());
         // Adiciona, ao cabeçalho da requisição, o token de autorização 
-        response.addHeader("Authorization", "Bearer " + token); // Adiciona token de autorização
+        response.addHeader("Authorization", "Bearer " + token); // Adiciona token de autorização ao cabeçalho de retorno
         response.addHeader("access-control-expose-headers", "Authorization");
         response.addHeader("Authorities", currentUser.getAuthorities().toString());  //Adiciona tipo de usuário.
         response.addHeader("user", currentUser.getUsername());
+        response.addHeader("number", currentUser.getId().toString());
 	}
 	
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {

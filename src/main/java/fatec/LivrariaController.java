@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fatec.domain.Cliente;
+import fatec.layer11.services.ClienteService;
 import fatec.layer30.resources.AutorResorce;
 import fatec.layer30.resources.CategoriaResorce;
 import fatec.layer30.resources.LivroResorce;
@@ -26,6 +28,8 @@ public class LivrariaController {
 	LivroResorce livroResource;
 	@Autowired
 	PedidoResorce pedidoResource;
+	@Autowired
+	ClienteService clienteService;
 	
 	public LivrariaController() {
 		//vhs.put("listarAutor", new AutorResorce());
@@ -42,7 +46,15 @@ public class LivrariaController {
 	
 	@RequestMapping(value="/carrinho/carrinho")
 	public String carrinho() {		
-		return "/carrinho/carrinho.html";		
+		return "/carrinho/carrinho.html";
+	}
+	
+	@RequestMapping(value="/endereco", method=RequestMethod.POST)
+	public String endereco(Model model, @RequestParam(value="cliente", defaultValue="2") Integer number) {
+		Cliente cliente = clienteService.find(number);
+		// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cliente);
+		model.addAttribute("cliente", cliente);		
+		return "/endereco/endereco.html";
 	}
 	
 	@RequestMapping(value="/livraria/{entidade}/page", method=RequestMethod.GET)

@@ -2,7 +2,7 @@ function confirmCreate(frm){
 	
 	let campos =  frm.querySelectorAll("input");
 	
-	var EntidadeArray = new Object();
+	var EntidadeObject = new Object();
 	campos.forEach((field, index)=>{
 		EntidadeArray[`${field.name}`] = field.value;
 		
@@ -75,25 +75,25 @@ function confirmCreateLivro(frm){
 	// console.log(document.querySelector("textarea").value);
 	// document.querySelector("textarea").value = "Your text";
 	// console.log(textarea);
-	var livroArray = new Object();
+	var livroObject = new Object();
 	campos.forEach((field, index)=>{
 		
 		switch(field.getAttribute("type")) {
 		  case "text": 
-			  	livroArray[`${field.name}`] = field.value;
+			  	livroObject[`${field.name}`] = field.value;
 			  break;
 		  case "number":			 
-			    livroArray[`${field.name}`] = field.value;
+			    livroObject[`${field.name}`] = field.value;
 			  break;
 		  case "file":			 
-			    livroArray[`${field.name}`] = field.value.replace(/^.*\\/, "");
+			    livroObject[`${field.name}`] = field.value.replace(/^.*\\/, "");
 			  break;
 		  default:
 		}
 		
 	});
 	// Sinopse----------------------------------------------------
-	livroArray["sinopse"] = frm.querySelector("textarea").value;
+	livroObject["sinopse"] = frm.querySelector("textarea").value;
 	
 	//Editora ----------------------------------------------
 	var pluginArrayArg = new Array();
@@ -107,8 +107,8 @@ function confirmCreateLivro(frm){
 	
 	pluginArrayArg.push(jsonEditora);
 	
-	livroArray["editora"] = jsonEditora;
-	// console.log(JSON.stringify(livroArrayArg));
+	livroObject["editora"] = jsonEditora;
+	// console.log(JSON.stringify(livroObjectArg));
 	
 	
 	///Pegar os valores so multi selec autor, categoria, subcategoria....
@@ -136,18 +136,18 @@ function confirmCreateLivro(frm){
 			    }
 			  }
 		  }
-		  livroArray[`${value}`] = CategoriaArray;
+		  livroObject[`${value}`] = CategoriaArray;
 	});
-	// console.log(JSON.stringify(livroArray));
-	// console.log(livroArray);
+	// console.log(JSON.stringify(livroObject));
+	// console.log(livroObject);
 // -------------------------Fim do conversor JSON ------------------------
-	//console.log(livroArray);
+	//console.log(livroObject);
 	$.ajax({				
 		type : "POST",
 		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/livro",
 		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(livroArray),
+		data : JSON.stringify(livroObject),
 		success: function () {
 			alert(" Livro adicionado com sucesso!");
 			$(document).ready(function(){

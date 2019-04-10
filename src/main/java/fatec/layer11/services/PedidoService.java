@@ -38,7 +38,7 @@ public class PedidoService {
 		for(Estoque estoque : obj.getEstoque()) {
 			estoque.setPedido(obj); // Assina o Pedido em cada ItemPedido.
 		}
-		estoqueRepository.saveAll(obj.getEstoque());
+		obj.setEstoque(estoqueRepository.saveAll(obj.getEstoque()));
 		return obj;
 	}
 	

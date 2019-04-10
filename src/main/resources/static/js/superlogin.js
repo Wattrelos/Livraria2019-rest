@@ -31,7 +31,8 @@ function superlogin(form){
 		success: function (data, textStatus, xhr) {
 			console.log(xhr.getAllResponseHeaders());
 			window.sessionStorage.setItem("token", xhr.getResponseHeader('Authorization'));
-			window.sessionStorage.setItem("user", xhr.getResponseHeader('user'));			
+			window.sessionStorage.setItem("user", xhr.getResponseHeader('user'));
+			window.sessionStorage.setItem("number", xhr.getResponseHeader('number'));
 			document.getElementById('id01').style.display='none';
 			
 			// Teste de redirecionamento de páginas, antes de escapsular.
@@ -49,5 +50,6 @@ function superlogin(form){
 function logoff(){
 	window.sessionStorage.removeItem("token");
 	window.sessionStorage.removeItem("user");
+	window.sessionStorage.removeItem("number");
 	window.location.href = "/index";
 }

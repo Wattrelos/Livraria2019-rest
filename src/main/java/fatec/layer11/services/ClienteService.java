@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
 import fatec.domain.Endereco;
+import fatec.domain.Pedido;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
 import fatec.layer10.repositories.EnderecoRepository;
+import fatec.layer10.repositories.PedidoRepository;
 import fatec.layer11.services.exceptions.AuthorizationException;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
@@ -34,23 +36,31 @@ public class ClienteService {
 	private ClienteRepository repo;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	
 	// CREATE ------------------------------------------------
 	@Transactional
-	public Cliente insert(Cliente obj) {
+	public Cliente insert(Cliente cliente) {
+		cliente.setId(null); // Garantir a criação do objeto ao invés de merge.
+		cliente = repo.save(cliente); // Salvar e recuperar Cliente.
 		
-		obj.setId(null); // Garantir a criação do objeto ao invés de merge.
-		obj = repo.save(obj); // Salvar e recuperar Cliente.
-		for(Endereco endereco : obj.getEndereco()){
-			endereco.setCliente(obj); // Assina o cliente em cada endereço.
-		}	
-		enderecoRepository.saveAll(obj.getEndereco());
-		return obj;
+		for(Pedido pedido : cliente.getPedido()) {
+			pedido.setCliente(cliente);
+			pedidoRepository.save(pedido);
+		}
+		for(Endereco endereco : cliente.getEndereco()) {
+			endereco.setCliente(cliente);
+			enderecoRepository.save(endereco);
+		}
+		
+		return cliente;
 	}
 	
 	// READ ------------------------------------------------
 	public Cliente find(Integer id) {
+		/*
 		UserSpringSecurity userSpringSecurity = UserService.authenticated();
 		// Restrição: O usuário só pode acessar ele mesmo. Administrador pode acessar todos.
 		// Verifica se não há usuáriologado, se o usuário tem perfil de administrador e se o ID do usuário é o mesmo do perfil acessado.
@@ -58,6 +68,8 @@ public class ClienteService {
 			throw new AuthorizationException("Acesso não permitido");			
 		}
 		// Se autenticado, então...		
+		 * 
+		 */
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ Cliente.class.getName()));		
 	}
@@ -111,11 +123,11 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEnderecos(),objDto.getDataCadastro() ,null, null);
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEnderecos(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
-		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getEndereco(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
+		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getEndereco(),objNewDto.getPedido(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
 	}
 	
 

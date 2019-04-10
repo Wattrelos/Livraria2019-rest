@@ -67,28 +67,13 @@ function exluirItem(id){ // Excluir um item do carrinho
 	atualizaCarrinho();
 }
 function confirmPedido(){
-	var carrinhoArray = new Array(); // Array para guardar livros no carrinho
-	var pedidoObject = new Object(); // Array para armazenar o pedido
 	//Transformar itens escolhidos em itens do carrinho, se houver:
-	if(localStorage.getItem("carrinho")){		
-		var carrinho = new Object();
-		carrinho = JSON.parse(localStorage.getItem("carrinho"));
-		// console.log(carrinho);
-		carrinho.forEach(function(item, indice){			
-			var url = "http://localhost:8080/livro/" + item.id;			
-			$.getJSON(url, function (result){
-				
-				result.quantidade = item.quantidade;
-				carrinhoArray.push(result);				
-			});
-		});		
+	var carrinho = localStorage.getItem("carrinho");
+	var number = localStorage.getItem("number");
+	if((carrinho != null) && (number != null)){ 
+		console.log(localStorage.getItem("carrinho"));
 		
-		pedidoObject["pedido"]=carrinhoArray;
-		// console.log(JSON.stringify(carrinhoArray));
-		console.log(JSON.stringify(pedidoObject));
-		// Fim da transição. ----------------------------------------
-		
-		
+		/*
 	    $.ajax({				
 			type : "POST",
 			headers: {"Authorization": window.sessionStorage.getItem('token')},
@@ -102,5 +87,6 @@ function confirmPedido(){
 	        	alert("Erro: "+ erro.status + erro.responseText + " Falha ao tentar adicionar carrinho!");
 	        }	        
 		});	
+		*/
 	}
 }

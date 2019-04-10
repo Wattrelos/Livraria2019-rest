@@ -1,4 +1,6 @@
 package fatec.domain;
+
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,23 +42,24 @@ public class Cliente extends Usuario {
     @JsonBackReference
 	private Loja loja;
     
-    @OneToMany(mappedBy="cliente", cascade=CascadeType.PERSIST)
+    @OneToMany(mappedBy="cliente", cascade=CascadeType.REFRESH)
 	private List<Endereco> endereco = new ArrayList<>();
     
     @JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
-	private List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedido = new ArrayList<>();
 	
 	// Construtores ---------------------------------------------------------
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<Endereco> endereco, Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<Endereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
+		this.pedido = pedido;
 	}
 	
 	public String getNome() {
@@ -83,12 +86,12 @@ public class Cliente extends Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<Pedido> getPedido() {
+		return pedido;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
 	}	
 
 	public Loja getLoja() {
@@ -103,8 +106,8 @@ public class Cliente extends Usuario {
 		return endereco;
 	}
 
-	public void setEndereco(List<Endereco> enderecos) {
-		this.endereco = enderecos;
+	public void setEndereco(List<Endereco> endereco) {
+		this.endereco = endereco;
 	}
 	
 	

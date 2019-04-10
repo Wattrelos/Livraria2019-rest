@@ -52,7 +52,7 @@ public class ClienteDTO implements Serializable {
 		email = obj.getEmail();
 		dataCadastro = obj.getDataCadastro();
 		dataNascimento = obj.getDataNascimento();
-		pedido = obj.getPedidos();
+		pedido = obj.getPedido();
 		enderecos = obj.getEndereco();
 	}
 

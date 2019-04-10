@@ -48,8 +48,7 @@ public class Usuario extends EntidadeDominio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 8, max = 32)
-    @Column(name = "email", unique=true)
-    
+    @Column(name = "email", unique=true)    
     private String email;
     
     @JsonIgnore
