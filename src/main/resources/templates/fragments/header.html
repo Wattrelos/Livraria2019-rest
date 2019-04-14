@@ -4,44 +4,49 @@
 <body>
 	<header th:fragment="cabecalho">
 		<!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="/index">Projeto e-Commerce de livros</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-        
-                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-                    <ul class="navbar-nav m-auto">
-                        <li class="nav-item m-auto">
-                            <a class="nav-link" href="/index">Início</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/carrinho/carrinho">Carrinho de compras<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                        </li>
-                    </ul>
-        
-                    <form class="form-inline my-2 my-lg-0">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Buscar...">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-secondary btn-number">
-                                    <i class="fa fa-search">Buscar</i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <a class="btn btn-success btn-sm ml-3" href="/carrinho/carrinho">
-                            <i class="fa fa-shopping-cart"></i> Carrinho
-                            <span id="quantidadeCarrinho" class="badge badge-light">0</span>
-                    </a>
-                    <span id="login-button">
-                     	<button class="btn btn-success btn-sm ml-3" onclick="document.getElementById('id01').style.display='block'">Login</button>
-                     </span>
-                </div>
-<!-- Modal para login  -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">                   
+                    <li class="nav-item active">
+                     	<a class="navbar-brand" href="/index">Projeto e-Commerce de livros</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/index">Início</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/carrinho/carrinho">Carrinho de compras<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                  <form class="form-inline my-2 my-lg-0">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Buscar...">
+                          <div class="input-group-append">
+                              <button type="button" class="btn btn-secondary btn-number">
+                                  <i class="fa fa-search">Buscar</i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+                    </li>
+                    <li class="nav-item active">
+                     <a class="btn btn-success btn-sm ml-3" href="/carrinho/carrinho">
+                         <i class="fa fa-shopping-cart"></i> Carrinho
+                         <span id="quantidadeCarrinho" class="badge badge-light">0</span>
+                 	</a>
+                    </li>
+                    <li class="nav-item active">
+                     <span id="login-button" class="collapse navbar-collapse justify-content-end" >
+                   		<button class="btn btn-success btn-sm ml-3" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                  	</span>
+                    </li>
+                    <li class="nav-item active">
+                    	<span id="gestao-button" class="collapse navbar-collapse justify-content-end" >
+                    	</span>
+                    </li>
+                </ul> 
+            </div>
+        </nav>
+        <!-- Modal para login  -->
                 
                 	<div id="id01" class="modal">
 		  
@@ -58,15 +63,13 @@
 					      <label for="senha"><b>Senha</b></label>
 					      <input type="password" placeholder="Digite tua senha" name="senha" required>					        
 					      <button type="submit" class="btn btn-success btn-sm ml-3">Login</button>					      
-					    </div>					
-					    <div class="container" style="background-color:#f1f1f1">
-					      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-sm ml-3">Cancelar</button>					      
+					    </div>
+						<div class="container" style="background-color:#f1f1f1">
+						    <a class="btn btn-info btn-sm ml-3" href="/cliente/cadastro"><i class="fa fa-shopping-cart"></i>Cadastrar</a>					      	      
 					    </div>
 					  </form>
 				</div>
-<!-- Fim Modal para login -->
-            </div>            
-        </nav>        
+			<!-- Fim Modal para login -->       
        <script src="/js/quantidadeCarrinho.js"></script>
        <script src="/js/superlogin.js"></script>       
 	</header>

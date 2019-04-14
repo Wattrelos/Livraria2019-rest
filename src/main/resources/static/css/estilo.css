@@ -2,9 +2,27 @@
 .vitrine {
 	margin-top: 100px;
     display: grid;
-    grid-template-columns: 200px auto;  
-    
+    grid-template-columns: 200px auto; 
 }
+
+
+.formulario-cliente{
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 149px auto;
+    padding: 10px;    
+    grid-gap: 10px;
+    background-color: rgb(17, 114, 4);
+}
+.formulario-cliente>label{
+	background-color: rgb(17, 114, 4);
+	color: rgb(238, 248, 145);
+}
+.formulario-cliente>div{	
+	color: rgb(238, 248, 145);
+}
+
+
 
 .atalhos {
     background: rgb(233, 233, 233);    

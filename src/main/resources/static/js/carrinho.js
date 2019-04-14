@@ -90,3 +90,14 @@ function confirmPedido(){
 		*/
 	}
 }
+
+$("form").submit(function(){
+	var userNumber = sessionStorage.getItem("number")
+	console.log(userNumber);
+	if(userNumber != null){
+		document.getElementById("irPedido").value = userNumber;
+	}else{
+		document.getElementById('id01').style.display='block';
+		return false;
+	} 
+});

@@ -29,10 +29,6 @@ public class PedidoService {
 	// CREATE------------------------------------------------------
 	public Pedido insert(Pedido obj) {
 		
-		System.out.println(">>>>>>>>>>>>>>>>>>>PedidoService pedido.getCliente().getId : " + obj.getCliente().getId());
-		System.out.println(">>>>>>>>>>>>>>>>>>>PedidoService PedidoHasLivroDto.obj.getCliente().getNome() : " + obj.getCliente().getNome());		
-		
-		
 		obj.setId(null);  // Garantir a criação do objeto ao invés de merge.
 		obj = repo.save(obj); // Salvar e recuperar Cliente.		
 		for(Estoque estoque : obj.getEstoque()) {

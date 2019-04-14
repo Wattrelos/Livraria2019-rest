@@ -7,6 +7,6 @@ import fatec.domain.TendEndereco;
 
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<TendEndereco, Integer>{
+public interface TEnderecoRepository extends JpaRepository<TendEndereco, Integer>{
 
 }

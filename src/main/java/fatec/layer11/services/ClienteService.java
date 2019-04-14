@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
-import fatec.domain.Endereco;
+import fatec.domain.TendEndereco;
 import fatec.domain.Pedido;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
@@ -43,18 +43,13 @@ public class ClienteService {
 	// CREATE ------------------------------------------------
 	@Transactional
 	public Cliente insert(Cliente cliente) {
-		cliente.setId(null); // Garantir a criação do objeto ao invés de merge.
-		cliente = repo.save(cliente); // Salvar e recuperar Cliente.
+		cliente.setId(null); // Garantir a criação do objeto ao invés de merge.		
 		
+		cliente = repo.save(cliente); // Salvar e recuperar Cliente.		
 		for(Pedido pedido : cliente.getPedido()) {
 			pedido.setCliente(cliente);
 			pedidoRepository.save(pedido);
 		}
-		for(Endereco endereco : cliente.getEndereco()) {
-			endereco.setCliente(cliente);
-			enderecoRepository.save(endereco);
-		}
-		
 		return cliente;
 	}
 	
@@ -108,6 +103,8 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setCpf(obj.getCpf());
 		newObj.setDataNascimento(obj.getDataNascimento());
+		newObj.setPedido(obj.getPedido());
+		newObj.setEndereco(obj.getEndereco());
 	}
 	
 	// DELETE ------------------------------------------------
@@ -123,7 +120,7 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEnderecos(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEndereco(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		

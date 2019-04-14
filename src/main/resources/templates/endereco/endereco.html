@@ -13,18 +13,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 radio-button" th:each="enderecoEach : ${cliente.endereco}">
-                    <input type="radio" id="radio-1" name="endereco" value="1" checked>
-                        <label for="radio-1">Entregar neste endereço?</label>
-                        <div class="endereco">                    
-                            <tbody>
-                                <label>Endereço:</label><div th:text="${enderecoEach.logradouro}"></div>
-                                <label>Número:</label><div th:text="${enderecoEach.numero}"></div>
-                                <label>Bairro:</label><div th:text="${enderecoEach.bairro}"></div>
-                                <label>Cidade:</label><div th:text="${enderecoEach.cidade.nome}"></div>
-                                <label>Estado:</label><div th:text="${enderecoEach.cidade.estado.nome}"></div>
-                                <label>CEP:  </label><div th:text="${enderecoEach.cep}"></div>
-                            </tbody>
-                        </div>
+                    <input type="radio" id="radio-1" name="endereco" value="1">
+                    <label for="radio-1">Entregar neste endereço?</label>
+                    <div class="endereco">                    
+                        <tbody>
+                            <label>CEP:</label><div th:text="${enderecoEach.cep}"></div>
+                            <label>Endereço:</label><div th:text="${enderecoEach.enderecoCompleto}"></div>
+                            <label>Bairro:</label><div th:text="${enderecoEach.bairro.bairro}"></div>
+                            <label>Cidade:</label><div th:text="${enderecoEach.bairro.cidade.cidade}"></div>
+                            <label>Estado:</label><div th:text="${enderecoEach.bairro.cidade.tendEstado.estado}"></div>
+                        </tbody>
+                    </div>
                 </div>                
             </div>
                 <div class="col mb-2">                    
@@ -34,9 +33,11 @@
                         </div> 
                         <div class="col-sm-9 col-md-4 text-right">
                             <button class="btn btn-lg btn-block btn-secondary text-uppercase">Cadastrar outro endereço</button>
-                        </div>            
+                        </div>
                         <div class="col-sm-9 col-md-4 text-right">
-                            <button class="btn btn-lg btn-block btn-success text-uppercase">Continuar</button>
+                        	<form method="post" enctype="application/json" action="/pagamento/pagamento">
+                       			<button id="irConfirmar" class="btn btn-lg btn-block btn-success text-uppercase" name="cliente" value="0">Continuar</button>
+                      		</form>
                         </div>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
         </footer>
          <!------ Include the above in your HEAD tag ---------->
         <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/jquery.min.js"></script> 
+        <script src="/js/jquery.min.js"></script>        
      </section>
 </body>
 </html>

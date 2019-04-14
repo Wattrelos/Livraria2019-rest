@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -19,6 +21,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+@SuppressWarnings("serial")
 @Entity
 public class Cliente extends Usuario {
 	
@@ -41,25 +44,29 @@ public class Cliente extends Usuario {
 	@JoinColumn(name="loja_id")
     @JsonBackReference
 	private Loja loja;
-    
-    @OneToMany(mappedBy="cliente", cascade=CascadeType.REFRESH)
-	private List<Endereco> endereco = new ArrayList<>();
-    
+        
     @JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
 	private List<Pedido> pedido = new ArrayList<>();
+    
+    @ManyToMany(cascade=CascadeType.REFRESH)
+    @JoinTable(name="cliente_has_endereco",
+            joinColumns = @JoinColumn(name = "cliente_id"),
+            inverseJoinColumns = @JoinColumn(name = "endereco_id")    
+    ) 
+    private List<TendEndereco> endereco = new ArrayList<>();
 	
 	// Construtores ---------------------------------------------------------
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<Endereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<TendEndereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
-		this.endereco = endereco;
 		this.pedido = pedido;
+		this.endereco = endereco;
 	}
 	
 	public String getNome() {
@@ -102,13 +109,11 @@ public class Cliente extends Usuario {
 		this.loja = loja;
 	}
 
-	public List<Endereco> getEndereco() {
+	public List<TendEndereco> getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(List<Endereco> endereco) {
+	public void setEndereco(List<TendEndereco> endereco) {
 		this.endereco = endereco;
 	}
-	
-	
 }

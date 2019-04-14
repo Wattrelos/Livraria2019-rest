@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head><meta charset="UTF-8"/></head>
+<body>
+	    <section layout:fragment="corpo">
+	        <div class="container">
+            <div class="row">
+                <div class="col-12 radio-button">
+                    <input type="radio" id="pagamento-boleto" name="endereco" value="1">
+                    <label for="pagamento-boleto">Boleto</label>
+                    
+                </div>
+                <div class="col-12 radio-button">
+                        <input type="radio" id="pagamento-cartao" name="endereco" value="1">
+                        <label for="pagamento-cartao">Cartão</label>
+                        <div class="cartao ">
+                            <label>Nome (igual o do cartão):</label>      
+                            <input type="text" name="nomeCartao" placeholder="Nome igual ao do cartão"> 
+                            <label>Número do cartão:</label>      
+                            <input type="number" name="numeroCartao" placeholder="0000 0000 0000 0000">
+                            <label>Válido até:</label>
+                            <input type="number" name="validadeCartao" placeholder="00/00">
+                            <label>Código de verificação:</label>
+                            <input type="number" name="cvvCartao" placeholder="000">
+                        </div>    
+                </div>
+            </div>
+                <div class="col mb-2">                    
+                    <div class="row">
+                        <div class="col-sm-9 col-md-4 text-right">
+                            <button class="btn btn-lg btn-block btn-secondary text-uppercase">Voltar</button>
+                        </div>  
+                        <div class="col-sm-9 col-md-4 text-right">
+                        	<form method="post" enctype="application/json" action="/pedido/pedido">
+                       			<button id="irConfirmar" class="btn btn-lg btn-block btn-success text-uppercase" name="cliente" value="0">Continuar</button>
+                      		</form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <script src="/js/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/carrinho.js"></script>
+	    </section>
+</body>
+</html>		

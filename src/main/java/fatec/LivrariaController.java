@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fatec.domain.Cliente;
+import fatec.domain.Estoque;
+import fatec.domain.Pedido;
 import fatec.layer11.services.ClienteService;
+import fatec.layer11.services.PedidoService;
 import fatec.layer30.resources.AutorResorce;
 import fatec.layer30.resources.CategoriaResorce;
+import fatec.layer30.resources.ClienteResorce;
 import fatec.layer30.resources.LivroResorce;
 import fatec.layer30.resources.PedidoResorce;
 
@@ -25,9 +29,13 @@ public class LivrariaController {
 	@Autowired
 	CategoriaResorce categoriaResource;
 	@Autowired
+	ClienteResorce clienteResource;
+	@Autowired
 	LivroResorce livroResource;
 	@Autowired
 	PedidoResorce pedidoResource;
+	@Autowired
+	PedidoService pedidoService;
 	@Autowired
 	ClienteService clienteService;
 	
@@ -48,8 +56,32 @@ public class LivrariaController {
 	public String carrinho() {		
 		return "/carrinho/carrinho.html";
 	}
+
+	@RequestMapping(value="/cliente/cadastro")
+	public String cliente() {		
+		return "/cliente/cadastro";
+	}
 	
-	@RequestMapping(value="/endereco", method=RequestMethod.POST)
+	@RequestMapping(value="/pagamento/pagamento")
+	public String pagamento() {		
+		return "/pagamento/pagamento.html";
+	}
+	
+	@RequestMapping(value="/pedido/pedido")
+	public String pedido(Model model, @RequestParam(value="cliente", defaultValue="2") Integer number) {
+		Cliente cliente = clienteService.find(number);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cliente.getNome());
+		for(Pedido pedido : cliente.getPedido()) {
+			System.out.println(">>>>>>>>>>>>>>>>>>Pedido Observacao: " + pedido.getObservacao());
+			for(Estoque estoque : pedido.getEstoque()) {
+				System.out.println(">>>>>>>>>>>>>>>>>>Pedido Quantidade: " + estoque.getQuantidade());
+			}
+		}
+		model.addAttribute("cliente", cliente);		
+		return "/pedido/pedido.html";
+	}
+	
+	@RequestMapping(value="/endereco/endereco", method=RequestMethod.POST)
 	public String endereco(Model model, @RequestParam(value="cliente", defaultValue="2") Integer number) {
 		Cliente cliente = clienteService.find(number);
 		// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cliente);
@@ -70,6 +102,9 @@ public class LivrariaController {
 			 break;
 		 case "categoria":
 			 model.addAttribute("list", categoriaResource.findPage(page, linesPerPage, "categoria", direction ).getBody());
+			 break;
+		 case "cliente":
+			 model.addAttribute("list", clienteResource.findPage(page, linesPerPage, "nome", direction ).getBody());
 			 break;
 		 case "livro":
 			 model.addAttribute("list", livroResource.findPage(page, linesPerPage, "titulo", direction ).getBody());

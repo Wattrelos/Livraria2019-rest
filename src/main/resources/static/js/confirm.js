@@ -158,7 +158,6 @@ function confirmCreateLivro(frm){
         	alert("Erro: " + erro.status + " Falha ao tentar adicionar livro!" + name);
         }
 	});
-	
 // =================================================================================================================
 };
 		

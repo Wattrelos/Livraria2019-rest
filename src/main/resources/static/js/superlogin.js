@@ -2,7 +2,7 @@ var userName = window.sessionStorage.getItem("user");
 if(userName != null){	
 	document.getElementById("login-button").innerHTML =
 		`<div class="dropdown show">
-			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` +
+			  <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` +
 			    userName.split("@")[0] +
 		     `</a>		
 			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -11,8 +11,9 @@ if(userName != null){
 			    <button class="dropdown-item" type="submit" onclick="logoff()">Sair</button></div>
 			    <a class="dropdown-item" href="#" onclick="logoff()">Sair</a>
 			  </div>
-			</div>`;
+		</div>`;
 }
+
 
 function superlogin(form){
 	let campos =  form.querySelectorAll("input");
@@ -37,7 +38,7 @@ function superlogin(form){
 			
 			// Teste de redirecionamento de páginas, antes de escapsular.
 			if(xhr.getResponseHeader('authorities') == "[ROLE_ADMIN]"){
-				window.location = '/gestao/listar';
+				window.location = '/gestao';
 			}else{
 				window.location.reload();
 			}
