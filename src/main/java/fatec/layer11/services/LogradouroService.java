@@ -10,47 +10,48 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import fatec.domain.TendEndereco;
-import fatec.layer10.repositories.TEnderecoRepository;
+import fatec.domain.TendLogradouro;
+import fatec.layer10.repositories.TendLogradouroRepository;
 import fatec.layer11.services.exceptions.DataIntegrityException;
 import fatec.layer11.services.exceptions.ObjectNotFoundException;
-import fatec.layer20.aplications.DataTransferObject.EnderecoDTO;
+import fatec.layer20.aplications.DataTransferObject.LogradouroDTO;
 
 @Service
-public class TEnderecoService extends AbstractJdbcDAO{
+public class LogradouroService extends AbstractJdbcDAO{
 	
 	@Autowired
-	private TEnderecoRepository repo;
+	private TendLogradouroRepository repo;
+
 
 	// CREATE ------------------------------------------------
-	public TendEndereco insert(TendEndereco obj) {
+	public TendLogradouro insert(TendLogradouro obj) {
 		obj.setCep(null);
 		return repo.save(obj);
 	}
 	
 	// READ ------------------------------------------------
-	public TendEndereco find(Integer id) {
-		Optional<TendEndereco> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ TendEndereco.class.getName()));		
+	public TendLogradouro find(Integer id) {
+		Optional<TendLogradouro> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+ id+ ", Tipo: "+ TendLogradouro.class.getName()));		
 	}
 	
-	public List<TendEndereco> findAll() {
+	public List<TendLogradouro> findAll() {
 		return repo.findAll();
 	}
 
-	public Page<TendEndereco> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<TendLogradouro> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 
 	// UPDATE ------------------------------------------------
-	public TendEndereco update(TendEndereco obj) {
-		TendEndereco newObj = find(obj.getCep());
+	public TendLogradouro update(TendLogradouro obj) {
+		TendLogradouro newObj = find(obj.getCep());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
-	private void updateData(TendEndereco newObj, TendEndereco obj) {
-		newObj.setEndereco(obj.getEndereco());
+	private void updateData(TendLogradouro newObj, TendLogradouro obj) {
+		newObj.setCep(obj.getCep());
 	}
 	
 	// DELETE ------------------------------------------------
@@ -60,13 +61,13 @@ public class TEnderecoService extends AbstractJdbcDAO{
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma Tendereco que possui livros");
+			throw new DataIntegrityException("Não é possível excluir uma Cep que possui livros");
 		}
 	}
 	
 	// ------------------------------------------------------
-	public TendEndereco fromDTO(EnderecoDTO objDto) {
-		return new TendEndereco(objDto.getCep(), objDto.getLogradouro(), objDto.getEndereco(), objDto.getEnderecoCompleto());
+	public TendLogradouro fromDTO(LogradouroDTO objDto) {
+		return new TendLogradouro(objDto.getCep(), objDto.getLogradouro(), objDto.getEndereco(), objDto.getEnderecoCompleto(), objDto.getBairro());
 	}
 	
 

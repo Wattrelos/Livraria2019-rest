@@ -88,6 +88,10 @@ public class LivrariaController {
 		model.addAttribute("cliente", cliente);		
 		return "/endereco/endereco.html";
 	}
+	@RequestMapping(value="/endereco/cadastrar", method=RequestMethod.GET)
+	public String enderecoCadastrar() {			
+		return "/endereco/cadastro.html";
+	}
 	
 	@RequestMapping(value="/livraria/{entidade}/page", method=RequestMethod.GET)
 	public  String findPage(Model model, @PathVariable String entidade,

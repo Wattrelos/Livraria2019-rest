@@ -5,58 +5,36 @@
 	    <title>Cadastro de cliente</title>
     </head>
 	<body>
-		    <section layout:fragment="corpo">
-		       <form method="post" action="cliente" class="formulario-cliente" id="formulario-cliente"> 
-		            <label for="nome">Nome:</label>             
-		            <input id="nome" type="text" name="nome" placeholder="Nome completo...">
-		            
-		            <label for="cpf">CPF:</label>
-		            <input id="cpf" type="text" name="cpf" placeholder="000.000.000-00">
-		            
-		            <label for="cpf">Data de nascimento:</label>
-		            <input id="cpf" type="date" name="cpf" placeholder="00/00/00">
-		            
-		            <label for="email">Email:</label>
-		            <input id="email" type="email" name="email" placeholder="email@email">
-		            
-		            <label for="senha">Senha:</label>
-		            <input id="senha" type="password" name="senha">
-		            
-		            <label for="confirmar-senha">Confirmar senha:</label>
-		            <input id="confirmar-senha" type="password" name="confirmar-senha" placeholder="">
-		            
-		            <label for="sexo">Sexo:</label>
-		            <div>
-		                <input type="radio" name="sexo" value="masculino" checked>Masculino
-						<input type="radio" name="sexo" value="feminino">Feminino
-		            </div>
-		
-		            <label for="tipoLogradouro">CEP:</label>                 
-		            <input id= "cep" name="cep" placeholder="00000-000">
-
-		            <label for="tipoLogradouro">Logradouro:</label>                 
-		            <input id= "logradouro" name="logradouro" placeholder="Rua/avenida/praça...">
-		
-		            <label for="numero">Número</label>             
-		            <input id ="numero" type="number" name="numero" placeholder="número...">
-		
-		            <label for= "complemento">Complemento:</label>                 
-		            <input id = "complemento" type="text" name= "complemento" placeholder= "complemento (opcional)..." >
-		
-		            <label for= "bairro">Bairro:</label>                 
-		            <input id = "bairro" type="text" name="bairro" placeholder= "bairro..." >
-		
-		            <label for= "cidade" >Cidade:</label>                 
-		            <input id = "cidade" type="text" name="cidade" placeholder= "cidade..." >
-		
-		            <label for= "estado">Estado:</label>                 
-		            <input id = "estado" type="text" name="estado" placeholder= "Estado." >
-		
-		            <!-- Enviar formulário preenchido para gravação no banco de dados -->
-		            <button type="submit" id="operacao" name="operation" value="create" class="btn btn-primary">Cadastrar</button>     
-		            <div id="aviso"></div>             
-		        </form>
-		        <script src="/js/formClient.js"></script>
-		    </section>
+	    <section layout:fragment="corpo">
+	       <form method="post" action="cliente" class="formulario-cliente" id="formulario-cliente"> 
+	            <label for="nome">Nome:</label>             
+	            <input id="nome" type="text" name="nome" placeholder="Nome completo...">
+	            
+	            <label for="cpf">CPF:</label>
+	            <input id="cpf" type="text" name="cpf" placeholder="000.000.000-00">
+	            
+	            <label for="dataNascimento">Data de nascimento:</label>
+	            <input id="dataNascimento" type="date" name="dataNascimento" placeholder="00/00/00">
+	            
+	            <label for="email">Email:</label>
+	            <input id="email" type="email" name="email" placeholder="email@email">
+	            
+	            <label for="senha">Senha:</label>
+	            <input id="senha" type="password" name="senha">
+	            
+	            <label for="confirmar-senha">Confirmar senha:</label>
+	            <input id="confirmar-senha" type="password" name="confirmar-senha" placeholder="">
+	            
+	            <label for="sexo">Sexo:</label>
+	            <div>
+	                <input type="radio" name="sexo" value="m" checked>Masculino
+					<input type="radio" name="sexo" value="f">Feminino
+	            </div>
+	            <!-- Enviar formulário preenchido para gravação no banco de dados -->
+	            <button type="submit" id="operacao" name="operation" value="create" class="btn btn-primary">Cadastrar</button>     
+	            <div id="aviso"></div>             
+	        </form>
+	        <script src="/js/formClient.js"></script>
+	    </section>
 	</body>
 </html>		

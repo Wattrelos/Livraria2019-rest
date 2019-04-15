@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fatec.domain.Cliente;
-import fatec.domain.TendEndereco;
 import fatec.domain.Pedido;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
@@ -120,11 +119,11 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(),objDto.getEndereco(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(), objDto.getSexo(), objDto.getEndereco(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
-		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getEndereco(),objNewDto.getPedido(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
+		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getSexo(), objNewDto.getEndereco(),objNewDto.getPedido(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
 	}
 	
 

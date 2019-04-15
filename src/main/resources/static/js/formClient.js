@@ -42,36 +42,31 @@ document.getElementById("formulario-cliente").addEventListener("submit", functio
     });
     if(checkin){
     	// Se o formulário estiver OK, enviar para cadastro.
-    	console.log(book);    
         localStorage.setItem("users", JSON.stringify(book)); //Guarda os dados do armazenamento local do navegador.
         // Gravar cliente
     	
-    	// console.log(JSON.stringify(EntidadeArray));
-        /*
+    	// console.log(JSON.stringify(book));
+        
         $.ajax({				
     		type : "POST",
     		headers: {"Authorization": window.sessionStorage.getItem('token')},
     		url : "/cliente",
-    		// dataType: 'json', // tipo de dados da requisição.
     		contentType: "application/json; charset=utf-8",
-    		data : JSON.stringify(book),		
+    		data : JSON.stringify(book),
     		success: function () {
-    			alert("Cliente adicionado com sucesso!");
+    			window.location.href = "/index";    			
             },
             error: function (erro, textStatus, xhr) {
             	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar cliente" + book + "!");
             }
-    	});
-    	*/
+    	});    	
     }
     
 
     function testaCPF(cpf){
     	
-    	
     	// Algoritmo de digito verificador:
 		cpf = cpf.replace(/[^\d]+/g,'');
-		console.log("cpf: " + cpf);
         if (cpf.length != 11 ||
             // Elimina CPFs invalidos conhecidos
 				cpf == "00000000000" || 
@@ -115,29 +110,4 @@ document.getElementById("formulario-cliente").addEventListener("submit", functio
 			return teste;
         }
     }
-});
-document.getElementById("cep").addEventListener("change", function(evento){	
-	var cep = this.value.replace(/[^\d]+/g,'');
-	console.log(cep);
-	if(cep.length == 8){
-		console.log("if: " + cep);	
-		$.ajax({				
-			type : "GET",
-			headers: {"Authorization": window.sessionStorage.getItem('token')},
-			url : "http://localhost:8080/endereco/" + cep,
-			// dataType: 'json', // tipo de dados da requisição.
-			contentType: "application/json; charset=utf-8",
-			success: function (result) {
-				// console.log(result);
-				document.getElementById("logradouro").value = result.enderecoCompleto;
-				document.getElementById("bairro").value = result.bairro.bairro;
-				document.getElementById("cidade").value = result.bairro.cidade.cidade;
-				document.getElementById("estado").value = result.bairro.cidade.tendEstado.estado;
-	        },
-	        error: function (erro, textStatus, xhr) {
-	        	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar buscar CEP!");
-	        },	        
-		});
-		
-	}
 });

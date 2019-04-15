@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import fatec.domain.Cliente;
-import fatec.domain.TendEndereco;
+import fatec.domain.Endereco;
 import fatec.domain.Pedido;
 
 public class ClienteDTO implements Serializable {
@@ -33,11 +33,12 @@ public class ClienteDTO implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
+	private char sexo;
 	
 	private Date dataCadastro;
 	
 	// Coleções
-	private List<TendEndereco> endereco = new ArrayList<>();
+	private List<Endereco> endereco = new ArrayList<>();
 	
 	private List<Pedido> pedido = new ArrayList<>();
 
@@ -51,6 +52,7 @@ public class ClienteDTO implements Serializable {
 		cpf = obj.getCpf();
 		email = obj.getEmail();
 		dataCadastro = obj.getDataCadastro();
+		sexo = obj.getSexo();
 		dataNascimento = obj.getDataNascimento();
 		pedido = obj.getPedido();
 	}
@@ -103,6 +105,14 @@ public class ClienteDTO implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 	
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
 	public List<Pedido> getPedido() {
 		return pedido;
 	}
@@ -111,11 +121,11 @@ public class ClienteDTO implements Serializable {
 		this.pedido = pedido;
 	}
 	
-	public List<TendEndereco> getEndereco() {
+	public List<Endereco> getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(List<TendEndereco> enderecos) {
+	public void setEndereco(List<Endereco> enderecos) {
 		this.endereco = enderecos;
 	}
 	

@@ -39,6 +39,10 @@ public class Cliente extends Usuario {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
     
+    @Basic(optional = false)
+    @Column(name = "sexo")
+    private char sexo;
+    
     // Coleções. ------------------------------------------------------
     @ManyToOne
 	@JoinColumn(name="loja_id")
@@ -54,17 +58,18 @@ public class Cliente extends Usuario {
             joinColumns = @JoinColumn(name = "cliente_id"),
             inverseJoinColumns = @JoinColumn(name = "endereco_id")    
     ) 
-    private List<TendEndereco> endereco = new ArrayList<>();
+    private List<Endereco> endereco = new ArrayList<>();
 	
 	// Construtores ---------------------------------------------------------
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, List<TendEndereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, char sexo, List<Endereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
 		this.pedido = pedido;
 		this.endereco = endereco;
 	}
@@ -93,6 +98,14 @@ public class Cliente extends Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
 	public List<Pedido> getPedido() {
 		return pedido;
 	}
@@ -109,11 +122,12 @@ public class Cliente extends Usuario {
 		this.loja = loja;
 	}
 
-	public List<TendEndereco> getEndereco() {
+	public List<Endereco> getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(List<TendEndereco> endereco) {
+	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
 	}
+	
 }

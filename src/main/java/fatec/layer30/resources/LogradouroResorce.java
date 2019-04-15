@@ -19,62 +19,63 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fatec.domain.Endereco;
-import fatec.layer11.services.EnderecoService;
-import fatec.layer20.aplications.DataTransferObject.EnderecoDTO;
+import fatec.domain.TendLogradouro;
+import fatec.layer11.services.LogradouroService;
+import fatec.layer20.aplications.DataTransferObject.LogradouroDTO;
 
 @RestController
-@RequestMapping(value="/endereco")
-public class EnderecoResorce {
+@RequestMapping(value="/cep")
+public class LogradouroResorce {
 	
 	@Autowired
-	private EnderecoService service;	
+	private LogradouroService service;	
 
 	// CREATE ------------------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody EnderecoDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody LogradouroDTO objDto) {
 		System.out.println(objDto.toString());
-		Endereco obj = service.fromDTO(objDto);
+		TendLogradouro obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("{id}").buildAndExpand(obj.getId()).toUri();
+				.path("{id}").buildAndExpand(obj.getCep()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	// READ one ------------------------------------------------
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Endereco obj = service.find(id);
+		TendLogradouro obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	// READ (all)---------------------------------------	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<EnderecoDTO>> findAll() {
-		List<Endereco> list = service.findAll();
-		List<EnderecoDTO> listDto = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());  
+	public ResponseEntity<List<LogradouroDTO>> findAll() {
+		List<TendLogradouro> list = service.findAll();
+		List<LogradouroDTO> listDto = list.stream().map(obj -> new LogradouroDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	// READ (paginação)---------------------------------------	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<EnderecoDTO>> findPage(
+	public ResponseEntity<Page<LogradouroDTO>> findPage(
 			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="logradouro") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="Logradouro") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Endereco> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<EnderecoDTO> listDto = list.map(obj -> new EnderecoDTO(obj));
+		Page<TendLogradouro> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<LogradouroDTO> listDto = list.map(obj -> new LogradouroDTO(obj));
 		return ResponseEntity.ok().header("Authorization", authorization).body(listDto);
 	}
 	
 	// UPDATE ------------------------------------------------	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody EnderecoDTO objDto, @PathVariable Integer id) {
-		Endereco obj = service.fromDTO(objDto);
-		obj.setId(id);
+	public ResponseEntity<Void> update(@Valid @RequestBody LogradouroDTO objDto, @PathVariable Integer id) {
+		TendLogradouro obj = service.fromDTO(objDto);
+		obj.setCep(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
@@ -84,7 +85,7 @@ public class EnderecoResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Endereco deletando...");
+		System.out.print("Logradouro deletando...");
 		return ResponseEntity.noContent().build();
 	}
 

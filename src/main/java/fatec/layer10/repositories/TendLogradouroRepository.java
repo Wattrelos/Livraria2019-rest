@@ -3,10 +3,10 @@ package fatec.layer10.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fatec.domain.TendEndereco;
+import fatec.domain.TendLogradouro;
 
 
 @Repository
-public interface TEnderecoRepository extends JpaRepository<TendEndereco, Integer>{
+public interface TendLogradouroRepository extends JpaRepository<TendLogradouro, Integer>{
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head>
+		<meta charset="UTF-8"/>			
+	    <title>Cadastro de endereço</title>
+    </head>
+	<body>
+		    <section layout:fragment="corpo">
+		       <form method="post" action="endereco" class="formulario-cliente" id="formulario-endereco"> 		            
+		
+		            <label for="tipoLogradouro">CEP:</label>                 
+		            <input id= "cep" name="cep" placeholder="00000-000">
+
+		            <label for="tipoLogradouro">Logradouro:</label>                 
+		            <input id= "logradouro" name="logradouro" placeholder="Rua/avenida/praça...">
+		
+		            <label for="numero">Número</label>             
+		            <input id ="numero" type="number" name="numero" placeholder="número...">
+		
+		            <label for= "complemento">Complemento:</label>                 
+		            <input id = "complemento" type="text" name= "complemento" placeholder= "complemento (opcional)..." >
+		
+		            <label for= "bairro">Bairro:</label>                 
+		            <input id = "bairro" type="text" name="bairro" placeholder= "bairro..." >
+		
+		            <label for= "cidade" >Cidade:</label>                 
+		            <input id = "cidade" type="text" name="cidade" placeholder= "cidade..." >
+		
+		            <label for= "estado">Estado:</label>                 
+		            <input id = "estado" type="text" name="estado" placeholder= "Estado." >
+		
+		            <!-- Enviar formulário preenchido para gravação no banco de dados -->
+		            <button type="submit" id="operacao" name="operation" value="create" class="btn btn-primary">Cadastrar</button>     
+		            <div id="aviso"></div>             
+		        </form>
+		        <script src="/js/formEndereco.js"></script>
+		    </section>
+	</body>
+</html>		

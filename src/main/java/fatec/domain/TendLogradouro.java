@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -22,13 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tend_endereco")
-@NamedQueries({
-    @NamedQuery(name = "TendEndereco.findAll", query = "SELECT t FROM TendEndereco t"),
-    @NamedQuery(name = "TendEndereco.findByCep", query = "SELECT t FROM TendEndereco t WHERE t.cep = :cep"),
-    @NamedQuery(name = "TendEndereco.findByLogradouro", query = "SELECT t FROM TendEndereco t WHERE t.logradouro = :logradouro"),
-    @NamedQuery(name = "TendEndereco.findByEndereco", query = "SELECT t FROM TendEndereco t WHERE t.endereco = :endereco"),
-    @NamedQuery(name = "TendEndereco.findByEnderecoCompleto", query = "SELECT t FROM TendEndereco t WHERE t.enderecoCompleto = :enderecoCompleto")})
-public class TendEndereco implements Serializable {
+public class TendLogradouro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,7 +44,7 @@ public class TendEndereco implements Serializable {
     @JoinColumn(name="id_bairro")
     private TendBairro bairro;
 
-    public TendEndereco() {
+    public TendLogradouro() {
     }
 
     
@@ -60,15 +52,16 @@ public class TendEndereco implements Serializable {
 
     // Construtores ----------------------------------------------------
 
-    public TendEndereco(Integer cep) {
+    public TendLogradouro(Integer cep) {
         this.cep = cep;
     }
     
-    public TendEndereco(Integer cep, String logradouro, String endereco, String enderecoCompleto) {
+    public TendLogradouro(Integer cep, String logradouro, String endereco, String enderecoCompleto, TendBairro bairro) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.endereco = endereco;
         this.enderecoCompleto = enderecoCompleto;
+        this.bairro = bairro;
     }
 
     public Integer getCep() {
@@ -124,10 +117,10 @@ public class TendEndereco implements Serializable {
 	@Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TendEndereco)) {
+        if (!(object instanceof TendLogradouro)) {
             return false;
         }
-        TendEndereco other = (TendEndereco) object;
+        TendLogradouro other = (TendLogradouro) object;
         if ((this.cep == null && other.cep != null) || (this.cep != null && !this.cep.equals(other.cep))) {
             return false;
         }

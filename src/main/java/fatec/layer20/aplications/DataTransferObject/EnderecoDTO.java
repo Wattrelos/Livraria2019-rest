@@ -3,59 +3,62 @@ package fatec.layer20.aplications.DataTransferObject;
 
 
 import java.io.Serializable;
-import fatec.domain.TendEndereco;
+
+import fatec.domain.Endereco;
+import fatec.domain.TendLogradouro;
 
 
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer cep;
-    private String logradouro;
-    private String endereco;
-    private String enderecoCompleto;
+	private Integer id;
+    private Integer numero;
+    private String complemento;
+    private TendLogradouro endereco;
 
 	public EnderecoDTO() {
 	} 
 	
-	public EnderecoDTO(TendEndereco obj) {
-		cep = obj.getCep();
-		logradouro = obj.getLogradouro();
+	public EnderecoDTO(Endereco obj) {
+		id = obj.getId();
+		numero = obj.getNumero();
+		complemento = obj.getComplemento();
 		endereco = obj.getEndereco();
-		enderecoCompleto = obj.getEnderecoCompleto();
 	}
 
-	public Integer getCep() {
-		return cep;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCep(Integer cep) {
-		this.cep = cep;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
-	public String getEndereco() {
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public TendLogradouro getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(TendLogradouro endereco) {
 		this.endereco = endereco;
 	}
 
-	public String getEnderecoCompleto() {
-		return enderecoCompleto;
-	}
-
-	public void setEnderecoCompleto(String enderecoCompleto) {
-		this.enderecoCompleto = enderecoCompleto;
-	}
 	
 	
 }

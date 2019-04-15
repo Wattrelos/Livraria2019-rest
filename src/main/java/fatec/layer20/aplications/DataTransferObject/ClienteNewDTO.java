@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import fatec.domain.Cliente;
-import fatec.domain.TendEndereco;
+import fatec.domain.Endereco;
 import fatec.domain.Pedido;
 
 
@@ -35,8 +35,9 @@ public class ClienteNewDTO implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	private Date dataCadastro;
+	private char sexo;
 	private Integer perfil;
-	private List<TendEndereco> endereco = new ArrayList<>();
+	private List<Endereco> endereco = new ArrayList<>();
 	private List<Pedido> pedido = new ArrayList<>();
 
 	public ClienteNewDTO() {
@@ -109,11 +110,18 @@ public class ClienteNewDTO implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 	
-	public List<TendEndereco> getEndereco() {
+	public char getSexo() {
+		return sexo;
+	}
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+	
+	public List<Endereco> getEndereco() {
 		return endereco;
 	}
 	
-	public void setEndereco(List<TendEndereco> endereco) {
+	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
 	}
 	public List<Pedido> getPedido() {
