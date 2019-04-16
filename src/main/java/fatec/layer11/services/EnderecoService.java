@@ -22,6 +22,7 @@ public class EnderecoService extends AbstractJdbcDAO{
 	@Autowired
 	private EnderecoRepository repo;
 
+
 	// CREATE ------------------------------------------------
 	public Endereco insert(Endereco obj) {
 		obj.setId(null);
@@ -50,7 +51,7 @@ public class EnderecoService extends AbstractJdbcDAO{
 		return repo.save(newObj);
 	}
 	private void updateData(Endereco newObj, Endereco obj) {
-		newObj.setEndereco(obj.getEndereco());
+		newObj.setLogradouro(obj.getLogradouro());
 	}
 	
 	// DELETE ------------------------------------------------
@@ -60,12 +61,14 @@ public class EnderecoService extends AbstractJdbcDAO{
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir uma Tendereco que possui livros");
+			throw new DataIntegrityException("Não é possível excluir uma endereco que possui livros");
 		}
 	}
 	
 	// ------------------------------------------------------
 	public Endereco fromDTO(EnderecoDTO objDto) {
-		return new Endereco(objDto.getId(), objDto.getNumero(), objDto.getComplemento(), objDto.getEndereco());
+		return new Endereco(objDto.getId(), objDto.getNumero(), objDto.getComplemento(),objDto.getLogradouro());
 	}
+	
+
 }

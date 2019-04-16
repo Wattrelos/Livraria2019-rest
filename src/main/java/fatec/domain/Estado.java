@@ -1,88 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fatec.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ *
+ * @author Administrador
+ */
 @Entity
+@Table(name = "estado")
 public class Estado implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	private String nome;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="estado")
-	private List<Cidade> cidades = new ArrayList<>();
-	
-	public Estado() {
-	}
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id_estado")
+    private Integer idEstado;
+    
+    @Basic(optional = false)
+    @Column(name = "estado")
+    private String estado;
+    
+    @Basic(optional = false)
+    @Column(name = "uf")
+    private String uf;    
 
-	public Estado(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
+    public Estado() {
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Estado(Integer idEstado) {
+        this.idEstado = idEstado;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Estado(Integer idEstado, String estado, String uf) {
+        this.idEstado = idEstado;
+        this.estado = estado;
+        this.uf = uf;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public Integer getIdEstado() {
+        return idEstado;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setIdEstado(Integer idEstado) {
+        this.idEstado = idEstado;
+    }
 
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    public String getUf() {
+        return uf;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Estado other = (Estado) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-	
-	
-	
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idEstado != null ? idEstado.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Estado)) {
+            return false;
+        }
+        Estado other = (Estado) object;
+        if ((this.idEstado == null && other.idEstado != null) || (this.idEstado != null && !this.idEstado.equals(other.idEstado))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "domain.TendEstado[ idEstado=" + idEstado + " ]";
+    }
+    
 }

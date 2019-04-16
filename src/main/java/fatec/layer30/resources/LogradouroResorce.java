@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fatec.domain.TendLogradouro;
+import fatec.domain.Logradouro;
 import fatec.layer11.services.LogradouroService;
 import fatec.layer20.aplications.DataTransferObject.LogradouroDTO;
 
 @RestController
-@RequestMapping(value="/cep")
+@RequestMapping(value="/logradouro")
 public class LogradouroResorce {
 	
 	@Autowired
@@ -35,7 +35,7 @@ public class LogradouroResorce {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody LogradouroDTO objDto) {
 		System.out.println(objDto.toString());
-		TendLogradouro obj = service.fromDTO(objDto);
+		Logradouro obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("{id}").buildAndExpand(obj.getCep()).toUri();
@@ -45,14 +45,14 @@ public class LogradouroResorce {
 	// READ one ------------------------------------------------
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		TendLogradouro obj = service.find(id);
+		Logradouro obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	// READ (all)---------------------------------------	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<LogradouroDTO>> findAll() {
-		List<TendLogradouro> list = service.findAll();
+		List<Logradouro> list = service.findAll();
 		List<LogradouroDTO> listDto = list.stream().map(obj -> new LogradouroDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
@@ -63,9 +63,9 @@ public class LogradouroResorce {
 			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="Logradouro") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="cep") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<TendLogradouro> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Logradouro> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<LogradouroDTO> listDto = list.map(obj -> new LogradouroDTO(obj));
 		return ResponseEntity.ok().header("Authorization", authorization).body(listDto);
 	}
@@ -74,7 +74,7 @@ public class LogradouroResorce {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody LogradouroDTO objDto, @PathVariable Integer id) {
-		TendLogradouro obj = service.fromDTO(objDto);
+		Logradouro obj = service.fromDTO(objDto);
 		obj.setCep(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -85,7 +85,7 @@ public class LogradouroResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Logradouro deletando...");
+		System.out.print("cep deletando...");
 		return ResponseEntity.noContent().build();
 	}
 

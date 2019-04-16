@@ -19,8 +19,8 @@ import javax.persistence.Table;
  * @author Administrador
  */
 @Entity
-@Table(name = "tend_endereco")
-public class TendLogradouro implements Serializable {
+@Table(name = "logradouro")
+public class Logradouro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,12 +29,12 @@ public class TendLogradouro implements Serializable {
     private Integer cep;
     
     @Basic(optional = false)
-    @Column(name = "logradouro")
-    private String logradouro;
+    @Column(name = "tipo_logradouro")
+    private String tipoLogradouro;
     
     @Basic(optional = false)
-    @Column(name = "endereco")
-    private String endereco;
+    @Column(name = "logradouro")
+    private String logradouro;
     
     @Basic(optional = false)
     @Column(name = "endereco_completo")
@@ -42,9 +42,9 @@ public class TendLogradouro implements Serializable {
     
     @ManyToOne
     @JoinColumn(name="id_bairro")
-    private TendBairro bairro;
+    private Bairro bairro;
 
-    public TendLogradouro() {
+    public Logradouro() {
     }
 
     
@@ -52,50 +52,56 @@ public class TendLogradouro implements Serializable {
 
     // Construtores ----------------------------------------------------
 
-    public TendLogradouro(Integer cep) {
+    public Logradouro(Integer cep) {
         this.cep = cep;
     }
     
-    public TendLogradouro(Integer cep, String logradouro, String endereco, String enderecoCompleto, TendBairro bairro) {
+    public Logradouro(Integer cep, String tipoLogradouro, String logradouro, String enderecoCompleto, Bairro bairro) {
         this.cep = cep;
+        this.tipoLogradouro = tipoLogradouro;
         this.logradouro = logradouro;
-        this.endereco = endereco;
         this.enderecoCompleto = enderecoCompleto;
         this.bairro = bairro;
-    }
+    }    
 
-    public Integer getCep() {
-        return cep;
-    }
+	public Integer getCep() {
+		return cep;
+	}
 
-    public void setCep(Integer cep) {
-        this.cep = cep;
-    }
-    
-    public String getLogradouro() {
-        return logradouro;
-    }
+	public void setCep(Integer cep) {
+		this.cep = cep;
+	}
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
 
-    public String getEndereco() {
-        return endereco;
-    }
+	public String getTipoLogradouro() {
+		return tipoLogradouro;
+	}
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
 
-    public String getEnderecoCompleto() {
-        return enderecoCompleto;
-    }
+	public void setTipoLogradouro(String tipoLogradouro) {
+		this.tipoLogradouro = tipoLogradouro;
+	}
 
-    public void setEnderecoCompleto(String enderecoCompleto) {
-        this.enderecoCompleto = enderecoCompleto;
-    }
-    
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+
+	public String getEnderecoCompleto() {
+		return enderecoCompleto;
+	}
+
+
+	public void setEnderecoCompleto(String enderecoCompleto) {
+		this.enderecoCompleto = enderecoCompleto;
+	}
+
 
 	@Override
     public int hashCode() {
@@ -104,12 +110,12 @@ public class TendLogradouro implements Serializable {
         return hash;
     }
 
-    public TendBairro getBairro() {
+    public Bairro getBairro() {
 		return bairro;
 	}
 
 
-	public void setBairro(TendBairro bairro) {
+	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
 
@@ -117,10 +123,10 @@ public class TendLogradouro implements Serializable {
 	@Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TendLogradouro)) {
+        if (!(object instanceof Logradouro)) {
             return false;
         }
-        TendLogradouro other = (TendLogradouro) object;
+        Logradouro other = (Logradouro) object;
         if ((this.cep == null && other.cep != null) || (this.cep != null && !this.cep.equals(other.cep))) {
             return false;
         }

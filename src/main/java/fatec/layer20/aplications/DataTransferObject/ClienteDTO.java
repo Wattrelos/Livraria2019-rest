@@ -55,6 +55,7 @@ public class ClienteDTO implements Serializable {
 		sexo = obj.getSexo();
 		dataNascimento = obj.getDataNascimento();
 		pedido = obj.getPedido();
+		endereco = obj.getEndereco();
 	}
 
 	public long getCpf() {

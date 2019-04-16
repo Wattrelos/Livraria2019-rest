@@ -33,7 +33,6 @@ public class EnderecoResorce {
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody EnderecoDTO objDto) {
-		System.out.println(objDto.toString());
 		Endereco obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -62,7 +61,7 @@ public class EnderecoResorce {
 			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="logradouro") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="Endereco") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Endereco> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<EnderecoDTO> listDto = list.map(obj -> new EnderecoDTO(obj));
