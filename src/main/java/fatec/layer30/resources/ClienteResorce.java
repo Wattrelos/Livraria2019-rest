@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fatec.domain.Cliente;
+import fatec.domain.Endereco;
 import fatec.layer11.services.ClienteService;
 import fatec.layer20.aplications.DataTransferObject.ClienteDTO;
 import fatec.layer20.aplications.DataTransferObject.ClienteNewDTO;
@@ -33,7 +34,11 @@ public class ClienteResorce {
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDto) {
-		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ClienteNewDTO: " + objNewDto);
+		for(Endereco endereco : objNewDto.getEndereco()) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ClienteNewDTO: complemento: " + endereco.getComplemento());
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ClienteNewDTO número: " + endereco.getNumero());
+		}
 		Cliente obj = service.fromNewDto(objNewDto);
 		
 		obj = service.insert(obj);

@@ -1,7 +1,5 @@
 package fatec.layer20.aplications.DataTransferObject;
 
-
-
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +20,8 @@ public class LogradouroDTO implements Serializable {
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String tipoLogradouro;
 	private String logradouro;
-	private String enderecoCompleto;
+	private String complemento;
+	private String local;
 	// Coleções -------------------------------------------------------
 	private Bairro bairro;
 	
@@ -34,7 +33,8 @@ public class LogradouroDTO implements Serializable {
 		cep = obj.getCep();
 		tipoLogradouro = obj.getTipoLogradouro();
 		logradouro = obj.getLogradouro();
-		enderecoCompleto = obj.getEnderecoCompleto();
+		complemento = obj.getComplemento();
+		local = obj.getLocal();
 		bairro = obj.getBairro();
 	}
 	
@@ -65,11 +65,27 @@ public class LogradouroDTO implements Serializable {
 	}
 
 	public String getEnderecoCompleto() {
-		return enderecoCompleto;
+		return complemento;
 	}
 
 	public void setEnderecoCompleto(String enderecoCompleto) {
-		this.enderecoCompleto = enderecoCompleto;
+		this.complemento = enderecoCompleto;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
 	}
 
 	public Bairro getBairro() {

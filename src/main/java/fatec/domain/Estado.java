@@ -23,36 +23,36 @@ public class Estado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id_estado")
-    private Integer idEstado;
+    @Column(name = "uf", length = 2)
+    private String uf;
     
     @Basic(optional = false)
-    @Column(name = "estado")
+    @Column(name = "estado", length = 70)
     private String estado;
     
     @Basic(optional = false)
-    @Column(name = "uf")
-    private String uf;    
+    @Column(name = "cod_ibge")
+    private int codIbge;
 
     public Estado() {
     }
 
-    public Estado(Integer idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public Estado(Integer idEstado, String estado, String uf) {
-        this.idEstado = idEstado;
-        this.estado = estado;
+    public Estado(String uf) {
         this.uf = uf;
     }
 
-    public Integer getIdEstado() {
-        return idEstado;
+    public Estado(String uf, String estado, int codIbge) {
+        this.uf = uf;
+        this.estado = estado;
+        this.codIbge = codIbge;
     }
 
-    public void setIdEstado(Integer idEstado) {
-        this.idEstado = idEstado;
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getEstado() {
@@ -63,18 +63,18 @@ public class Estado implements Serializable {
         this.estado = estado;
     }
 
-    public String getUf() {
-        return uf;
+    public int getCodIbge() {
+        return codIbge;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setCodIbge(int codIbge) {
+        this.codIbge = codIbge;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEstado != null ? idEstado.hashCode() : 0);
+        hash += (uf != null ? uf.hashCode() : 0);
         return hash;
     }
 
@@ -85,7 +85,7 @@ public class Estado implements Serializable {
             return false;
         }
         Estado other = (Estado) object;
-        if ((this.idEstado == null && other.idEstado != null) || (this.idEstado != null && !this.idEstado.equals(other.idEstado))) {
+        if ((this.uf == null && other.uf != null) || (this.uf != null && !this.uf.equals(other.uf))) {
             return false;
         }
         return true;
@@ -93,7 +93,7 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TendEstado[ idEstado=" + idEstado + " ]";
+        return "testclass8.Estado[ uf=" + uf + " ]";
     }
     
 }

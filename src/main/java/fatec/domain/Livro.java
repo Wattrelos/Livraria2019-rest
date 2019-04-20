@@ -27,7 +27,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -43,49 +42,52 @@ public class Livro extends EntidadeDominio implements Serializable {
     @Basic(optional = true)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "isbn", unique=true)
     private long isbn;
+    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "titulo", unique=true)
+    @Column(name = "titulo", unique=true, length = 90)
     private String titulo;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "ano")
     private int ano;
+    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "dimensao")    
-    private String dimensao;
+    @Column(name = "dimensao", length = 40)    
+    private String dimensao;    
     
-    // @Max(value=2000)  @Min(value=0)//
     @Column(name = "custo")
     private BigDecimal custo;    
     
     @Column(name = "ativo")
     private boolean ativo;
-    @Size(max = 100)
-    @Column(name = "imagem")
+    
+    @Column(name = "imagem", length = 30)
     private String imagem;
+    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "edicao")
+    @Column(name = "edicao", length = 20)
     private String edicao;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "paginas")
     private int paginas;
+    
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 1, max = 65535)
     @Column(name = "sinopse")
     private String sinopse;
+    
     @Basic(optional = false)
     @Column(name = "peso")
     private int peso;

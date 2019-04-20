@@ -13,12 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,11 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "autor")
 @XmlRootElement
-@NamedQueries({
-      @NamedQuery(name = "Autor.findAll", query = "SELECT a FROM Autor a")
-    , @NamedQuery(name = "Autor.findById", query = "SELECT a FROM Autor a WHERE a.id = :id")
-    , @NamedQuery(name = "Autor.findByAutor", query = "SELECT a FROM Autor a WHERE a.autor like :autor")
-    , @NamedQuery(name = "Autor.findByDataCadastro", query = "SELECT a FROM Autor a WHERE a.dataCadastro = :dataCadastro")})
 public class Autor extends EntidadeDominio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,9 +32,9 @@ public class Autor extends EntidadeDominio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
-    @Size(min = 1, max = 45)
-    @Column(name = "autor", unique=true)
+    @Column(name = "autor", unique=true, length = 80)
     private String autor;
     
     @Column(name = "data_cadastro",

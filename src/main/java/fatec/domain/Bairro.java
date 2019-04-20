@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -30,8 +28,7 @@ public class Bairro implements Serializable {
     @Column(name = "id_bairro")
     private Integer idBairro;
     
-    @Basic(optional = false)
-    @Column(name = "bairro")
+    @Column(name = "bairro", length = 80)
     private String bairro;
     
     @ManyToOne
@@ -43,11 +40,6 @@ public class Bairro implements Serializable {
 
     public Bairro(Integer idBairro) {
         this.idBairro = idBairro;
-    }
-
-    public Bairro(Integer idBairro, int idCidade, String bairro) {
-        this.idBairro = idBairro;
-        this.bairro = bairro;
     }
 
     public Integer getIdBairro() {
@@ -96,7 +88,7 @@ public class Bairro implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TendBairro[ idBairro=" + idBairro + " ]";
+        return "testclass8.Bairro[ idBairro=" + idBairro + " ]";
     }
     
 }

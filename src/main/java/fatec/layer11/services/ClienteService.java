@@ -17,7 +17,6 @@ import fatec.domain.Cliente;
 import fatec.domain.Pedido;
 import fatec.domain.enums.Perfil;
 import fatec.layer10.repositories.ClienteRepository;
-import fatec.layer10.repositories.EnderecoRepository;
 import fatec.layer10.repositories.PedidoRepository;
 import fatec.layer11.services.exceptions.AuthorizationException;
 import fatec.layer11.services.exceptions.DataIntegrityException;
@@ -33,8 +32,6 @@ public class ClienteService {
 	private BCryptPasswordEncoder passEnc;
 	@Autowired
 	private ClienteRepository repo;
-	@Autowired
-	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	

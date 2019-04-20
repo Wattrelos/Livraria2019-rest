@@ -10,10 +10,9 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,42 +23,36 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "cartao_credito")
-@NamedQueries({
-    @NamedQuery(name = "CartaoCredito.findAll", query = "SELECT c FROM CartaoCredito c"),
-    @NamedQuery(name = "CartaoCredito.findById", query = "SELECT c FROM CartaoCredito c WHERE c.id = :id"),
-    @NamedQuery(name = "CartaoCredito.findByNome", query = "SELECT c FROM CartaoCredito c WHERE c.nome = :nome"),
-    @NamedQuery(name = "CartaoCredito.findByDataValidade", query = "SELECT c FROM CartaoCredito c WHERE c.dataValidade = :dataValidade"),
-    @NamedQuery(name = "CartaoCredito.findByDataCadastro", query = "SELECT c FROM CartaoCredito c WHERE c.dataCadastro = :dataCadastro")})
-public class CartaoCredito extends EntidadeDominio implements Serializable {
+public class CartaoCredito implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     
     @Basic(optional = false)
-    @Column(name = "numero")
-    private Long numero;
-    
+    @Column(name = "cvv")
+    private Integer cvv;  
     
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "CVV")
-    private byte[] cvv;
     
-    @Column(name = "data_cadastro",
-	updatable=false,
-	insertable = false,
-	columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Basic(optional = false)
+    @Column(name = "numero")
+    private long numero;
+    
+    @Column(name = "bandeira", length = 20)
+    private String bandeira;
+    
+    @Basic(optional = false)
+    @Column(name = "data_validade")
+    @Temporal(TemporalType.DATE)
     private Date dataValidade;
     
-    @Basic(optional = false)
+    @Basic(optional = false)    
     @Column(name = "data_cadastro",
 	updatable=false,
 	insertable = false,
@@ -74,11 +67,11 @@ public class CartaoCredito extends EntidadeDominio implements Serializable {
         this.id = id;
     }
 
-    public CartaoCredito(Integer id, Long numero, String nome, byte[] cvv, Date dataValidade, Date dataCadastro) {
+    public CartaoCredito(Integer id, long numero, String nome, int cvv, Date dataValidade, Date dataCadastro) {
         this.id = id;
-        this.numero = numero;
-        this.nome = nome;
         this.cvv = cvv;
+        this.nome = nome;
+        this.numero = numero;
         this.dataValidade = dataValidade;
         this.dataCadastro = dataCadastro;
     }
@@ -91,36 +84,12 @@ public class CartaoCredito extends EntidadeDominio implements Serializable {
         this.id = id;
     }
 
-    public Long getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Long numero) {
-		this.numero = numero;
-	}
-
-	public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public byte[] getCvv() {
+    public int getCvv() {
         return cvv;
     }
 
-    public void setCvv(byte[] cvv) {
+    public void setCvv(int cvv) {
         this.cvv = cvv;
-    }
-
-    public Date getDataValidade() {
-        return dataValidade;
-    }
-
-    public void setDataValidade(Date dataValidade) {
-        this.dataValidade = dataValidade;
     }
 
     public Date getDataCadastro() {
@@ -129,6 +98,38 @@ public class CartaoCredito extends EntidadeDominio implements Serializable {
 
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(long numero) {
+        this.numero = numero;
+    }
+
+    public String getBandeira() {
+        return bandeira;
+    }
+
+    public void setBandeira(String bandeira) {
+        this.bandeira = bandeira;
+    }
+
+    public Date getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(Date dataValidade) {
+        this.dataValidade = dataValidade;
     }
 
     @Override
@@ -153,7 +154,7 @@ public class CartaoCredito extends EntidadeDominio implements Serializable {
 
     @Override
     public String toString() {
-        return "testeclasses2.CartaoCredito[ id=" + id + " ]";
+        return "testclass8.CartaoCredito_1[ id=" + id + " ]";
     }
-	
+    
 }

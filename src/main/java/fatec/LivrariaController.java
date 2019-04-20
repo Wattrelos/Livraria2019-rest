@@ -88,6 +88,15 @@ public class LivrariaController {
 		model.addAttribute("cliente", cliente);		
 		return "/endereco/endereco.html";
 	}
+	
+	@RequestMapping(value="/endereco/endereco", method=RequestMethod.GET)
+	public String endereco2(Model model, @RequestParam(value="cliente", defaultValue="2") Integer number) {
+		Cliente cliente = clienteService.find(number);
+		// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + cliente);
+		model.addAttribute("cliente", cliente);		
+		return "/endereco/endereco.html";
+	}
+	
 	@RequestMapping(value="/endereco/cadastrar", method=RequestMethod.GET)
 	public String enderecoCadastrar() {			
 		return "/endereco/cadastro.html";

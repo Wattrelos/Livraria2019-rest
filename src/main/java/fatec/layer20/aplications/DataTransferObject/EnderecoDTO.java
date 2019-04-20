@@ -4,10 +4,7 @@ package fatec.layer20.aplications.DataTransferObject;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
+import fatec.domain.Cliente;
 import fatec.domain.Endereco;
 import fatec.domain.Logradouro;
 
@@ -17,12 +14,10 @@ public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private Integer numero;
 	private String complemento;
 	private Logradouro logradouro;
+	private Cliente cliente;	
 
 	public EnderecoDTO() {
 	} 
@@ -32,6 +27,7 @@ public class EnderecoDTO implements Serializable {
 		numero = obj.getNumero();
 		complemento = obj.getComplemento();
 		logradouro = obj.getLogradouro();
+		cliente = obj.getCliente();
 	}
 
 	public Integer getId() {
@@ -65,4 +61,14 @@ public class EnderecoDTO implements Serializable {
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 }

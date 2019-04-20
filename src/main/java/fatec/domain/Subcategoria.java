@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -37,9 +36,8 @@ public class Subcategoria extends EntidadeDominio implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "subcategoria", unique=true)
+    @NotNull    
+    @Column(name = "subcategoria", unique=true, length = 80)
     private String subcategoria;       
     @Column(name = "data_cadastro",
     		updatable=false, 

@@ -25,21 +25,17 @@ public class Logradouro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "cep")    
+    @Column(name = "cep")
     private Integer cep;
-    
-    @Basic(optional = false)
-    @Column(name = "tipo_logradouro")
-    private String tipoLogradouro;
-    
-    @Basic(optional = false)
-    @Column(name = "logradouro")
+    @Column(name = "logradouro", length = 120)
     private String logradouro;
-    
-    @Basic(optional = false)
-    @Column(name = "endereco_completo")
-    private String enderecoCompleto;
-    
+    @Column(name = "tipo_logradouro", length = 80)
+    private String tipoLogradouro;
+    @Column(name = "complemento", length = 100)
+    private String complemento;
+    @Column(name = "local", length = 100)
+    private String local;
+    // Coleções -------------------
     @ManyToOne
     @JoinColumn(name="id_bairro")
     private Bairro bairro;
@@ -47,78 +43,66 @@ public class Logradouro implements Serializable {
     public Logradouro() {
     }
 
-    
-    // Coleções -------------------------------------------------------
-
-    // Construtores ----------------------------------------------------
-
     public Logradouro(Integer cep) {
         this.cep = cep;
     }
     
-    public Logradouro(Integer cep, String tipoLogradouro, String logradouro, String enderecoCompleto, Bairro bairro) {
+    public Logradouro(Integer cep, String tipoLogradouro, String logradouro, String complemento, String local, Bairro bairro) {
         this.cep = cep;
         this.tipoLogradouro = tipoLogradouro;
         this.logradouro = logradouro;
-        this.enderecoCompleto = enderecoCompleto;
+        this.complemento = complemento;
+        this.local = local;
         this.bairro = bairro;
-    }    
+    }
 
-	public Integer getCep() {
-		return cep;
-	}
+    public Integer getCep() {
+        return cep;
+    }
 
-	public void setCep(Integer cep) {
-		this.cep = cep;
-	}
+    public void setCep(Integer cep) {
+        this.cep = cep;
+    }
 
+    public String getLogradouro() {
+        return logradouro;
+    }
 
-	public String getTipoLogradouro() {
-		return tipoLogradouro;
-	}
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
 
+    public String getTipoLogradouro() {
+        return tipoLogradouro;
+    }
 
-	public void setTipoLogradouro(String tipoLogradouro) {
-		this.tipoLogradouro = tipoLogradouro;
-	}
+    public void setTipoLogradouro(String tipoLogradouro) {
+        this.tipoLogradouro = tipoLogradouro;
+    }
 
+    public String getComplemento() {
+        return complemento;
+    }
 
-	public String getLogradouro() {
-		return logradouro;
-	}
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 
+    public String getLocal() {
+        return local;
+    }
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-
-	public String getEnderecoCompleto() {
-		return enderecoCompleto;
-	}
-
-
-	public void setEnderecoCompleto(String enderecoCompleto) {
-		this.enderecoCompleto = enderecoCompleto;
-	}
-
-
-	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (cep != null ? cep.hashCode() : 0);
-        return hash;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     public Bairro getBairro() {
 		return bairro;
 	}
 
-
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-
 
 	@Override
     public boolean equals(Object object) {
@@ -135,7 +119,7 @@ public class Logradouro implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TendEndereco[ cep=" + cep + " ]";
+        return "testclass8.Logradouro[ cep=" + cep + " ]";
     }
     
 }

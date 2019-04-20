@@ -30,7 +30,7 @@ public class Categoria extends EntidadeDominio implements Serializable {
    private Integer id;
    
    @Basic(optional = false)    
-   @Column(name = "categoria", unique = true)
+   @Column(name = "categoria", unique = true, length = 80)
    private String categoria;       
    
    @Column(name = "data_cadastro",

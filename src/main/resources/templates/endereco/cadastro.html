@@ -6,14 +6,15 @@
     </head>
 	<body>
 		    <section layout:fragment="corpo">
-		       <form method="post" action="endereco" class="formulario-cliente" id="formulario-endereco"> 		            
+		       <form method="post" action="/endereco/endereco" class="formulario-cliente" id="formulario-endereco"> 		            
 		
 		            <label for="tipoLogradouro">CEP:</label>                 
-		            <input id= "cep" name="cep" placeholder="00000-000">
-
-		            <label for="tipoLogradouro">Logradouro:</label>                 
-		            <input id= "logradouro" name="logradouro" placeholder="Rua/avenida/praça...">
-		
+		            <input id= "cep" name="cep" placeholder="00000-000">		           
+			        <label>Logradouro:</label>
+ 					<div>
+			            <input id="tipoLogradouro" name="tipologradouro" placeholder="Rua/avenida/praça...">                 
+			            <input id="logradouro" name="logradouro" style="width:75%" placeholder="Nome do logradouro...">
+					</div>
 		            <label for="numero">Número</label>             
 		            <input id ="numero" type="number" name="numero" placeholder="número...">
 		

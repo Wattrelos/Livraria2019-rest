@@ -29,12 +29,25 @@ public class Cidade implements Serializable {
     @Column(name = "id_cidade")
     private Integer idCidade;
     
-    @Basic(optional = false)
-    @Column(name = "cidade")
-    
+    @Column(name = "cidade", length = 100)
     private String cidade;
+    
+    @Column(name = "uf", length = 2)
+    private String uf;
+    
+    @Basic(optional = false)
+    @Column(name = "cod_ibge", length = 10)
+    private String codIbge;
+    
+    @Basic(optional = false)
+    @Column(name = "area")
+    private float area;
+    
+    @Column(name = "id_municipio_subordinado")
+    private Integer idMunicipioSubordinado;
+    // Coleções ---------------------------------------------------------
     @JoinColumns({
-        @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")})
+        @JoinColumn(name = "uf", referencedColumnName = "uf", insertable=false, updatable=false)})
     @ManyToOne(optional = false)
     private Estado estado;
 
@@ -45,9 +58,10 @@ public class Cidade implements Serializable {
         this.idCidade = idCidade;
     }
 
-    public Cidade(Integer idCidade, String cidade) {
+    public Cidade(Integer idCidade, String codIbge, float area) {
         this.idCidade = idCidade;
-        this.cidade = cidade;
+        this.codIbge = codIbge;
+        this.area = area;
     }
 
     public Integer getIdCidade() {
@@ -66,15 +80,47 @@ public class Cidade implements Serializable {
         this.cidade = cidade;
     }
 
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getCodIbge() {
+        return codIbge;
+    }
+
+    public void setCodIbge(String codIbge) {
+        this.codIbge = codIbge;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public Integer getIdMunicipioSubordinado() {
+        return idMunicipioSubordinado;
+    }
+
+    public void setIdMunicipioSubordinado(Integer idMunicipioSubordinado) {
+        this.idMunicipioSubordinado = idMunicipioSubordinado;
+    }
+
     public Estado getEstado() {
-        return estado;
-    }
+		return estado;
+	}
 
-    public void setEstado(Estado tendEstado) {
-        this.estado = tendEstado;
-    }
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idCidade != null ? idCidade.hashCode() : 0);
@@ -96,7 +142,7 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "domain.TendCidade[ idCidade=" + idCidade + " ]";
+        return "testclass8.CepbrCidade[ idCidade=" + idCidade + " ]";
     }
     
 }

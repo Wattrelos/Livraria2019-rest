@@ -10,8 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -19,7 +17,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @SuppressWarnings("serial")
 @Entity
@@ -49,23 +46,12 @@ public class Cliente extends Usuario {
     @JsonBackReference
 	private Loja loja;
         
-    @JsonManagedReference
+    
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
 	private List<Pedido> pedido = new ArrayList<>();
-    /* Antigo
-    @ManyToMany(cascade=CascadeType.REFRESH)
-    @JoinTable(name="cliente_has_endereco",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "endereco_id")    
-    ) 
-    private List<TendLogradouro> endereco = new ArrayList<>();
-    */
-	// Novo endereçamento
-    @ManyToMany(cascade=CascadeType.REFRESH)
-    @JoinTable(name="cliente_has_endereco",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "endereco_id")    
-    ) 
+	
+    
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)    
     private List<Endereco> endereco = new ArrayList<>();
     
 	// Construtores ---------------------------------------------------------

@@ -3,6 +3,8 @@ package fatec.layer11.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -22,15 +24,18 @@ import fatec.layer20.aplications.DataTransferObject.PedidoDTO;
 public class PedidoService {
 	
 	@Autowired
-	private PedidoRepository repo;	
+	private PedidoRepository repo;
+	
 	@Autowired
 	private EstoqueRepository estoqueRepository;
 	
 	// CREATE------------------------------------------------------
+	@Transactional
 	public Pedido insert(Pedido obj) {
-		
+			
 		obj.setId(null);  // Garantir a criação do objeto ao invés de merge.
-		obj = repo.save(obj); // Salvar e recuperar Cliente.		
+		obj = repo.save(obj); // Salvar e recuperar Cliente.
+		// Salvar estoque
 		for(Estoque estoque : obj.getEstoque()) {
 			estoque.setPedido(obj); // Assina o Pedido em cada ItemPedido.
 		}
@@ -77,7 +82,7 @@ public class PedidoService {
 	
 	// ------------------------------------------------------
 	public Pedido fromDTO(PedidoDTO objDto) {
-		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro(), objDto.getCliente(), objDto.getEstoque());
+		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro(), objDto.getCliente(), objDto.getEstoque(), objDto.getPagamento());
 	}
 	
 

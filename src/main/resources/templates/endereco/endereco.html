@@ -18,7 +18,10 @@
                     <div class="endereco">                    
                         <tbody>
                             <label>CEP:</label><div th:text="${enderecoEach.logradouro.cep}"></div>
-                            <label>Endereço:</label><div th:text="${enderecoEach.logradouro.enderecoCompleto}"></div>
+                            <label>Tipo:</label><div th:text="${enderecoEach.logradouro.tipoLogradouro}"></div>
+                            <label>Logradouro:</label><div th:text="${enderecoEach.logradouro.logradouro}"></div>
+                            <label>Número:</label><div th:text="${enderecoEach.numero}"></div>
+                            <label>Complemento:</label><div th:text="${enderecoEach.complemento}"></div>
                             <label>Bairro:</label><div th:text="${enderecoEach.logradouro.bairro.bairro}"></div>
                             <label>Cidade:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.cidade}"></div>
                             <label>Estado:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.estado.estado}"></div>

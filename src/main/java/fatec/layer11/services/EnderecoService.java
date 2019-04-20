@@ -21,10 +21,10 @@ public class EnderecoService extends AbstractJdbcDAO{
 	
 	@Autowired
 	private EnderecoRepository repo;
-
+	
 
 	// CREATE ------------------------------------------------
-	public Endereco insert(Endereco obj) {
+	public Endereco insert(Endereco obj) {		
 		obj.setId(null);
 		return repo.save(obj);
 	}
@@ -67,7 +67,7 @@ public class EnderecoService extends AbstractJdbcDAO{
 	
 	// ------------------------------------------------------
 	public Endereco fromDTO(EnderecoDTO objDto) {
-		return new Endereco(objDto.getId(), objDto.getNumero(), objDto.getComplemento(),objDto.getLogradouro());
+		return new Endereco(objDto.getId(), objDto.getNumero(), objDto.getComplemento(),objDto.getLogradouro(),objDto.getCliente());
 	}
 	
 

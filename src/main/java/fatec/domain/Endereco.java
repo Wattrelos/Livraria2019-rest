@@ -6,13 +6,18 @@
 package fatec.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -24,33 +29,38 @@ public class Endereco implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")    
     private Integer id;
-    
+
     @Basic(optional = false)
     @Column(name = "numero")    
     private Integer numero;
-    
-    @Basic(optional = false)
-    @Column(name = "complemento")
+
+    @Column(name = "complemento", length = 30)
     private String complemento;
     
+ // Objetos -------------------------------------------------------
+    @JsonIgnore
+    @ManyToOne    
+    private Cliente cliente;
+
     // Coleções -------------------------------------------------------
     @ManyToOne
     @JoinColumn(name="logradouro")
     private Logradouro logradouro;
-
+    
     // Construtores ----------------------------------------------------
-
     public Endereco() {
     }
     
-    public Endereco(Integer id, Integer numero, String complemento, Logradouro endereco) {
+    public Endereco(Integer id, Integer numero, String complemento, Logradouro endereco, Cliente cliente) {
     	this.id = id;
     	this.numero = numero;
         this.complemento = complemento;
         this.logradouro = endereco;
+        this.cliente = cliente;
     }
 
 	public Integer getId() {
@@ -83,5 +93,12 @@ public class Endereco implements Serializable {
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
 	}
-    
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 }

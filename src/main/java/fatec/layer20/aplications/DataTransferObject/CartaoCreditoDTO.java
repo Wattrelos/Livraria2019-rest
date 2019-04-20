@@ -22,7 +22,7 @@ public class CartaoCreditoDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")	
 	private String nome;
-	private byte[] cvv;
+	private Integer cvv;
 	private Date dataValidade;
 	
 	
@@ -63,11 +63,11 @@ public class CartaoCreditoDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public byte[] getCvv() {
+	public Integer getCvv() {
 		return cvv;
 	}
 
-	public void setCvv(byte[] cvv) {
+	public void setCvv(Integer cvv) {
 		this.cvv = cvv;
 	}
 

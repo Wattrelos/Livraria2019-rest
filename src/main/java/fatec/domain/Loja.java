@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -41,8 +40,7 @@ public class Loja extends EntidadeDominio implements Serializable {
 	
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "nome_Fantasia", unique=true)
+    @Column(name = "nome_Fantasia", unique=true, length = 80)
     private String nomeFantasia;
     
     @Column(name = "data_cadastro",
@@ -59,7 +57,7 @@ public class Loja extends EntidadeDominio implements Serializable {
     public Loja() {
 	}  
 
-	public Loja(Integer id, @NotNull @Size(min = 1, max = 150) String nomeFantasia, Date dataCadastro) {		
+	public Loja(Integer id, String nomeFantasia, Date dataCadastro) {		
 		this.id = id;
 		this.nomeFantasia = nomeFantasia;
 		this.dataCadastro = dataCadastro;

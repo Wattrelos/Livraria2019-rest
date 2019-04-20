@@ -19,23 +19,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fatec.domain.Endereco;
-import fatec.layer11.services.EnderecoService;
-import fatec.layer20.aplications.DataTransferObject.EnderecoDTO;
+import fatec.domain.Pagamento;
+import fatec.layer11.services.PagamentoService;
+import fatec.layer20.aplications.DataTransferObject.PagamentoDTO;
 
 @RestController
-@RequestMapping(value="/endereco")
-public class EnderecoResorce {
+@RequestMapping(value="/pagamento")
+public class PagamentoResorce {
+	
+	
+	
 	
 	@Autowired
-	private EnderecoService service;	
+	private PagamentoService service;	
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody EnderecoDTO objDto) {
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EnderecoDTO: " + objDto);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EnderecoDTO: Número" + objDto.getNumero());
-		Endereco obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> insert(@Valid @RequestBody PagamentoDTO objDto) {
+		System.out.println(objDto.toString());
+		Pagamento obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("{id}").buildAndExpand(obj.getId()).toUri();
@@ -45,36 +47,36 @@ public class EnderecoResorce {
 	// READ one ------------------------------------------------
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Endereco obj = service.find(id);
+		Pagamento obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	// READ (all)---------------------------------------	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<EnderecoDTO>> findAll() {
-		List<Endereco> list = service.findAll();
-		List<EnderecoDTO> listDto = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());  
+	public ResponseEntity<List<PagamentoDTO>> findAll() {
+		List<Pagamento> list = service.findAll();
+		List<PagamentoDTO> listDto = list.stream().map(obj -> new PagamentoDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	// READ (paginação)---------------------------------------	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<EnderecoDTO>> findPage(
+	public ResponseEntity<Page<PagamentoDTO>> findPage(
 			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="Endereco") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="pagamento") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Endereco> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<EnderecoDTO> listDto = list.map(obj -> new EnderecoDTO(obj));
+		Page<Pagamento> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<PagamentoDTO> listDto = list.map(obj -> new PagamentoDTO(obj));
 		return ResponseEntity.ok().header("Authorization", authorization).body(listDto);
 	}
 	
 	// UPDATE ------------------------------------------------	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody EnderecoDTO objDto, @PathVariable Integer id) {
-		Endereco obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody PagamentoDTO objDto, @PathVariable Integer id) {
+		Pagamento obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -85,7 +87,7 @@ public class EnderecoResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Endereco deletando...");
+		System.out.print("pagamento deletando...");
 		return ResponseEntity.noContent().build();
 	}
 

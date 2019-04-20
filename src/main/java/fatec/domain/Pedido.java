@@ -19,20 +19,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pedido")
-@NamedQueries({
-    @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p"),
-    @NamedQuery(name = "Pedido.findById", query = "SELECT p FROM Pedido p WHERE p.id = :id")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +35,7 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
+    
     private Integer id;
     
     @Basic(optional = false)
@@ -52,15 +48,19 @@ public class Pedido implements Serializable {
     		insertable = false,
     		columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCadastro; 
+    private Date dataCadastro;
     
-    // Coleções -------------------------------------------------------
-    @ManyToOne   
-    @JsonBackReference
+    // Objetos----------------------------------------------------------- 
+    @JsonIgnore
+    @ManyToOne
     private Cliente cliente;
     
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.REFRESH)
-    private List<Estoque> estoque = new ArrayList<>();    
+    // Coleções-----------------------------------------------------------
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE})
+    private Pagamento pagamento;
+    
+    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.REFRESH})
+    private List<Estoque> estoque = new ArrayList<>();
     
     // Construtores ----------------------------------------------------
     public Pedido() {
@@ -70,12 +70,13 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Pedido(Integer id, String observacao, Date dataCadastro, Cliente cliente, List<Estoque> estoque) {
+    public Pedido(Integer id, String observacao, Date dataCadastro, Cliente cliente, List<Estoque> estoque, Pagamento pagamento) {
         this.id = id;
         this.observacao = observacao;
         this.dataCadastro = dataCadastro;
         this.estoque = estoque;
-        this.cliente = cliente;        
+        this.cliente = cliente;
+        this.pagamento = pagamento;
     }
 
     public Integer getId() {
@@ -108,6 +109,14 @@ public class Pedido implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public List<Estoque> getEstoque() {

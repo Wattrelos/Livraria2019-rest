@@ -24,7 +24,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,13 +45,12 @@ public class Usuario extends EntidadeDominio implements Serializable {
     private Integer id;    
     
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 8, max = 32)
-    @Column(name = "email", unique=true)    
+    @NotNull    
+    @Column(name = "email", unique=true, length = 80)    
     private String email;
     
     @JsonIgnore
-    @Column(name = "senha")
+    @Column(name = "senha", length = 80)
     private String senha;
     
     @Column(name = "data_cadastro",

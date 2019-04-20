@@ -19,77 +19,80 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Josias Wattrelos
+ * @author Administrador
  */
 @Entity
-@Table(name = "editora")
-public class Editora extends EntidadeDominio implements Serializable {
+@Table(name = "cartao_boleto")
+public class Boleto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     
-    @Basic(optional = false)
-    @Column(name = "editora", unique = true, length = 80)
-    private String editora;
-    
-    @Column(name = "data_cadastro",
+    @Column(name = "data_documento",
     		updatable=false,
     		insertable = false,
     		columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCadastro; 
-
-    public Editora() {
+    private Date dataDocumento;
+    
+    @Basic(optional = false)
+    @Column(name = "data_vencimento")
+    @Temporal(TemporalType.DATE)
+    private Date dataVencimento;
+    
+    private String numero;
+    
+    public Boleto() {
     }
 
-    public Editora(Integer id) {
+    public Boleto(Integer id) {
         this.id = id;
     }
 
-    public Editora(String editora) {
-        this.editora = editora;
+    public Boleto(Integer id, String numero, Date dataDocumento, Date dataVencimento) {
+        this.id = id;
+        this.numero = numero;
+        this.dataDocumento = dataDocumento;
+        this.dataVencimento = dataVencimento;
     }
-    public Editora(Integer id, String editora) {
-    	this.id = id;
-        this.editora = editora;
-    }
-    
-    public Editora(Integer id, String editora, Date dataCadastro) {
-    	this.id = id;
-        this.editora = editora;
-        this.dataCadastro = dataCadastro;
-    }
-    
 
     public Integer getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getEditora() {
-        return editora;
-    }
+	public Date getDataDocumento() {
+		return dataDocumento;
+	}
 
-    public void setEditora(String editora) {
-        this.editora = editora;
-    }
+	public void setDataDocumento(Date dataDocumento) {
+		this.dataDocumento = dataDocumento;
+	}
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
+	}
 
-    @Override
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -99,21 +102,19 @@ public class Editora extends EntidadeDominio implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Editora)) {
+        if (!(object instanceof Boleto)) {
             return false;
         }
-        Editora other = (Editora) object;
+        Boleto other = (Boleto) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Editora{" + "id=" + id + ", editora=" + editora + ", dataCadastro=" + dataCadastro;
-    }
-
-
-    
+	@Override
+	public String toString() {
+		return "Boleto [id=" + id + ", dataDocumento=" + dataDocumento + ", dataVencimento=" + dataVencimento
+				+ ", numero=" + numero + "]";
+	}
 }

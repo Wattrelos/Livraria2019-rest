@@ -67,7 +67,7 @@ public class LogradouroService extends AbstractJdbcDAO{
 	
 	// ------------------------------------------------------
 	public Logradouro fromDTO(LogradouroDTO objDto) {
-		return new Logradouro(objDto.getCep(), objDto.getTipoLogradouro(), objDto.getLogradouro(), objDto.getEnderecoCompleto(), objDto.getBairro());
+		return new Logradouro(objDto.getCep(), objDto.getTipoLogradouro(), objDto.getLogradouro(), objDto.getComplemento(), objDto.getLocal(), objDto.getBairro());
 	}
 	
 
