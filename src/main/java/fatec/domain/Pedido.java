@@ -55,6 +55,9 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Cliente cliente;
     
+    @ManyToOne
+    private Endereco endereco;
+    
     // Coleções-----------------------------------------------------------
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE})
     private Pagamento pagamento;
@@ -70,13 +73,14 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Pedido(Integer id, String observacao, Date dataCadastro, Cliente cliente, List<Estoque> estoque, Pagamento pagamento) {
+    public Pedido(Integer id, String observacao, Date dataCadastro, Cliente cliente, List<Estoque> estoque, Pagamento pagamento, Endereco endereco) {
         this.id = id;
         this.observacao = observacao;
         this.dataCadastro = dataCadastro;
         this.estoque = estoque;
         this.cliente = cliente;
         this.pagamento = pagamento;
+        this.endereco = endereco;
     }
 
     public Integer getId() {
@@ -117,6 +121,14 @@ public class Pedido implements Serializable {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public List<Estoque> getEstoque() {

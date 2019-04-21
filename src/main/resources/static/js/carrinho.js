@@ -19,18 +19,17 @@ if(localStorage.getItem("carrinho")){
 // Ler os id dos livros escolhidos armazenados no LocalStorage
 
 function atualizaCarrinho(){
-
 	// console.log(carrinho);
 	
-	
 	// Limpa a lista de produtos:
-	listaitens.innerHTML = "";	
+	listaitens.innerHTML = "";		
 	carrinho.forEach(function(item, indice){
-	//console.log(item);	
-	var url = "http://localhost:8080/livro/" + item.id;
-	$.getJSON(url, function (result){
-		subtotal += result.custo * item.quantidade;
-		var _itens = `
+		//console.log(item);
+		
+		var url = "http://localhost:8080/livro/" + item.id;
+		$.getJSON(url, function (result){					
+			subtotal += result.custo * item.quantidade;
+			var _itens = `
 			<tr>
 				<td><img src="/img/${result.imagem}" alt="Capa do livro" width="60" height="80"></td>
 				<td>${result.titulo}</td>
@@ -43,7 +42,7 @@ function atualizaCarrinho(){
 						<i class="fa fa-trash">Excluir</i>
 					</a>
 				</td>
-			</tr>
+			</tr>			
 			`;			
 			subtotalHtml.innerHTML = subtotal.toFixed(2);
 			freteHtml.innerHTML = frete.toFixed(2);
@@ -66,38 +65,18 @@ function exluirItem(id){ // Excluir um item do carrinho
 	// Atualiza a página do carrinho de compras
 	atualizaCarrinho();
 }
-function confirmPedido(){
-	//Transformar itens escolhidos em itens do carrinho, se houver:
-	var carrinho = localStorage.getItem("carrinho");
-	var number = localStorage.getItem("number");
-	if((carrinho != null) && (number != null)){ 
-		console.log(localStorage.getItem("carrinho"));
-		
-		/*
-	    $.ajax({				
-			type : "POST",
-			headers: {"Authorization": window.sessionStorage.getItem('token')},
-			url : "/carrinho",
-			contentType: "application/json; charset=utf-8",
-			data : JSON.stringify(JSON.stringify(carrinho)),		
-			success: function () {
-				alert("Carrinho adicionado com sucesso!");
-	        },
-	        error: function (erro, textStatus, xhr) {
-	        	alert("Erro: "+ erro.status + erro.responseText + " Falha ao tentar adicionar carrinho!");
-	        }	        
-		});	
-		*/
-	}
-}
 
-$("form").submit(function(){
-	var userNumber = sessionStorage.getItem("number")
-	console.log(userNumber);
-	if(userNumber != null){
-		document.getElementById("irPedido").value = userNumber;
-	}else{
-		document.getElementById('id01').style.display='block';
-		return false;
-	} 
+
+document.getElementById("carrinho").addEventListener("submit", function(evento){
+	evento.preventDefault() // Evita que submit faça sair da página.
+	//Transformar itens escolhidos em itens do carrinho, se houver:
+	var estoque = new Object();
+	var carrinho = JSON.parse(localStorage.getItem("carrinho"));
+	var cliente = sessionStorage.getItem("number");
+	if((carrinho != null) && (cliente != null)){
+		estoque["estoque"] = carrinho;
+		localStorage.setItem("estoque", JSON.stringify(estoque));
+		console.log(JSON.stringify(estoque));
+		window.location.href = "/endereco/endereco?cliente=" + window.sessionStorage.getItem('number');
+	}
 });

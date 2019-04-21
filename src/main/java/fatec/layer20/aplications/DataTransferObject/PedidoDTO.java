@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import fatec.domain.Cliente;
+import fatec.domain.Endereco;
 import fatec.domain.Estoque;
 import fatec.domain.Pagamento;
 import fatec.domain.Pedido;
@@ -21,6 +22,7 @@ public class PedidoDTO implements Serializable {
 	private Date dataCadastro;	
 	private Cliente cliente;
 	private Pagamento pagamento;
+	private Endereco endereco;
 	
 	//Coleções---------------
 	private List<Estoque> estoque = new ArrayList<>();
@@ -36,6 +38,7 @@ public class PedidoDTO implements Serializable {
 		dataCadastro = obj.getDataCadastro();
 		cliente = obj.getCliente();
 		pagamento = obj.getPagamento();
+		endereco = obj.getEndereco();
 	}
 
 	// Getters and Setters
@@ -87,5 +90,12 @@ public class PedidoDTO implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 }

@@ -80,6 +80,11 @@ public class LivrariaController {
 		model.addAttribute("cliente", cliente);		
 		return "/pedido/pedido.html";
 	}
+	@RequestMapping(value="/pedido/confirmacao")
+	public String pedidoConfirmacao() {
+	
+		return "/pedido/confirmacao.html";
+	}
 	
 	@RequestMapping(value="/endereco/endereco", method=RequestMethod.POST)
 	public String endereco(Model model, @RequestParam(value="cliente", defaultValue="2") Integer number) {

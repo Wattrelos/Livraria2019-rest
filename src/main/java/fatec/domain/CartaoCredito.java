@@ -37,7 +37,7 @@ public class CartaoCredito implements Serializable {
     private Integer cvv;  
     
     @Basic(optional = false)
-    @Column(name = "nome")
+    @Column(name = "nome", length = 80)
     private String nome;
     
     @Basic(optional = false)

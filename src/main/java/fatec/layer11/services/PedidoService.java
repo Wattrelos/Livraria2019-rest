@@ -65,7 +65,12 @@ public class PedidoService {
 		return repo.save(newObj);
 	}
 	private void updateData(Pedido newObj, Pedido obj) {
+		newObj.setId(obj.getId());
 		newObj.setObservacao(obj.getObservacao());
+		newObj.setCliente(obj.getCliente());
+		newObj.setEstoque(obj.getEstoque());
+		newObj.setPagamento(obj.getPagamento());
+		newObj.setEndereco(obj.getEndereco());
 		
 	}
 	
@@ -82,7 +87,7 @@ public class PedidoService {
 	
 	// ------------------------------------------------------
 	public Pedido fromDTO(PedidoDTO objDto) {
-		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro(), objDto.getCliente(), objDto.getEstoque(), objDto.getPagamento());
+		return new Pedido(objDto.getId(), objDto.getObservacao(), objDto.getDataCadastro(), objDto.getCliente(), objDto.getEstoque(), objDto.getPagamento(), objDto.getEndereco());
 	}
 	
 

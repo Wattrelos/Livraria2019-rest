@@ -37,15 +37,13 @@ document.getElementById("formulario-endereco").addEventListener("submit", functi
 	
 	console.log(JSON.stringify(endereco));
 	// Gravar endereço cadastrado
-	
 	$.ajax({				
 		type : "POST",
 		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "http://localhost:8080/endereco",
 		contentType: "application/json; charset=utf-8",
 		data : JSON.stringify(endereco),		
-		success: function () {
-			console.log("Endereço cadastrado com sucesso!!!")
+		success: function () {			
 			window.location.href = "/endereco/endereco?cliente=" + window.sessionStorage.getItem('number');
         },
         error: function (erro, textStatus, xhr) {
@@ -54,4 +52,9 @@ document.getElementById("formulario-endereco").addEventListener("submit", functi
 	});
 	
 });
+function enderecoEntrega(endereco){
+	localStorage.setItem("endereco", JSON.stringify(endereco));
+	window.location.href = "/pagamento/pagamento?cliente=" + window.sessionStorage.getItem('number');
+	
+}
 
