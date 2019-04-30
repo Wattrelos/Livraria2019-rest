@@ -13,9 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -59,6 +62,10 @@ public class CartaoCredito implements Serializable {
 	columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCadastro;
+    
+    @JsonIgnore
+    @ManyToOne
+    private Cliente cliente;
 
     public CartaoCredito() {
     }
@@ -67,13 +74,14 @@ public class CartaoCredito implements Serializable {
         this.id = id;
     }
 
-    public CartaoCredito(Integer id, long numero, String nome, int cvv, Date dataValidade, Date dataCadastro) {
+    public CartaoCredito(Integer id, long numero, String nome, int cvv, Date dataValidade, Cliente cliente, Date dataCadastro) {
         this.id = id;
         this.cvv = cvv;
         this.nome = nome;
         this.numero = numero;
         this.dataValidade = dataValidade;
         this.dataCadastro = dataCadastro;
+        this.cliente = cliente;
     }
 
     public Integer getId() {
@@ -132,7 +140,15 @@ public class CartaoCredito implements Serializable {
         this.dataValidade = dataValidade;
     }
 
-    @Override
+    public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

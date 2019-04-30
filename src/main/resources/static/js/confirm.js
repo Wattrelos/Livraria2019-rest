@@ -32,7 +32,6 @@ function confirmDelete(entity, id, name){
 	console.log("entity: " + entity + " id: " + id + " nome: " + name);
 	var excluidoComSucesso = document.getElementById("excluidoComSucesso");
 	if (confirm("Ter cerceza que quer exluir '" + name + "' em " + entity + " ?")){
-		
 		$.ajax({				
 			type : "DELETE",
 			headers: {"Authorization": window.sessionStorage.getItem('token')},

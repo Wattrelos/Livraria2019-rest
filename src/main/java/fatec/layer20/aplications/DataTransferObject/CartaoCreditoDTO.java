@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import fatec.domain.CartaoCredito;
+import fatec.domain.Cliente;
 
 
 
@@ -24,8 +25,7 @@ public class CartaoCreditoDTO implements Serializable {
 	private String nome;
 	private Integer cvv;
 	private Date dataValidade;
-	
-	
+	private Cliente cliente;
 	private Date dataCadastro;
 
 	public CartaoCreditoDTO() {
@@ -37,6 +37,7 @@ public class CartaoCreditoDTO implements Serializable {
 		nome = obj.getNome();
 		dataValidade = obj.getDataValidade();
 		dataCadastro = obj.getDataCadastro();
+		cliente = obj.getCliente();
 	}
 
 	public Integer getId() {
@@ -77,6 +78,14 @@ public class CartaoCreditoDTO implements Serializable {
 
 	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Date getDataCadastro() {

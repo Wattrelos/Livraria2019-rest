@@ -46,10 +46,11 @@ public class Cliente extends Usuario {
     @JsonBackReference
 	private Loja loja;
         
+    @OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
+	private List<CartaoCredito> cartaoCredito = new ArrayList<>();
     
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)
-	private List<Pedido> pedido = new ArrayList<>();
-	
+	private List<Pedido> pedido = new ArrayList<>();	
     
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)    
     private List<Endereco> endereco = new ArrayList<>();
@@ -58,7 +59,9 @@ public class Cliente extends Usuario {
 	public Cliente() {		
 	}
 	
-	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, char sexo, List<Endereco> endereco, List<Pedido> pedido, Date dataCadastro, String senha, Integer perfil) {
+	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, char sexo, List<Endereco> endereco, List<Pedido> pedido,List<CartaoCredito> cartaoCredito, Date dataCadastro,
+			String senha, Integer perfil) {
+		
 		super(id, email, dataCadastro, senha, perfil);
 		this.nome = nome;
 		this.cpf = cpf;
@@ -66,6 +69,7 @@ public class Cliente extends Usuario {
 		this.sexo = sexo;
 		this.pedido = pedido;
 		this.endereco = endereco;
+		this.cartaoCredito = cartaoCredito;
 	}
 	
 	public String getNome() {
@@ -118,6 +122,14 @@ public class Cliente extends Usuario {
 
 	public List<Endereco> getEndereco() {
 		return endereco;
+	}
+
+	public List<CartaoCredito> getCartaoCredito() {
+		return cartaoCredito;
+	}
+
+	public void setCartaoCredito(List<CartaoCredito> cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
 	}
 
 	public void setEndereco(List<Endereco> endereco) {

@@ -19,7 +19,7 @@ $.getJSON(url, function (result){
 			        <img src="img\\${field.imagem}" alt="Capa do livro" width="300" height="400">
 			    </a>
 			    <h4>${field.titulo.slice(0, 48)}</h4>
-			    <a class="btn btn-success btn-sm ml-3" onclick="adicionarAoCarrinho(${field.id})">
+			    <a class="btn btn-success btn-sm ml-3" onclick="adicionarAoCarrinho(${field.id},${field.custo})">
 			        <i class="fa fa-shopping-cart"></i>Adicionar
 			        <span class="badge badge-light">R$ ${field.custo}</span>
 			    </a><br>			    
@@ -36,7 +36,7 @@ $.getJSON(url, function (result){
 	listaitens.innerHTML = galeria;
 });
 //  Adicionar item ao carrinho -----------------------------------------------------------
-function adicionarAoCarrinho(livroId){
+function adicionarAoCarrinho(livroId,preco){
 	var quantidade = 1;
 	let carrinho = [];
 	var estaNaLista = false;
@@ -56,6 +56,7 @@ function adicionarAoCarrinho(livroId){
 		jsonLivro = new Object(); 
 		jsonLivro['id'] = livroId;
 		jsonLivro['quantidade'] = quantidade;		    	
+		jsonLivro['preco'] = preco;
 		carrinho.push(jsonLivro);
 	}
 	

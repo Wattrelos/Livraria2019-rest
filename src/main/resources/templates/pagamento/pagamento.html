@@ -4,44 +4,33 @@
 <body>
 	    <section layout:fragment="corpo">
 	        <div class="container">
-            <div class="row">
-            	<div class="col-12 radio-button">
-	            	<form method="post" enctype="application/json" action="/pagamento/pagamento">
-	                    <label for="pagamento-boleto">Boleto</label>
-	                    <div class="row">                         
-		                        <div class="col-sm-9 col-md-4 text-right">
-		                        	<button id="irConfirmar" class="btn btn-lg btn-block btn-success text-uppercase" name="cliente" value="0">Gerar boleto</button>
-		                        </div>
-	                    </div>
-	            	</form>
+	            <div class="row">
+	            	<div class="col-sm-9 col-md-4 text-right bordary">
+	            		<button class="btn btn-sm btn-block btn-primary text-uppercase" >Pagar com boleto</button>
+	            	</div>
+	            </div>
+	            <div class="row">
+	                <div class="col-sm-9 col-md-4 text-right bordary" id="pagamentoCartao">
+	                </div>
+	            </div>
+		    </div>
+		    <div class="container">
+			    <div class="row">
+	           		<form method="post" class="formulario-cliente" id="pagamento-cartao">
+	                    <label>Nome (igual o do cartão):</label>      
+	                    <input id="nome" type="text" name="nomeCartao" placeholder="Nome igual ao do cartão"> 
+	                    <label>Número do cartão:</label>      
+	                    <input id="numero" type="number" name="numeroCartao" placeholder="0000 0000 0000 0000">
+	                    <label>Válido até:</label>
+	                    <input id="dataValidade" type="month" min="2019-01" name="validadeCartao" placeholder="00/00">
+	                    <label>Código de verificação:</label>
+	                    <input id="cvv" type="number" name="cvvCartao" placeholder="000">
+	                    <button type="submit" id="operacao" name="operation" value="create" class="btn btn-primary">Cadastrar</button>
+	                </form>
                 </div>
-                <div class="col-12 radio-button">
-                	<form id="pagamento-cartao" method="post" enctype="application/json" action="/pagamento/pagamento">                        
-                        <label>Cartão de Crédito</label>
-                        <div class="cartao ">
-                            <label>Nome (igual o do cartão):</label>      
-                            <input id="nome" type="text" name="nomeCartao" placeholder="Nome igual ao do cartão"> 
-                            <label>Número do cartão:</label>      
-                            <input id="numero" type="number" name="numeroCartao" placeholder="0000 0000 0000 0000">
-                            <label>Válido até:</label>
-                            <input id="dataValidade" type="month" min="2019-01" name="validadeCartao" placeholder="00/00">
-                            <label>Código de verificação:</label>
-                            <input id="cvv" type="number" name="cvvCartao" placeholder="000">
-                            <label>Número de parcelas:</label>
-                            <input type="number" name="parcelas" placeholder="">
-                        </div>
-                        <div>
-                        </div>                                            
-		                <div class="row">                         
-	                        <div class="col-sm-9 col-md-4 text-right">
-	                        	<button id="irConfirmar" class="btn btn-lg btn-block btn-success text-uppercase" name="cliente" value="0">Pagar com cartão</button>
-	                        </div>
-                    	</div>
-                     </form>
-                </div>
-            </div>
-        </div>
-        <script src="/js/formPagamento.js"></script>
+		    </div>
+	        <script src="/js/jquery.min.js" type="text/javascript"></script>
+	        <script src="/js/formPagamento.js"></script>
 	    </section>
 </body>
-</html>		
+</html>

@@ -78,8 +78,15 @@ label {
 }
 .cartao{
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: 200px auto;
 }
+.cartao>label{
+    padding: 0 10px;
+}
+.cartao>label{
+    width 100%;
+}
+
 .galeria>h4{
 	height: 70px;
 }

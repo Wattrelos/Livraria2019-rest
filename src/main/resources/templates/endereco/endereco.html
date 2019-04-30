@@ -11,9 +11,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-12 radio-button" th:each="enderecoEach : ${cliente.endereco}">
-                    <input type="radio" name="endereco" value="${enderecoEach.id}">
-                    <label>Entregar neste endereço?</label>
+                <div class="col-12" th:each="enderecoEach : ${cliente.endereco}">                    
                     <div class="endereco">                    
                         <tbody>
                             <label>CEP:</label><div th:text="${enderecoEach.logradouro.cep}"></div>
@@ -24,22 +22,21 @@
                             <label>Bairro:</label><div th:text="${enderecoEach.logradouro.bairro.bairro}"></div>
                             <label>Cidade:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.cidade}"></div>
                             <label>Estado:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.estado.estado}"></div>
-                     <!--   <button class="btn btn-lg btn-block btn-secondary text-uppercase" th:onclick="'enderecoEntrega(\'' + ${enderecoEach.id} + '\');">Escolher</button> -->
-                     		<button class="btn btn-lg btn-block btn-secondary text-uppercase" th:onclick="'enderecoEntrega(' + ${enderecoEach.id} + ')'">Escolher</button> -->
+                     		<button class="btn btn-lg btn-block btn-primary text-uppercase" th:onclick="'enderecoEntrega(' + ${enderecoEach.id} + ')'">Escolher</button>
                         </tbody>
                     </div>
                 </div>                
             </div>
-                <div class="col mb-2">                    
-                    <div class="row">
-                        <div class="col-sm-9 col-md-4 text-right">
-                            <button class="btn btn-lg btn-block btn-secondary text-uppercase" onclick="history.go(-1);">Voltar</button>
-                        </div> 
-                        <div class="col-sm-9 col-md-4 text-right">
-                            <a class="btn btn-lg btn-block btn-secondary text-uppercase" href="/endereco/cadastrar">Cadastar novo endereço<span class="sr-only">(current)</span></a>
-                        </div>
+            <div class="col mb-2">                    
+                <div class="row">
+                    <div class="col-sm-9 col-md-4 text-right">
+                        <button class="btn btn-lg btn-block btn-secondary text-uppercase" onclick="history.go(-1);">Voltar</button>
+                    </div> 
+                    <div class="col-sm-9 col-md-4 text-right">
+                        <a class="btn btn-lg btn-block btn-secondary text-uppercase" href="/endereco/cadastrar">Cadastar novo endereço<span class="sr-only">(current)</span></a>
                     </div>
                 </div>
+            </div>
         </div>
 
         <!-- Footer -->

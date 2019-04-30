@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import fatec.domain.CartaoCredito;
 import fatec.domain.Cliente;
 import fatec.domain.Endereco;
 import fatec.domain.Pedido;
@@ -39,6 +40,7 @@ public class ClienteNewDTO implements Serializable {
 	private Integer perfil;
 	private List<Endereco> endereco = new ArrayList<>();
 	private List<Pedido> pedido = new ArrayList<>();
+	private List<CartaoCredito> cartaoCredito= new ArrayList<>();
 
 	public ClienteNewDTO() {
 	}
@@ -46,6 +48,7 @@ public class ClienteNewDTO implements Serializable {
 		id = obj.getId();
 		pedido = obj.getPedido();
 		endereco = obj.getEndereco();
+		cartaoCredito = obj.getCartaoCredito();
 	} 
 	
 	public Integer getId() {
@@ -126,6 +129,13 @@ public class ClienteNewDTO implements Serializable {
 	}
 	public List<Pedido> getPedido() {
 		return pedido;
+	}
+	
+	public List<CartaoCredito> getCartaoCredito() {
+		return cartaoCredito;
+	}
+	public void setCartaoCredito(List<CartaoCredito> cartaoCredito) {
+		this.cartaoCredito = cartaoCredito;
 	}
 	public void setPedido(List<Pedido> pedido) {
 		this.pedido = pedido;

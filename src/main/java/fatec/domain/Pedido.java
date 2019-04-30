@@ -62,7 +62,7 @@ public class Pedido implements Serializable {
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE})
     private Pagamento pagamento;
     
-    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.REFRESH})
+    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.ALL})
     private List<Estoque> estoque = new ArrayList<>();
     
     // Construtores ----------------------------------------------------

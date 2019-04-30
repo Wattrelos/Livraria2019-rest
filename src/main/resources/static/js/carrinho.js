@@ -35,8 +35,8 @@ function atualizaCarrinho(){
 				<td>${result.titulo}</td>
 				<td>Em estoque</td>
 				<td><input class="form-control" type="number" value="${item.quantidade}" /></td>
-				<td class="text-right">R$ ${result.custo}</td>
-				<td class="text-right">R$ ${result.custo * item.quantidade}</td>
+				<td class="text-right">R$ ${result.custo.toFixed(2)}</td>
+				<td class="text-right">R$ ${(result.custo * item.quantidade).toFixed(2)}</td>
 				<td class="text-right">
 					<a class="btn btn-danger btn-sm ml-3" onclick="exluirItem(${result.id})">
 						<i class="fa fa-trash">Excluir</i>
@@ -66,14 +66,15 @@ function exluirItem(id){ // Excluir um item do carrinho
 	atualizaCarrinho();
 }
 
-
 document.getElementById("carrinho").addEventListener("submit", function(evento){
 	evento.preventDefault() // Evita que submit faça sair da página.
 	//Transformar itens escolhidos em itens do carrinho, se houver:
 	var estoque = new Object();
 	var carrinho = JSON.parse(localStorage.getItem("carrinho"));
 	var cliente = sessionStorage.getItem("number");
-	if((carrinho != null) && (cliente != null)){
+	if(cliente == null){
+		document.getElementById('id01').style.display='block';
+	}else if(carrinho != null){
 		estoque["estoque"] = carrinho;
 		localStorage.setItem("estoque", JSON.stringify(estoque));
 		console.log(JSON.stringify(estoque));

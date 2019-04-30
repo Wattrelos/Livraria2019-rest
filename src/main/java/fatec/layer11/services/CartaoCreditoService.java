@@ -71,7 +71,7 @@ public class CartaoCreditoService {
 	
 	// ------------------------------------------------------
 	public CartaoCredito fromDTO(CartaoCreditoDTO objDto) {
-		return new CartaoCredito(objDto.getId(), objDto.getNumero(), objDto.getNome(), objDto.getCvv(), objDto.getDataValidade(), objDto.getDataCadastro());
+		return new CartaoCredito(objDto.getId(), objDto.getNumero(), objDto.getNome(), objDto.getCvv(), objDto.getDataValidade(), objDto.getCliente(), objDto.getDataCadastro());
 	}
 	
 

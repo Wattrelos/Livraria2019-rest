@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head><meta charset="UTF-8"/></head>
+	<body>
+		    <section layout:fragment="corpo">
+		        
+		       <div class="row">
+                	<div class="col-12">   
+                        <tbody>
+                            <label>Número do pedido:</label><div th:text="${pedido.id}"></div>
+                            <label>Data do pedido:</label><div th:text="${pedido.dataCadastro}"></div>
+                            <label>Detalhe do pedido:</label>
+			                 <div class="col-12 radio-button" th:each="itemEach : ${pedido.estoque}"> 
+			                     	<label>Livro:</label><div th:text="${itemEach.livro.titulo}"></div>                     	
+			                     	<label>Quantidade:</label><div th:text="${itemEach.quantidade}"></div>
+			                     	<label>preco:</label><div th:text="${itemEach.preco}"></div>
+			                 </div>
+                        </tbody>
+                    </div>        	               
+               </div>
+               
+            <script src="/js/jquery.min.js" type="text/javascript"></script>
+            <script src="/js/meusPedidos.js"></script>
+	</body>
+</html>		

@@ -1,4 +1,5 @@
 var userName = window.sessionStorage.getItem("user");
+var number = window.sessionStorage.getItem("number");
 if(userName != null){	
 	document.getElementById("login-button").innerHTML =
 		`<div class="dropdown show">
@@ -6,7 +7,7 @@ if(userName != null){
 			    userName.split("@")[0] +
 		     `</a>		
 			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-			    <a class="dropdown-item" href="#">Meus pedidos</a>
+			    <a class="dropdown-item" href="/pedido/meusPedidos?cliente=${number}">Meus pedidos</a>
 			    <a class="dropdown-item" href="#">Minha conta</a>
 			    <button class="dropdown-item" type="submit" onclick="logoff()">Sair</button></div>
 			    <a class="dropdown-item" href="#" onclick="logoff()">Sair</a>

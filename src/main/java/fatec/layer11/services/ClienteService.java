@@ -116,11 +116,11 @@ public class ClienteService {
 	
 	// ------------------------------------------------------
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(), objDto.getSexo(), objDto.getEndereco(),objDto.getPedido(),objDto.getDataCadastro() ,null, null);
+		return new Cliente(objDto.getId(),objDto.getNome(), objDto.getCpf(), objDto.getEmail(),objDto.getDataNascimento(), objDto.getSexo(), objDto.getEndereco(),objDto.getPedido(),objDto.getCartaoCredito(),objDto.getDataCadastro() ,null, null);
 		
 	}
 	public Cliente fromNewDto(ClienteNewDTO objNewDto) {		
-		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getSexo(), objNewDto.getEndereco(),objNewDto.getPedido(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
+		return new Cliente(null, objNewDto.getNome(), objNewDto.getCpf(), objNewDto.getEmail(), objNewDto.getDataNascimento(), objNewDto.getSexo(), objNewDto.getEndereco(),objNewDto.getPedido(),objNewDto.getCartaoCredito(), null, passEnc.encode(objNewDto.getSenha()), objNewDto.getPerfil());
 	}
 	
 

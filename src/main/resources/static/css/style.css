@@ -15,6 +15,10 @@ label {
     background: rgb(209, 209, 209);
 }
 
+.bordary{
+	border: 2px solid black;
+	padding: 20px;	
+}
 .pedido {
     border: 1px solid blue;   
 }
