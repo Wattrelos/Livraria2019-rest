@@ -19,6 +19,9 @@ label {
 	border: 2px solid black;
 	padding: 20px;	
 }
+.cartao{
+	border: 1px solid green;
+}
 .pedido {
     border: 1px solid blue;   
 }

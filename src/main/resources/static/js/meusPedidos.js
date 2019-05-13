@@ -12,10 +12,11 @@ $.ajax({
 							<td>${field.observacao}</td>
 							<td>${field.dataCadastro.slice(0, 10)} - ${field.dataCadastro.slice(11, 16)}</td>
 						</tr>`;
+			
 			pedidosHTML.innerHTML = pedidos;
 		});		
     },
     error: function (erro) {        	
-    	alert("Erro: " + erro.status + " Falha ao tentar adicionar livro!" + name);
+    	alert("Erro: " + erro.status + " Falha ao tentar ler pedidos!");
     }
 });

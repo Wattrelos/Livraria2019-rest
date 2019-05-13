@@ -9,9 +9,24 @@ $.ajax({
 		result.cartaoCredito.forEach(function(field, index){
 			console.log(field);
 			cartao += `
-				<div>
-					<button class="btn btn-sm btn-block btn-primary text-uppercase" onclick="cartaoCredito(${field.id})">Pagar com cartão final:</b> ${field.numero.toString().slice(-4)}</button>				    
+				<div>				
+					<button class="btn btn-sm btn-block btn-primary text-uppercase cartao" onclick="cartaoCredito(${field.id})">Pagar com cartão `;
+			switch(field.numero.toString()[0]){
+		 		case '4':
+		 			cartao += `<img src="\\img\\cartao\\logo_visa.jpg" alt="log Visa">`
+			    break;
+		 		case '5':
+		 			cartao += `<img src="\\img\\cartao\\logo_master.jpg" alt="logo Mastercard">`
+				break;
+		 		case '3':
+		 			cartao += `<img src="\\img\\cartao\\logo_diners.jpg" alt="log Visa">`
+			    break;
+		 		default:
+			}
+			cartao += ` final:</b> ${field.numero.toString().slice(-4)}</button>									    
 				</div>`;
+		 			
+			
 		});
 	},
 	complete: function () {

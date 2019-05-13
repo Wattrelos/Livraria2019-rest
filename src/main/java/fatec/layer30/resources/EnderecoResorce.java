@@ -33,8 +33,6 @@ public class EnderecoResorce {
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody EnderecoDTO objDto) {
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EnderecoDTO: " + objDto);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>EnderecoDTO: Número" + objDto.getNumero());
 		Endereco obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

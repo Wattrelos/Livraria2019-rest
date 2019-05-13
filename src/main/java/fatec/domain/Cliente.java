@@ -56,7 +56,8 @@ public class Cliente extends Usuario {
     private List<Endereco> endereco = new ArrayList<>();
     
 	// Construtores ---------------------------------------------------------
-	public Cliente() {		
+	public Cliente() {
+		
 	}
 	
 	public Cliente(Integer id, String nome, long cpf, String email, Date dataNascimento, char sexo, List<Endereco> endereco, List<Pedido> pedido,List<CartaoCredito> cartaoCredito, Date dataCadastro,

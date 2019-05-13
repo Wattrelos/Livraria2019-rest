@@ -4,6 +4,9 @@ package fatec.layer20.aplications.DataTransferObject;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import fatec.domain.Cliente;
 import fatec.domain.Endereco;
 import fatec.domain.Logradouro;
@@ -14,6 +17,7 @@ public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	@NotNull(message="Preenchimento obrigatório")
 	private Integer numero;
 	private String complemento;
 	private Logradouro logradouro;

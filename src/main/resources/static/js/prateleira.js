@@ -19,7 +19,7 @@ $.getJSON(url, function (result){
 			        <img src="img\\${field.imagem}" alt="Capa do livro" width="300" height="400">
 			    </a>
 			    <h4>${field.titulo.slice(0, 48)}</h4>
-			    <a class="btn btn-success btn-sm ml-3" onclick="adicionarAoCarrinho(${field.id},${field.custo})">
+			    <a id="livro-${field.id}" class="btn btn-success btn-sm ml-3" onclick="adicionarAoCarrinho(${field.id},${field.custo})">
 			        <i class="fa fa-shopping-cart"></i>Adicionar
 			        <span class="badge badge-light">R$ ${field.custo}</span>
 			    </a><br>			    

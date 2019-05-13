@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -26,7 +27,7 @@ public class ClienteNewDTO implements Serializable {
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
 	
-	// @CPF (message="O número do CPF é inválido!")
+	// @CPF(message="O número do CPF é inválido!")	
 	private long cpf;
 	
 	@Email(message="Email inválido")

@@ -8,12 +8,19 @@
                 	<div class="col-12">   
                         <tbody>
                             <label>Número do pedido:</label><div th:text="${pedido.id}"></div>
-                            <label>Data do pedido:</label><div th:text="${pedido.dataCadastro}"></div>
+                            <label>Data do pedido:</label><div th:text="${pedido.dataCadastro}"></div>                            
+                            <label>Cartão final:</label><div th:text="${#strings.substring(pedido.pagamento.pagamentoComCartao.cartoCredito.numero.toString(),11,16)}"></div>                            
+                            <label>Número de parcelas:</label><div th:text="${pedido.pagamento.pagamentoComCartao.numeroDeParcelas}"></div>
+                            <label>Endereço:</label><div th:text="${pedido.endereco.logradouro.tipoLogradouro} + ' ' + ${pedido.endereco.logradouro.Logradouro} + ', ' + ${pedido.endereco.numero}"></div>
+                            <label>Bairro:</label><div th:text="${pedido.endereco.logradouro.bairro.bairro}"></div>
+                            <label>Cidade:</label><div th:text="${pedido.endereco.logradouro.bairro.cidade.cidade} + ' - ' + ${pedido.endereco.logradouro.bairro.cidade.estado.estado}"></div>
+						
                             <label>Detalhe do pedido:</label>
 			                 <div class="col-12 radio-button" th:each="itemEach : ${pedido.estoque}"> 
 			                     	<label>Livro:</label><div th:text="${itemEach.livro.titulo}"></div>                     	
 			                     	<label>Quantidade:</label><div th:text="${itemEach.quantidade}"></div>
 			                     	<label>preco:</label><div th:text="${itemEach.preco}"></div>
+			                     	<label>Subtotal:</label><div th:text="${itemEach.subtotal}"></div>
 			                 </div>
                         </tbody>
                     </div>        	               

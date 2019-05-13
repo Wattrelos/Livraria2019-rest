@@ -14,11 +14,11 @@ import fatec.domain.Logradouro;
 public class LogradouroDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer cep;
-	
 	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+	private Integer cep;
 	private String tipoLogradouro;
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")	
 	private String logradouro;
 	private String complemento;
 	private String local;

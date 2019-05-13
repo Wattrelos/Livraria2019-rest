@@ -22,7 +22,7 @@
                             <label>Bairro:</label><div th:text="${enderecoEach.logradouro.bairro.bairro}"></div>
                             <label>Cidade:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.cidade}"></div>
                             <label>Estado:</label><div th:text="${enderecoEach.logradouro.bairro.cidade.estado.estado}"></div>
-                     		<button class="btn btn-lg btn-block btn-primary text-uppercase" th:onclick="'enderecoEntrega(' + ${enderecoEach.id} + ')'">Escolher</button>
+                     		<button th:id="'endereco-' + ${enderecoEach.id}" class="btn btn-lg btn-block btn-primary text-uppercase" th:onclick="'enderecoEntrega(' + ${enderecoEach.id} + ')'">Escolher</button>
                         </tbody>
                     </div>
                 </div>                

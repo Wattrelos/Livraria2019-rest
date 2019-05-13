@@ -45,7 +45,7 @@ document.getElementById("formulario-cliente").addEventListener("submit", functio
         localStorage.setItem("users", JSON.stringify(book)); //Guarda os dados do armazenamento local do navegador.
         // Gravar cliente
     	
-    	// console.log(JSON.stringify(book));
+    	console.log(JSON.stringify(book));
         
         $.ajax({				
     		type : "POST",
@@ -57,7 +57,7 @@ document.getElementById("formulario-cliente").addEventListener("submit", functio
     			window.location.href = "/index";    			
             },
             error: function (erro, textStatus, xhr) {
-            	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar cliente" + book + "!");
+            	alert("Erro: "+ erro.status + textStatus + "Falha ao tentar adicionar cliente ou cliente já existente!");
             }
     	});    	
     }
