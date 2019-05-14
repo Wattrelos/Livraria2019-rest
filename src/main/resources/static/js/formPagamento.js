@@ -10,7 +10,7 @@ $.ajax({
 			console.log(field);
 			cartao += `
 				<div>				
-					<button class="btn btn-sm btn-block btn-primary text-uppercase cartao" onclick="cartaoCredito(${field.id})">Pagar com cartão `;
+					<button class="btn btn-sm btn-block btn-primary text-uppercase cartao" onclick="cartaoCredito(${field.id})">Pagar com cartão final: ${field.numero.toString().slice(-4)}</button>`;
 			switch(field.numero.toString()[0]){
 		 		case '4':
 		 			cartao += `<img src="\\img\\cartao\\logo_visa.jpg" alt="log Visa">`
@@ -23,8 +23,7 @@ $.ajax({
 			    break;
 		 		default:
 			}
-			cartao += ` final:</b> ${field.numero.toString().slice(-4)}</button>									    
-				</div>`;
+			cartao += `</div>`;
 		 			
 			
 		});
