@@ -22,6 +22,20 @@
 	color: rgb(238, 248, 145);
 }
 
+.meuPedido{
+	display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    padding: 10px;    
+    grid-gap: 10px;	
+}
+
+.trocaDevolucao{
+	display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 10px;    
+    grid-gap: 10px;	
+	
+}
 
 
 .atalhos {

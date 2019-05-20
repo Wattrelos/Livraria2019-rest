@@ -83,9 +83,7 @@ public class LivrariaController {
 		return "/pedido/meusPedidos.html";
 	}
 	@RequestMapping(value="/pedido/meuPedido")
-	public String meuPedido(Model model, @RequestParam(value="pedido") Integer number) {
-		Pedido pedido = pedidoService.find(number);
-		model.addAttribute("pedido", pedido);
+	public String meuPedido() {	
 		return "/pedido/meuPedido.html";
 	}
 	

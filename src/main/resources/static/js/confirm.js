@@ -4,17 +4,16 @@ function confirmCreate(frm){
 	
 	var EntidadeObject = new Object();
 	campos.forEach((field, index)=>{
-		EntidadeArray[`${field.name}`] = field.value;
-		
+		EntidadeObject[`${field.name}`] = field.value;
 	});	
-	// console.log(JSON.stringify(EntidadeArray));
+	console.log(JSON.stringify(EntidadeObject));
     $.ajax({				
 		type : "POST",
 		headers: {"Authorization": window.sessionStorage.getItem('token')},
 		url : "/" + frm.entity.value,
 		// dataType: 'json', // tipo de dados da requisição.
 		contentType: "application/json; charset=utf-8",
-		data : JSON.stringify(EntidadeArray),		
+		data : JSON.stringify(EntidadeObject),
 		success: function () {
 			mensagem.innerHTML = frm.nome.value + " adicionado com sucesso!";
         },

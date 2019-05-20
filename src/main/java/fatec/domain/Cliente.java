@@ -54,6 +54,11 @@ public class Cliente extends Usuario {
     
 	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)    
     private List<Endereco> endereco = new ArrayList<>();
+	
+	@OneToMany(mappedBy="cliente", cascade = CascadeType.REFRESH)    
+    private List<PedidoTroca> pedidoTroca = new ArrayList<>();
+	
+	
     
 	// Construtores ---------------------------------------------------------
 	public Cliente() {
@@ -135,5 +140,13 @@ public class Cliente extends Usuario {
 
 	public void setEndereco(List<Endereco> endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<PedidoTroca> getPedidoTroca() {
+		return pedidoTroca;
+	}
+
+	public void setPedidoTroca(List<PedidoTroca> pedidoTroca) {
+		this.pedidoTroca = pedidoTroca;
 	}
 }

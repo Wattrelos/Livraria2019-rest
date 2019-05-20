@@ -83,7 +83,7 @@ function formaPagamento(){
 }
 
 document.getElementById("confirmacao").addEventListener("submit", function(evento){
-	evento.preventDefault() // Evita que submit faça sair da página.
+	evento.preventDefault(); // Evita que submit faça sair da página.
 	//Transformar itens escolhidos em itens do carrinho, se houver:
 	var pedido = new Object();
 	var estoque = new Object();

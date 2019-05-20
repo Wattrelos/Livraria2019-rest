@@ -1,6 +1,6 @@
 var listaitens = document.getElementById("galeria");
 var galeria = "";
-var url = "http://localhost:8080/livro/";
+var url = "/livro/";
 
 
 $.getJSON(url, function (result){
