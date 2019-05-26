@@ -39,19 +39,20 @@ public class Estoque extends EntidadeDominio implements Serializable {
     private Livro livro;
     
     @ManyToOne
-    @JoinColumn(name="status")
-    private Status status;
+    @JoinColumn(name="estatus")
+    private Estatus estatus;
     
     // Construtores ------------------------------------------------------------------------
     public Estoque() {    	
     }
     
-    public Estoque(Integer id, Integer quantidade, BigDecimal preco, Livro livro) {
+    public Estoque(Integer id, Integer quantidade, BigDecimal preco, Livro livro, Estatus estatus) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.preco = preco;
 		this.livro = livro;
+		this.estatus = estatus;
 	}
 
 	public Integer getId() {
@@ -94,12 +95,12 @@ public class Estoque extends EntidadeDominio implements Serializable {
 		this.livro = livro;
 	}
 	
-	public Status getStatus() {
-		return status;
+	public Estatus getEstatus() {
+		return estatus;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setEstatus(Estatus estatus) {
+		this.estatus = estatus;
 	}
 
 	public BigDecimal getSubtotal() {

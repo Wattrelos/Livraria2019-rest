@@ -28,7 +28,6 @@ public class PedidoDTO implements Serializable {
 	private List<Estoque> estoque = new ArrayList<>();
 	
 	public PedidoDTO() {
-		
 	}
 	
 	public PedidoDTO(Pedido	obj) {

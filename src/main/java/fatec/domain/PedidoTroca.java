@@ -6,12 +6,9 @@
 package fatec.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -53,7 +49,7 @@ public class PedidoTroca implements Serializable {
     
  // Objetos-----------------------------------------------------------
     @OneToOne
-    private Status status;
+    private Estatus estatus;
     
     @JsonIgnore
     @ManyToOne
@@ -71,12 +67,19 @@ public class PedidoTroca implements Serializable {
         this.id = id;
     }
 
-    public PedidoTroca(Integer id, String observacao) {
-        this.id = id;
-        this.observacao = observacao;
-    }
+ 
 
-    public Integer getId() {
+    public PedidoTroca(Integer id, String observacao, Date dataCadastro, Estatus estatus, Cliente cliente, Pedido pedido) {
+		super();
+		this.id = id;
+		this.dataCadastro = dataCadastro;
+		this.observacao = observacao;
+		this.estatus = estatus;
+		this.cliente = cliente;
+		this.pedido = pedido;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -100,12 +103,12 @@ public class PedidoTroca implements Serializable {
         this.observacao = observacao;
     }
 
-    public Status getStatus() {
-		return status;
+    public Estatus getEstatus() {
+		return estatus;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setEstatus(Estatus estatus) {
+		this.estatus = estatus;
 	}
 
 	public Cliente getCliente() {

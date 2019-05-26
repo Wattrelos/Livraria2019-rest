@@ -33,8 +33,7 @@ public class EstoqueResorce {
 	// CREATE ------------------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody EstoqueDTO objDto) {
-		System.out.println(objDto.toString());
+	public ResponseEntity<Void> insert(@Valid @RequestBody EstoqueDTO objDto) {		
 		Estoque obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -72,10 +71,18 @@ public class EstoqueResorce {
 	
 	// UPDATE ------------------------------------------------	
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody EstoqueDTO objDto, @PathVariable Integer id) {
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody EstoqueDTO objDto, @PathVariable Integer id) {		
 		Estoque obj = service.fromDTO(objDto);
 		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/estatus/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> mudarEstatus(@Valid @RequestBody EstoqueDTO objDto, @PathVariable Integer id) {
+		Estoque obj = service.find(id); // Busca o item de estoque a ser alterado de status
+		obj.setEstatus(objDto.getEstatus());
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}

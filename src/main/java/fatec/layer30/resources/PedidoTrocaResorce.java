@@ -1,4 +1,4 @@
-package fatec.layer30.resources;
+ package fatec.layer30.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -18,70 +18,60 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fatec.domain.Cliente;
-import fatec.layer11.services.ClienteService;
-import fatec.layer20.aplications.DataTransferObject.ClienteDTO;
-import fatec.layer20.aplications.DataTransferObject.ClienteNewDTO;
+import fatec.domain.PedidoTroca;
+import fatec.layer11.services.PedidoTrocaService;
+import fatec.layer20.aplications.DataTransferObject.PedidoTrocaDTO;
 
 @RestController
-@RequestMapping(value="/cliente")
-public class ClienteResorce {
+@RequestMapping(value="/pedidoTroca")
+public class PedidoTrocaResorce {
 	
 	@Autowired
-	private ClienteService service;	
+	private PedidoTrocaService service;	
 
 	// CREATE ------------------------------------------------
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDto) {
-		Cliente obj = service.fromNewDto(objNewDto);
-		obj = service.insert(obj);
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("{id}").buildAndExpand(obj.getId()).toUri();
+	public ResponseEntity<Void> insert(@Valid @RequestBody PedidoTrocaDTO objDto) {			
+		PedidoTroca obj = service.fromDTO(objDto);		
+		obj = service.insert(obj);		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(obj.getId()).toUri();				
 		return ResponseEntity.created(uri).build();
 	}
 	
 	// READ one ------------------------------------------------
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Cliente obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	// READ (all)---------------------------------------
-	@RequestMapping(value="/email", method=RequestMethod.GET)
-	public ResponseEntity<Cliente> findByEmail(@RequestParam(value="value") String email) {
-		Cliente obj = service.findByEmail(email);
+		PedidoTroca obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	// READ (all)---------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ClienteDTO>> findAll() {
-		List<Cliente> list = service.findAll();
-		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
+	public ResponseEntity<List<PedidoTrocaDTO>> findAll() {
+		List<PedidoTroca> list = service.findAll();
+		List<PedidoTrocaDTO> listDto = list.stream().map(obj -> new PedidoTrocaDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
-	
 	// READ (paginação)---------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<ClienteDTO>> findPage(
+	public ResponseEntity<Page<PedidoTrocaDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="id") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));  
+		Page<PedidoTroca> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<PedidoTrocaDTO> listDto = list.map(obj -> new PedidoTrocaDTO(obj));  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	// UPDATE ------------------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto) {
-		Cliente obj = service.fromDTO(objDto);
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody PedidoTrocaDTO objDto, @PathVariable Integer id) {
+		PedidoTroca obj = service.fromDTO(objDto);
+		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
@@ -91,7 +81,8 @@ public class ClienteResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Cliente deletando...");
+		System.out.print("PedidoTroca deletando...");
 		return ResponseEntity.noContent().build();
 	}
+
 }

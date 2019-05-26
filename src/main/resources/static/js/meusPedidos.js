@@ -1,7 +1,8 @@
 var pedidosHTML = document.getElementById("listaPedidos");
 var pedidos = "";
-var cliente = new Object()
-$.ajax({				
+var cliente = new Object();
+var troca = new Object();
+$.ajax({				// Carregar pedidos do cliente
 	type : "GET",
 	headers: {"Authorization": window.sessionStorage.getItem('token')},
 	url : "/cliente/" + window.sessionStorage.getItem('number'),
@@ -19,9 +20,12 @@ $.ajax({
                </thead>	
                <thead>`; 
 		result.pedido.forEach((field, index)=>{
+			var corDoBotao = "btn-warning";
+			if(field.observacao == "preparando")
+				corDoBotao = "btn-primary";
 			pedidos += `
 			<tr>
-				<td><button class="btn btn-sm btn-block btn-primary" onclick="meuPedido(${field.id})">Pedido número ${field.id}</button></td>				
+				<td><button class="btn btn-sm btn-block ${corDoBotao}" onclick="meuPedido(${field.id})">Pedido número ${field.id}</button></td>				
 				<td>${field.observacao}</td>
 				<td>${field.dataCadastro.slice(0, 10)} - ${field.dataCadastro.slice(11, 16)}</td>
 			</tr>`;			
@@ -45,14 +49,9 @@ $.ajax({
     }
 });
 
-function meuPedido(numeroPedido){
-	console.log(numeroPedido);
-	$.ajax({
-		type : "GET",
-		headers: {"Authorization": window.sessionStorage.getItem('token')},
-		url : "/pedido/" + numeroPedido,
-		contentType: "application/json; charset=utf-8",
-		success: function (result) {
+function meuPedido(numeroPedido){ // Mostrar um pedido específico
+	cliente.pedido.forEach((result, index)=>{
+		if(result.id == numeroPedido){
 			let total = 0;
 			pedidos = `
 				<div class="meuPedido">
@@ -66,7 +65,7 @@ function meuPedido(numeroPedido){
 					<thead>`;
 			result.estoque.forEach((field, index)=>{
 				pedidos += `
-					<div>${field.status.descricao}</div>													
+					<div>${field.estatus.descricao}</div>													
 					<div><img src="\\img\\${field.livro.imagem}" alt="Capa do livro" width="30" height="40"></div>
 					<div>${field.livro.titulo}</div>
 					<div>${field.quantidade}</div>
@@ -89,68 +88,111 @@ function meuPedido(numeroPedido){
 				</div>
 			</div>`;
 			pedidosHTML.innerHTML = pedidos;
-	    },
-	    error: function (erro) {        	
-	    	alert("Erro: " + erro.status + " Falha ao tentar ler pedidos!");
-	    }
-	});		
+		}
+	});	
 }
 
 function solicitarTroca(numeroPedido){
-	$.ajax({
-		type : "GET",
-		headers: {"Authorization": window.sessionStorage.getItem('token')},
-		url : "/pedido/" + numeroPedido,
-		contentType: "application/json; charset=utf-8",
-		success: function (result) {
+	cliente.pedido.forEach((result, index)=>{
+		if(result.id == numeroPedido){
 			let total = 0;
 			pedidos = `
-				<h1>Selecionar livros para troca</h1>
+				<h1>Selecionar livros para troca referente ao pedido número: ${numeroPedido}</h1>
 				<form class="trocaDevolucao" onSubmit="confirmarTroca(this, ${numeroPedido});return false;">
 					<label>Selecionar</label>
 		            <label>Livro</label>
 		            <label>Título</label>
 		            <label>Quantidade</label>
-		            <label>preco</label>
-		        `;       
+		            <label>preco</label>`;       
 			
 			result.estoque.forEach((field, index)=>{
-				pedidos += 
-				   `<div><input type="checkbox" name="livro-${field.livro.id}" value="${field.livro.id}"> Selecionar<br></div>
-				    <div><img src="\\img\\${field.livro.imagem}" alt="Capa do livro" width="30" height="40"></div>
-					<div>${field.livro.titulo}</div>
-					<div>${field.quantidade}</div>
-					<div>R$ ${field.preco.toFixed(2)}</div>
-					`;				
+				if(field.estatus.id >= 11 && field.estatus.id < 15 ){
+					pedidos += 
+					   `<div><input type="checkbox" name="livro-${field.livro.id}" value="${field.id}"> Selecionar<br></div>
+					    <div><img src="\\img\\${field.livro.imagem}" alt="Capa do livro" width="30" height="40"></div>
+						<div>${field.livro.titulo}</div>
+						<div>${field.quantidade}</div>
+						<div>R$ ${field.preco.toFixed(2)}</div>`;
+				}
 			});		 
 			pedidos +=				
 			   `	<button  class="btn btn-lg btn-block btn-success text-uppercase">Confirmar troca</button>
-			   </form>`;
-			
+			   </form>`;			
 			pedidosHTML.innerHTML = pedidos;
-	    },
-	    error: function (erro) {        	
-	    	alert("Erro: " + erro.status + " Falha ao tentar ler pedidos!");
-	    }
-	});
+		}
+	});	
+	
 }
-function confirmarTroca(frm, pedido){
-	console.log("Pedido número: " + pedido)
+function confirmarTroca(frm, numeroPedido){
+	// console.log("Pedido número: " + numeroPedido)
 	let campos =  frm.querySelectorAll("input"); // Selecionar todos os input (checkbox).	
 	campos.forEach((field, index)=>{
+		var livroArray = new Array();
+		cliente.pedido.forEach((estoque, index)=>{
+			var livro = new Object();
+			livro["id"] = estoque.id;
+			var item = new Object();
+			// Estatus ------------------------------------
+			var estatusArray = new Object();
+			estatusArray["id"] = 11;
+			item["estatus"] = estatusArray;
+			// Livros
+			item["quantidade"] = estoque.quantidade;
+			item["preco"] = estoque.preco;
+			item["livro"] = livro;
+			livroArray.push(item);
+		});
+		
 		if (field.getAttribute("type") == "checkbox") {  // Verifica se o campo é do tipo checbox;  
             if(field.checked){ //Verifica se o checkbox está marcado;
-            	console.log(field);
+            	// console.log("Estoque número: " + field.value);
+            	// Estatus ------------------------------------
+            	var itemEstoque = new Object();        		
+        		var estatusArray = new Object();
+        		estatusArray["id"] = 20;
+        		itemEstoque["estatus"] = estatusArray;
+        		// console.log(JSON.stringify(itemEstoque));        		
+        		var url = "/estoque/estatus/" + field.value;
+        		if(alterarStatusPedido(itemEstoque, url)){ // Alterar status do item no inventário
+        			alert("Solicitação de troca enviado!");
+        		}else{
+        			alert(" Falha ao tentar registrar solicitação!");
+        		}
+        		//Atualizar estado do pedido -----------------------------------------------------------------------
+        		var url = "/pedido/estatus/" + numeroPedido;
+        		var pedido = new Object(); 
+        		pedido["observacao"] = "Solicitando troca";
+        		console.log(JSON.stringify(pedido));
+        		alterarStatusPedido(pedido, url);
+        		
             }
 		}
+		
 	});
+	
+}
+function alterarStatusPedido(dados, url){
+	$.ajax({				
+		type : "PUT",
+		headers: {"Authorization": window.sessionStorage.getItem('token')},
+		url : url,
+		contentType: "application/json; charset=utf-8",
+		data : JSON.stringify(dados),
+		success: function () {			
+			return true;
+	    },
+	    error: function (erro) {
+	    	alert(erro.status + " Falha ao tentar atualizar!");
+	    	return false;
+	    }
+	});     
 }
 
 function meuPedidoTroca(numeroPedido){
 	cliente.pedidoTroca.forEach((troca, index)=>{
 		if(troca.id == numeroPedido){
 			pedidos = `
-				<h1>Pedidos de troca:</h1>
+				<h1>Pedidos de troca referente ao pedido ${troca.pedido.id}:</h1>
 				<div class="trocaDevolucao">
 					<label>Situação atual</label>
 		            <label>Livro</label>
@@ -159,9 +201,9 @@ function meuPedidoTroca(numeroPedido){
 		            <label>preco</label>
 		        `;
 			troca.pedido.estoque.forEach((field, index)=>{
-				if(field.status.id >=20 && field.status.id < 30){
+				if(field.estatus.id >=20 && field.estatus.id < 30){
 					pedidos += 
-				   `<div>${field.status.descricao}</div>
+				   `<div>${field.estatus.descricao}</div>
 				    <div><img src="\\img\\${field.livro.imagem}" alt="Capa do livro" width="30" height="40"></div>
 					<div>${field.livro.titulo}</div>
 					<div>${field.quantidade}</div>

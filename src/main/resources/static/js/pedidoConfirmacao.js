@@ -101,16 +101,21 @@ document.getElementById("confirmacao").addEventListener("submit", function(event
 	pedido["observacao"] = "preparando";
 	pedido["cliente"] = cliente;
 	pedido["endereco"] = endereco;
-	pagamentoComCartao["status"] = 1;
 	pagamentoComCartao["numeroDeParcelas"] = document.getElementById("parcelamento").selectedIndex + 1;
 	pagamentoComCartao["cartoCredito"] = cartoCredito;	
 	pagamento["pagamentoComCartao"] = pagamentoComCartao;
 	pedido["pagamento"] = pagamento;
+	
 	var livroArray = new Array();
 	carrinho.forEach((estoque, index)=>{
 		var livro = new Object();
 		livro["id"] = estoque.id;
 		var item = new Object();
+		// Estatus ------------------------------------
+		var estatusArray = new Object();
+		estatusArray["id"] = 11;
+		item["estatus"] = estatusArray;
+		// Livros
 		item["quantidade"] = estoque.quantidade;
 		item["preco"] = estoque.preco;
 		item["livro"] = livro;

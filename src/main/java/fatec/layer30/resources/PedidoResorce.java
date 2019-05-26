@@ -68,9 +68,18 @@ public class PedidoResorce {
 	
 	// UPDATE ------------------------------------------------
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method=RequestMethod.PUT)
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody PedidoDTO objDto, @PathVariable Integer id) {
 		Pedido obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/estatus/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> status(@Valid @RequestBody PedidoDTO objDto, @PathVariable Integer id) {
+		Pedido obj = service.find(id);
+		obj.setObservacao(objDto.getObservacao());
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

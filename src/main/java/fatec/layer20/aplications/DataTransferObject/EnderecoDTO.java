@@ -4,7 +4,6 @@ package fatec.layer20.aplications.DataTransferObject;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import fatec.domain.Cliente;

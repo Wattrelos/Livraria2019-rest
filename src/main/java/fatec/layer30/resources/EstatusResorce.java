@@ -12,30 +12,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fatec.domain.Cliente;
-import fatec.layer11.services.ClienteService;
-import fatec.layer20.aplications.DataTransferObject.ClienteDTO;
-import fatec.layer20.aplications.DataTransferObject.ClienteNewDTO;
+import fatec.domain.Estatus;
+import fatec.layer11.services.EstatusService;
+import fatec.layer20.aplications.DataTransferObject.EstatusDTO;
 
 @RestController
-@RequestMapping(value="/cliente")
-public class ClienteResorce {
+@RequestMapping(value="/estatus")
+public class EstatusResorce {
 	
 	@Autowired
-	private ClienteService service;	
+	private EstatusService service;	
 
 	// CREATE ------------------------------------------------
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objNewDto) {
-		Cliente obj = service.fromNewDto(objNewDto);
+	public ResponseEntity<Void> insert(@Valid @RequestBody EstatusDTO objDto) {
+		System.out.println(objDto.toString());
+		Estatus obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
-		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -44,44 +45,37 @@ public class ClienteResorce {
 	// READ one ------------------------------------------------
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Cliente obj = service.find(id);
+		Estatus obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	// READ (all)---------------------------------------
-	@RequestMapping(value="/email", method=RequestMethod.GET)
-	public ResponseEntity<Cliente> findByEmail(@RequestParam(value="value") String email) {
-		Cliente obj = service.findByEmail(email);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	// READ (all)---------------------------------------
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// READ (all)---------------------------------------	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ClienteDTO>> findAll() {
-		List<Cliente> list = service.findAll();
-		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
+	public ResponseEntity<List<EstatusDTO>> findAll() {
+		List<Estatus> list = service.findAll();
+		List<EstatusDTO> listDto = list.stream().map(obj -> new EstatusDTO(obj)).collect(Collectors.toList());  
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	// READ (paginação)---------------------------------------
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// READ (paginação)---------------------------------------	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<ClienteDTO>> findPage(
+	public ResponseEntity<Page<EstatusDTO>> findPage(
+			@RequestHeader(value="Authorization", defaultValue="") String authorization,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="orderBy", defaultValue="estatus") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));  
-		return ResponseEntity.ok().body(listDto);
+		Page<Estatus> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<EstatusDTO> listDto = list.map(obj -> new EstatusDTO(obj));
+		return ResponseEntity.ok().header("Authorization", authorization).body(listDto);
 	}
 	
-	// UPDATE ------------------------------------------------
+	// UPDATE ------------------------------------------------	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto) {
-		Cliente obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody EstatusDTO objDto, @PathVariable Integer id) {
+		Estatus obj = service.fromDTO(objDto);
+		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
@@ -91,7 +85,8 @@ public class ClienteResorce {
 	@RequestMapping(method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@RequestParam(value="id") Integer id) {
 		service.delete(id);
-		System.out.print("Cliente deletando...");
+		System.out.print("estatus deletando...");
 		return ResponseEntity.noContent().build();
 	}
+
 }

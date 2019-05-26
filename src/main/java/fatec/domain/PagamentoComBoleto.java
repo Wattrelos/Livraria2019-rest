@@ -21,7 +21,6 @@ public class PagamentoComBoleto implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")    
 	private Integer id;
-	private Integer status;
 
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "boleto_id", referencedColumnName = "id")
@@ -30,9 +29,8 @@ public class PagamentoComBoleto implements Serializable {
 	public PagamentoComBoleto() {
 	}
 
-	public PagamentoComBoleto(Integer id, Integer status, Boleto boleto) {
+	public PagamentoComBoleto(Integer id, Boleto boleto) {
 		this.id = id;
-		this.status = status;
 		this.boleto = boleto;
 	}
 
@@ -42,14 +40,6 @@ public class PagamentoComBoleto implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public Boleto getBoleto() {

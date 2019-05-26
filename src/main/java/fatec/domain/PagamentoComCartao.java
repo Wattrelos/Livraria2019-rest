@@ -20,7 +20,6 @@ public class PagamentoComCartao implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")    
 	private Integer id;
-	private Integer status;
 	private Integer numeroDeParcelas;
 	@ManyToOne(cascade=CascadeType.REFRESH)
     @JoinColumn(name = "cartao_id", referencedColumnName = "id")	
@@ -29,9 +28,8 @@ public class PagamentoComCartao implements Serializable {
 	public PagamentoComCartao() {
 	}
 
-	public PagamentoComCartao(Integer id, Integer status, Integer numeroDeParcelas, CartaoCredito cartaoCredito) {
+	public PagamentoComCartao(Integer id, Integer numeroDeParcelas, CartaoCredito cartaoCredito) {
 		this.id = id;
-		this.status = status;
 		this.numeroDeParcelas = numeroDeParcelas;
 		this.cartoCredito = cartaoCredito;
 	}
@@ -43,15 +41,7 @@ public class PagamentoComCartao implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	}	
 
 	public Integer getNumeroDeParcelas() {
 		return numeroDeParcelas;

@@ -2,17 +2,27 @@
 <html layout:decorate="~{layout}">
 	<head><meta charset="UTF-8"/></head>
 	<body>
-		    <aside class="main-area" layout:fragment="sidebar">		    	
+	 		<aside class="main-area" layout:fragment="sidebar">		    	
 				<ul class="list-group">
 				 	<li class="list-group-item"><a href="/livraria/autor/page">Autores</a></li>
 				 	<li class="list-group-item"><a href="/livraria/cliente/page">Clientes</a></li>
 				 	<li class="list-group-item"><a href="/livraria/categoria/page">Catagorias</a></li>
 				 	<li class="list-group-item"><a href="/livraria/editora/page">Editoras</a></li>
-				 	<li class="list-group-item"><a href="/livraria/pedido/page">Pedidos</a></li>
 				 	<li class="list-group-item"><a href="/livraria/livro/page">Livros</a></li> 
+				 	<li class="list-group-item"><a href="#" onclick="gestaoPedidos()">Pedidos</a></li>				 	
 				</ul>
+				
 		    </aside>		    	
 		    <section layout:fragment="corpo">
-	    	</section>
+		        
+		       <div class="row">
+	               <div class="col-12">
+	                   <div id="listaPedidos">	                       
+	                   </div>
+	               </div>
+	               <script src="/js/jquery.min.js"></script>
+	               <script src="/js/gestao.js"></script>	              	               
+               </div>
+               </section>
 	</body>
 </html>		
